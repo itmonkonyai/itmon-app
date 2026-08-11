@@ -13,12 +13,11 @@
         .product-section { display: flex; gap: 15px; padding: 20px; background-color: #fff; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; align-items: center; }
         .product-img { width: 150px; height: 150px; object-fit: cover; border-radius: 12px; border: 1px solid #eee; flex-shrink: 0; }
         .product-info-box { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-        .product-title { font-size: 16px; font-weight: 600; color: #e65100; margin-bottom: 2px; }
+        .product-title { font-size: 15px; font-weight: 600; color: #e65100; margin-bottom: 2px; }
         .product-spec-row { font-size: 13px; color: #666; align-items: center; gap: 6px; }
         .product-spec-row i { color: #e65100; width: 14px; text-align: center; }
-        .product-factory-price { font-size: 14px; font-weight: 600; color: #2e7d32; margin-top: 4px; }
+        .product-factory-price { font-size: 13px; font-weight: 600; color: #2e7d32; margin-top: 4px; }
         .product-factory-note { font-size: 11px; color: #d32f2f; font-weight: 600; }
-
         .spec-badge { background-color: #fff3e0; color: #e65100; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 400; display: flex; align-items: center; gap: 6px; }
         .divider { height: 8px; background-color: #f4f6f8; margin: 10px 0; }
         .search-section { padding: 20px; }
@@ -40,11 +39,17 @@
         .truck-qty { font-size: 12px; color: #888; }
         .price-value { font-size: 16px; font-weight: 600; color: #2e7d32; }
         .note-box { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #ddd; font-size: 13px; color: #d32f2f; font-weight: 600; display: flex; align-items: flex-start; gap: 6px; }
-        .action-section { padding: 20px; margin-top: 20px; display: flex; gap: 12px; }
+        .action-section { padding: 20px; margin-top: 5px; display: flex; gap: 12px; }
         .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: 600; text-decoration: none; transition: transform 0.1s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .btn:active { transform: scale(0.98); }
         .btn-chat { background-color: #06c755; color: white; }
         .btn-phone { background-color: #0288d1; color: white; }
+        .menu-brick-container { background-color: #fff3e0; padding: 15px; border-radius: 15px; margin: 15px; display: flex; flex-direction: column; gap: 12px; border: 1px solid #ffe0b2; }
+        .menu-brick-row { display: flex; gap: 12px; width: 100%; }
+        .menu-brick-box-white { flex: 1; background-color: #ffffff; padding: 15px 10px; border-radius: 10px; text-align: center; font-size: 14px; font-weight: 600; color: #e65100; box-shadow: 0 2px 6px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: center; min-height: 55px; }
+        .menu-brick-btn-dark { width: 100%; background-color: #d84315; color: #ffffff; padding: 12px; border-radius: 10px; text-align: center; font-size: 14px; font-weight: 600; text-decoration: none; box-shadow: 0 4px 6px rgba(216,67,21,0.2); transition: transform 0.1s ease; display: block; border: none; }
+        .menu-brick-btn-dark:active { transform: scale(0.98); background-color: #bf360c; }
+
     </style>
 </head>
 <body>
@@ -88,6 +93,19 @@
             <a href="https://line.me/R/ti/p/~@191a" target="_blank" class="btn btn-chat"><i class="fa-brands fa-line"></i> ทักแชท LINE</a>
             <a href="tel:+66843886044" class="btn btn-phone"><i class="fa-solid fa-phone"></i> โทรด่วน!</a>
         </div>
+        <div class="divider"></div>
+              
+        <div class="menu-brick-container">
+            <div class="menu-brick-row">
+                <div class="menu-brick-box-white">ราคาอิฐมอญดินเผาทั่วไป</div>
+                <div class="menu-brick-box-white">ราคาวัสดุอื่นๆ</div>
+            </div>
+           
+            <a href="https://xn--12cxbj1c5b5dkcc5ezjpci.com" target="_blank" class="menu-brick-btn-dark">
+                กลับสู่เว็บไซต์ อิฐมอญหินเผา I-CONS
+            </a>
+        </div>
+
     </div>
     <script>
         const locationDatabase = [
