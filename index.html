@@ -13,10 +13,10 @@
         .product-section { display: flex; gap: 15px; padding: 20px; background-color: #fff; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; align-items: center; }
         .product-img { width: 150px; height: 150px; object-fit: cover; border-radius: 12px; border: 1px solid #eee; flex-shrink: 0; }
         .product-info-box { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-        .product-title { font-size: 18px; font-weight: 600; color: #e65100; margin-bottom: 2px; }
+        .product-title { font-size: 16px; font-weight: 600; color: #e65100; margin-bottom: 2px; }
         .product-spec-row { font-size: 13px; color: #666; align-items: center; gap: 6px; }
         .product-spec-row i { color: #e65100; width: 14px; text-align: center; }
-        .product-factory-price { font-size: 15px; font-weight: 600; color: #2e7d32; margin-top: 4px; }
+        .product-factory-price { font-size: 14px; font-weight: 600; color: #2e7d32; margin-top: 4px; }
         .product-factory-note { font-size: 11px; color: #d32f2f; font-weight: 600; }
 
         .spec-badge { background-color: #fff3e0; color: #e65100; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 400; display: flex; align-items: center; gap: 6px; }
@@ -54,14 +54,14 @@
             <div class="product-info-box">
                 <div class="product-title">อิฐมอญหินเผา I-CONS</div>
                 <div class="product-spec-row"><i class="fa-solid fa-ruler-combined"></i> ขนาด: 6.5 x 10.5 x 21 ซม.</div>
-                <div class="product-spec-row"><i class="fa-solid fa-layer-group"></i> จำนวน: 34 ก้อน / ตร.ม.</div>
-                <div class="product-factory-price">ราคาหน้าโรงงาน: 3.10 บาท/ก้อน</div>
+                <div class="product-spec-row"><i class="fa-solid fa-layer-group"></i> (จำนวน: 34 ก้อน / ตร.ม.)</div>
+                <div class="product-factory-price">ราคาหน้าโรงงาน: 3.10 บ./ก้อน</div>
                 <div class="product-factory-note">*ราคาก่อน vat และยังไม่รวมส่ง</div>
             </div>
         </div>
         <div class="divider"></div>
         <div class="search-section">
-            <div class="section-title"><i class="fa-solid fa-truck-fast"></i> ตรวจสอบราคารวมจัดส่งรายจังหวัด</div>
+            <div class="section-title"><i class="fa-solid fa-truck-fast"></i> เช็กราคารวมจัดส่งแต่ละจังหวัด</div>
             <div class="search-box-container">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="text" id="searchInput" class="search-input" placeholder="ค้นหา พิมพ์ชื่อจังหวัด เช่น กรุงเทพ..." oninput="handleSearch()">
@@ -265,7 +265,7 @@
         function selectLocation(item) {
             document.getElementById('searchInput').value = item.name;
             document.getElementById('suggestions').style.display = 'none';
-            document.getElementById('resLocation').innerHTML = `<i class="fa-solid fa-location-dot"></i> พื้นที่: ${item.name}`;
+            document.getElementById('resLocation').innerHTML = `<i class="fa-solid fa-location-dot"></i> ส่งที่: ${item.name}`;
             document.getElementById('price6wheel').innerText = item.price6;
             document.getElementById('price10wheel').innerText = item.price10;
             document.getElementById('priceTrailer').innerText = item.priceTrailer;
