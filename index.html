@@ -24,7 +24,7 @@
         .section-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; color: #444; display: flex; align-items: center; gap: 8px; }
         .search-box-container { position: relative; margin-bottom: 15px; width: 100%; }
         .search-input { width: 100%; padding: 14px 14px 14px 45px; border-radius: 10px; border: 1px solid #ddd; font-size: 15px; outline: none; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
-        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #999; font-size: 16px; z-index: 5; }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; z-index: 5; }
         .search-input:focus { border-color: #e65100; box-shadow: 0 2px 8px rgba(230,81,0,0.15); }
         .suggestions-list { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ddd; border-radius: 8px; max-height: 200px; overflow-y: auto; z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: none; }
         .suggestion-item { padding: 12px 15px; cursor: pointer; font-size: 14px; border-bottom: 1px solid #f5f5f5; }
@@ -68,10 +68,11 @@
         <div class="search-section">
             <div class="section-title"><i class="fa-solid fa-truck-fast"></i> เช็กราคารวมจัดส่งแต่ละจังหวัด</div>
             <div class="search-box-container">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 <input type="text" id="searchInput" class="search-input" placeholder="ค้นหา พิมพ์ชื่อจังหวัด เช่น กรุงเทพ..." oninput="handleSearch()">
                 <div id="suggestions" class="suggestions-list"></div>
             </div>
+
             <div id="priceResult" class="price-result-card">
                 <!-- <div class="selected-location" id="resLocation"><i class="fa-solid fa-location-dot"></i> หน้างาน: -</div> -->
                 <div class="truck-price-row">
