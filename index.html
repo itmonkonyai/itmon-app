@@ -25,7 +25,6 @@
         .divider { height: 8px; background-color: #f4f6f8; }
         .search-section { padding: 10px 20px 10px 20px; }
         .section-title { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: #444; display: flex; align-items: center; gap: 8px; }
-        .section-title2 { font-size: 15px; font-weight: 600; margin-bottom: 12px; margin-top: 12px; padding-left: 20px; color: #444; display: flex; align-items: center; gap: 8px; }
         .search-box-container { position: relative; margin-bottom: 15px; width: 100%; }
         .search-input { width: 100%; padding: 14px 14px 14px 45px; border-radius: 10px; border: 1px solid #ddd; font-size: 15px; outline: none; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
         .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; z-index: 5; }
@@ -59,52 +58,49 @@
         <div class="app-header-banner">
             <h1 class="header-banner-title">ตรวจสอบราคารวมส่งอิฐมอญ</h1>
         </div>
+            <div class="product-brick-outer"> 
+                <div class="product-brick-inner">
+                    <img class="product-img" src="https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/itmon-kon-yai-icons.jpg" alt="อิฐมอญหินเผา I-CONS">
+                    <div class="product-info-box">
+                        <div class="product-title">อิฐมอญหินเผา I-CONS</div>
+                        <div class="product-spec-row"><i class="fa-solid fa-ruler-combined"></i>ขนาด: 6.5 x 10.5 x 21 ซม.</div>
+                        <div class="product-spec-row"><i class="fa-solid fa-layer-group"></i>จำนวน: 34 ก้อน / ตร.ม.</div>
+                        <div class="product-factory-price">ราคารับเอง: ก้อนละ 3.10 บ.</div>
+                        <div class="product-factory-note">*ราคาก่อน vat และยังไม่รวมส่ง</div>
+                    </div>
 
-        <!-- กล่องสินค้าใหญ่พื้นหลังสีส้มอิฐอ่อน ที่หุ้มกล่องขาวไว้ด้านใน -->
-        <div class="product-brick-outer">
-            <!-- กล่องข้อมูลด้านในพื้นหลังสีขาว โค้งมนลอยขึ้นมาพาดทับส่วนหัว -->
-            <div class="product-brick-inner">
-                <img class="product-img" src="https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/itmon-kon-yai-icons.jpg" alt="อิฐมอญหินเผา I-CONS">
-                <div class="product-info-box">
-                    <div class="product-title">อิฐมอญหินเผา I-CONS</div>
-                    <div class="product-spec-row"><i class="fa-solid fa-ruler-combined"></i>ขนาด: 6.5 x 10.5 x 21 ซม.</div>
-                    <div class="product-spec-row"><i class="fa-solid fa-layer-group"></i>จำนวน: 34 ก้อน / ตร.ม.</div>
-                    <div class="product-factory-price">ราคารับเอง: ก้อนละ 3.10 บ.</div>
-                    <div class="product-factory-note">*ราคาก่อน vat และยังไม่รวมส่ง</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="search-section">
-            <div class="section-title"><i class="fa-solid fa-truck-fast"></i> ราคารวมส่งอิฐมอญหินเผา I-CONS</div>
-            <div class="search-box-container">
-                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" id="searchInput" class="search-input" placeholder="ค้นหา พิมพ์ชื่อจังหวัด เช่น กรุงเทพ..." oninput="handleSearch()">
-                <div id="suggestions" class="suggestions-list"></div>
-            </div>
-
-            <div id="priceResult" class="price-result-card">
+                    <div class="search-section">
+                        <div class="search-box-container">
+                            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" id="searchInput" class="search-input" placeholder="ค้นหา พิมพ์ชื่อจังหวัด เช่น กรุงเทพ..." oninput="handleSearch()">
+                            <div id="suggestions" class="suggestions-list"></div>
+                        </div>
+        
+                        <div id="priceResult" class="price-result-card">
                 <!-- <div class="selected-location" id="resLocation"><i class="fa-solid fa-location-dot"></i> หน้างาน: -</div> -->
-                <div class="truck-price-row">
-                    <div class="truck-name-box"><i class="fa-solid fa-truck"></i><div><div>รถ 6 ล้อ</div><div class="truck-qty">บรรทุก 3,600 ก้อน</div></div></div>
-                    <div class="price-value" id="price6wheel">-</div>
-                </div>
-                <div class="truck-price-row">
-                    <div class="truck-name-box"><i class="fa-solid fa-truck-moving"></i><div><div>รถ 10 ล้อ</div><div class="truck-qty">บรรทุก 7,200 ก้อน</div></div></div>
-                    <div class="price-value" id="price10wheel">-</div>
-                </div>
-                <div class="truck-price-row">
-                    <div class="truck-name-box"><i class="fa-solid fa-truck-ramp-box"></i><div><div>รถพ่วง</div><div class="truck-qty">บรรทุก 15,300 ก้อน</div></div></div>
-                    <div class="price-value" id="priceTrailer">-</div>
-                </div>
-                <div class="note-box" id="noteContainer" style="display: none;"><i class="fa-solid fa-circle-exclamation"></i><span id="textNote">-</span></div>
+                            <div class="truck-price-row">
+                                 <div class="truck-name-box"><i class="fa-solid fa-truck"></i><div><div>รถ 6 ล้อ</div><div class="truck-qty">บรรทุก 3,600 ก้อน</div></div></div>
+                                 <div class="price-value" id="price6wheel">-</div>
+                            </div>
+                        <div class="truck-price-row">
+                            <div class="truck-name-box"><i class="fa-solid fa-truck-moving"></i><div><div>รถ 10 ล้อ</div><div class="truck-qty">บรรทุก 7,200 ก้อน</div></div></div>
+                            <div class="price-value" id="price10wheel">-</div>
+                        </div>
+                        <div class="truck-price-row">
+                            <div class="truck-name-box"><i class="fa-solid fa-truck-ramp-box"></i><div><div>รถพ่วง</div><div class="truck-qty">บรรทุก 15,300 ก้อน</div></div></div>
+                            <div class="price-value" id="priceTrailer">-</div>
+                        </div>
+                        <div class="note-box" id="noteContainer" style="display: none;"><i class="fa-solid fa-circle-exclamation"></i><span id="textNote">-</span></div>
                   
+                    </div>
+                </div>
             </div>
         </div>
+
         
         <div class="divider"></div>
        
-        <div class="section-title2"><i class="fa-solid fa-truck-fast"></i> ราคาสินค้าอื่นๆ ในเครือบริษัท</div>
+        <div class="section-title"><i class="fa-solid fa-truck-fast"></i> ราคาสินค้าอื่นๆ ในเครือบริษัท</div>
 
         
         <div class="fixed-bottom-bar">
