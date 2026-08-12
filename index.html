@@ -15,7 +15,7 @@
         .product-brick-outer { background-color: #fffbf7; padding: 15px; width: 100%; position: relative; margin-top: -30px; border-top-left-radius: 24px; border-top-right-radius: 24px; border: none; }
         .product-brick-inner { background-color: #ffffff; padding: 15px; border-radius: 16px; display: flex; flex-direction: column; gap: 0; box-shadow: 0 10px 25px rgba(230,81,0,0.12); width: 100%; position: relative; z-index: 10; margin-top: 10px; border: 1px solid #ffe0b2; }
         .product-top-row { display: flex; gap: 15px; align-items: center; justify-content: space-around; width: 100%; }
-        .product-img { width: 130px; height: 130px; object-fit: cover; border-radius: 8px; border: 1px solid #f5f5f5; flex-shrink: 0; }
+        .product-img { width: 125px; height: 125px; object-fit: cover; border-radius: 8px; border: 1px solid #f5f5f5; flex-shrink: 0; }
         .product-info-box { display: flex; flex-direction: column; gap: 4px; text-align: left; align-items: flex-start; justify-content: center; margin: 0; padding: 0; }
         .product-title { font-size: 15px; font-weight: 600; color: #e65100; margin: 0 0 2px 0; text-align: left; width: 100%; }
         .product-spec-row { font-size: 12px; color: #666; text-align: left; width: 100%; margin: 0; padding: 0; }
@@ -39,7 +39,7 @@
         .selected-location { font-size: 15px; font-weight: 600; color: #2e7d32; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
         .truck-price-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid #f5f5f5; }
         .truck-price-row:last-child { border-bottom: none; }
-        .truck-name-box { align-items: center; font-size: 14px; color: #444; }
+        .truck-name-box { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #444; }
         .truck-name-box i { font-size: 16px; color: #e65100; width: 20px; }
         .truck-qty { font-size: 13px; color: #888; }
         .price-value { font-size: 16px; font-weight: 600; color: #2e7d32; }
@@ -93,23 +93,43 @@
     
                     <div id="priceResult" class="price-result-card">
                         <div class="truck-price-row">
-                             <div class="truck-name-box"><i class="fa-solid fa-truck"></i><div><div>รถ 6 ล้อ</div><div class="truck-qty">บรรจุ 3,600 ก้อน</div></div></div>
+                             <div class="truck-name-box">
+                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="#e65100" style="flex-shrink:0;"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm2.5-6.5H17V9.5h1.9l1.6 2z"/></svg>
+                                 <div>
+                                     <div>รถ 6 ล้อ</div>
+                                     <div class="truck-qty">บรรจุ 3,600 ก้อน</div>
+                                 </div>
+                             </div>
                              <div class="price-value" id="price6wheel">-</div>
                         </div>
                         <div class="truck-price-row">
-                            <div class="truck-name-box"><i class="fa-solid fa-truck-moving"></i><div><div>รถ 10 ล้อ</div><div class="truck-qty">บรรจุ 7,200 ก้อน</div></div></div>
+                            <div class="truck-name-box">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="#e65100" style="flex-shrink:0;"><path d="M19 8h-2V5H1v12h2c0 1.66 1.34 3 3 3s3-1.34 3-3h3c0 1.66 1.34 3 3 3s3-1.34 3-3h1c0 1.66 1.34 3 3 3s3-1.34 3-3h1v-4l-3-5zm-13 10.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-5H14V9.5h2.5l1.5 2V13.5zm1 5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                                <div>
+                                    <div>รถ 10 ล้อ</div>
+                                    <div class="truck-qty">บรรจุ 7,200 ก้อน</div>
+                                </div>
+                            </div>
                             <div class="price-value" id="price10wheel">-</div>
                         </div>
                         <div class="truck-price-row">
-                            <div class="truck-name-box"><i class="fa-solid fa-truck-ramp-box"></i><div><div>รถพ่วง</div><div class="truck-qty">บรรจุ 15,300 ก้อน</div></div></div>
+                            <div class="truck-name-box">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="#e65100" style="flex-shrink:0;"><path d="M17 4H1v13h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h3v-5l-3-4zm-11 14.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm2.5-6.5H14V9.5h2.9l1.6 2zM23 7h-4v2h4V7zm0 4h-4v2h4v-2z"/></svg>
+                                <div>
+                                    <div>รถพ่วง</div>
+                                    <div class="truck-qty">บรรจุ 15,300 ก้อน</div>
+                                </div>
+                            </div>
                             <div class="price-value" id="priceTrailer">-</div>
                         </div>
-                        <div class="note-box" id="noteContainer" style="display: none;"><i class="fa-solid fa-circle-exclamation"></i><span id="textNote">-</span></div>
+                        
+                        <div class="note-box" id="noteContainer" style="display: none;">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                            <span id="textNote">-</span>
+                        </div>
                     </div>
                 </div>
-
             </div>
-            
             <div class="other-products-outer">
                 <h2 class="other-products-title">ราคาสินค้าอื่นๆ ในเครือบริษัท</h2>
                 <div class="other-products-row">
@@ -117,7 +137,6 @@
                     <div class="other-products-box-white">วัสดุอื่นๆ</div>
                 </div>
             </div>
-            
         </div>
 
         <div class="fixed-bottom-bar">
@@ -286,8 +305,6 @@
         ];
 
 
-
-        // --- ระบบฟังก์ชันค้นหาอัจฉริยะและเปิดแสดงผลราคารถทั้ง 3 คันพร้อมกัน ---
         function handleSearch() {
             const query = document.getElementById('searchInput').value.trim();
             const suggestionsDiv = document.getElementById('suggestions');
