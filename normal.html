@@ -208,87 +208,92 @@
 
     </div>
     
+        <!-- 🧠 ระบบสมองควบคุมการค้นหาราคาจัดส่งแยกอิสระทั้ง 3 กล่องสินค้า -->
     <script>
-        // --- 1. คลังฐานข้อมูลราคารถจัดส่งรายจังหวัด แยกอิฐดินเผาทั้ง 3 รุ่น ---
+        // --- 1. คลังฐานข้อมูลราคาแยกตามประเภทคันรถของแต่ละรุ่น (พี่มาพิมพ์แก้ตัวเลขราคารายจังหวัดตรงนี้ได้เลยครับ) ---
         const db3Hole = [
             { name: "กรุงเทพมหานคร", price6: "ก้อนละ 3.50 บ.", price10: "ก้อนละ 3.10 บ.", priceTrailer: "ก้อนละ 2.80 บ.", note: "" },
-            { name: "กระบี่", price6: "ก้อนละ 5.50 บ.", price10: "ก้อนละ 4.80 บ.", priceTrailer: "ก้อนละ 4.00 บ.", note: "" }
-            // 💡 พี่พิมพ์รายชื่อจังหวัดและราคาจัดส่งของรุ่น 3 รู เพิ่มเติมต่อยาวลงมาตรงนี้ได้เลยครับ
+            { name: "ชลบุรี อ.เมือง", price6: "ก้อนละ 3.80 บ.", price10: "ก้อนละ 3.40 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" }
         ];
 
         const db2HoleBig = [
-            { name: "กรุงเทพมหานคร", price6: "ก้อนละ 3.50 บ.", price10: "ก้อนละ 3.10 บ.", priceTrailer: "ก้อนละ 2.80 บ.", note: "" },
-            { name: "กระบี่", price6: "ก้อนละ 5.50 บ.", price10: "ก้อนละ 4.80 บ.", priceTrailer: "ก้อนละ 4.00 บ.", note: "" }
-            // 💡 พิมพ์ราคาจัดส่งของรุ่น 2 รูใหญ่ เพิ่มเติมต่อยาวลงมาตรงนี้ครับ
+            { name: "กรุงเทพมหานคร", price6: "ก้อนละ 3.60 บ.", price10: "ก้อนละ 3.20 บ.", priceTrailer: "ก้อนละ 2.90 บ.", note: "" },
+            { name: "ชลบุรี อ.เมือง", price6: "ก้อนละ 3.90 บ.", price10: "ก้อนละ 3.50 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" }
         ];
 
         const db2HoleSmall = [
-            { name: "กรุงเทพมหานคร", price6: "ก้อนละ 3.50 บ.", price10: "ก้อนละ 3.10 บ.", priceTrailer: "ก้อนละ 2.80 บ.", note: "" },
-            { name: "กระบี่", price6: "ก้อนละ 5.50 บ.", price10: "ก้อนละ 4.80 บ.", priceTrailer: "ก้อนละ 4.00 บ.", note: "" }
-            // 💡 พิมพ์ราคาจัดส่งของรุ่น 2 รูเล็ก เพิ่มเติมต่อยาวลงมาตรงนี้ครับ
+            { name: "กรุงเทพมหานคร", price6: "ก้อนละ 3.30 บ.", price10: "ก้อนละ 2.90 บ.", priceTrailer: "ก้อนละ 2.60 บ.", note: "" },
+            { name: "ชลบุรี อ.เมือง", price6: "ก้อนละ 3.60 บ.", price10: "ก้อนละ 3.20 บ.", priceTrailer: "ก้อนละ 2.80 บ.", note: "" }
         ];
 
-        // ระบบล็อกจำรุ่นสินค้าปัจจุบัน (ตั้งต้นไว้ที่รุ่น 3 รู)
-        let activeModel = '3hole';
-
-        // ฟังก์ชันเมื่อกดจิ้มเลือกกล่องสินค้าตัวหน้านั้น ๆ
-        function selectModel(modelType, element) {
-            activeModel = modelType;
-            // ล้างขอบไฮไลต์ส้มของกล่องอื่นออกให้หมด
-            document.querySelectorAll('.product-brick-inner').forEach(el => el.classList.remove('active-select'));
-            // เติมขอบส้มไฮไลต์ให้กล่องที่เพิ่งกดจิ้มเลือก
-            element.classList.add('active-select');
+        // --- 2. ฟังก์ชันระบบค้นหาอัจฉริยะ (คีย์เวิร์ดตรวจเช็กคลาสและ ID แยกกันเด็ดขาด) ---
+        function searchBrick(model) {
+            let inputId, suggestId, database;
             
-            // อัปเดตคำในช่องค้นหาให้ลูกค้าเข้าใจง่าย
-            const names = {'3hole':'3 รู', '2big':'2 รู ใหญ่', '2small':'2 รู เล็ก'};
-            document.getElementById('searchInput').placeholder = `ค้นหาราคารถจัดส่ง อิฐมอญ ${names[modelType]}...`;
-            
-            // ล้างประวัติการค้นหาเก่าออกชั่วคราวเพื่อรอคีย์ใหม่
-            document.getElementById('searchInput').value = '';
-            document.getElementById('priceResult').style.display = 'none';
-        }
+            // ล็อกเป้าหมาย ID และฐานข้อมูลตามรุ่นที่ลูกค้ากำลังพิมพ์
+            if (model === '3hole') { inputId = 'input3Hole'; suggestId = 'suggest3Hole'; database = db3Hole; }
+            else if (model === '2big') { inputId = 'input2Big'; suggestId = 'suggest2Big'; database = db2HoleBig; }
+            else if (model === '2small') { inputId = 'input2Small'; suggestId = 'suggest2Small'; database = db2HoleSmall; }
 
-        // ระบบฟังก์ชันค้นหาอัจฉริยะ (สลับเลือกฐานข้อมูลรถตามรุ่นที่จิ้มไว้อัตโนมัติ)
-        function handleSearch() {
-            const query = document.getElementById('searchInput').value.trim();
-            const suggestionsDiv = document.getElementById('suggestions');
+            const query = document.getElementById(inputId).value.trim();
+            const suggestionsDiv = document.getElementById(suggestId);
             suggestionsDiv.innerHTML = '';
+
             if (query === '') { suggestionsDiv.style.display = 'none'; return; }
-            
-            // เลือกว่าจะดึงตารางราคาของแผ่นไหนมาคำนวณ
-            let activeDb = db3Hole;
-            if (activeModel === '2big') { activeDb = db2HoleBig; }
-            else if (activeModel === '2small') { activeDb = db2HoleSmall; }
-            
-            const filtered = activeDb.filter(item => item.name.includes(query));
+
+            const filtered = database.filter(item => item.name.includes(query));
             if (filtered.length > 0) {
                 filtered.forEach(item => {
                     const div = document.createElement('div');
-                    div.className = 'suggestion-item';
+                    div.style.padding = '12px 15px';
+                    div.style.cursor = 'pointer';
+                    div.style.fontSize = '14px';
+                    div.style.borderBottom = '1px solid #f5f5f5';
                     div.innerText = item.name;
-                    div.onclick = () => selectLocation(item);
+                    div.onclick = () => selectBrickLocation(model, item);
                     suggestionsDiv.appendChild(div);
                 });
                 suggestionsDiv.style.display = 'block';
             } else { suggestionsDiv.style.display = 'none'; }
         }
 
-        function selectLocation(item) {
-            document.getElementById('searchInput').value = item.name;
-            document.getElementById('suggestions').style.display = 'none';
-            document.getElementById('price6wheel').innerText = item.price6;
-            document.getElementById('price10wheel').innerText = item.price10;
-            document.getElementById('priceTrailer').innerText = item.priceTrailer;
-            const noteContainer = document.getElementById('noteContainer');
+        // --- 3. ฟังก์ชันกางตารางและหยอดตัวเลขราคาลงบล็อกขาวแม่นยำ ---
+        function selectBrickLocation(model, item) {
+            let inputId, suggestId, resultId, p6Id, p10Id, pTrId, noteId, textNoteId;
+
+            if (model === '3hole') {
+                inputId = 'input3Hole'; suggestId = 'suggest3Hole'; resultId = 'result3Hole';
+                p6Id = 'p6-3hole'; p10Id = 'p10-3hole'; pTrId = 'pTr-3hole'; noteId = 'note-3hole'; textNoteId = 'textNote-3hole';
+            } else if (model === '2big') {
+                inputId = 'input2Big'; suggestId = 'suggest2Big'; resultId = 'result2Big';
+                p6Id = 'p6-2big'; p10Id = 'p10-2big'; pTrId = 'pTr-2big'; noteId = 'note-2big'; textNoteId = 'textNote-2big';
+            } else if (model === '2small') {
+                inputId = 'input2Small'; suggestId = 'suggest2Small'; resultId = 'result2Small';
+                p6Id = 'p6-2small'; p10Id = 'p10-2small'; pTrId = 'pTr-2small'; noteId = 'note-2small'; textNoteId = 'textNote-2small';
+            }
+
+            document.getElementById(inputId).value = item.name;
+            document.getElementById(suggestId).style.display = 'none';
+            document.getElementById(p6Id).innerText = item.price6;
+            document.getElementById(p10Id).innerText = item.price10;
+            document.getElementById(pTrId).innerText = item.priceTrailer;
+
+            const noteContainer = document.getElementById(noteId);
             if (item.note) {
-                document.getElementById('textNote').innerText = item.note;
+                document.getElementById(textNoteId).innerText = item.note;
                 noteContainer.style.display = 'flex';
             } else { noteContainer.style.display = 'none'; }
-            document.getElementById('priceResult').style.display = 'block';
+
+            document.getElementById(resultId).style.display = 'flex';
         }
 
+        // คลิกพื้นที่โล่งด้านนอกให้กล่องแนะนำจังหวัดหุบตัวลง
         document.addEventListener('click', function(e) {
-            if (e.target.id !== 'searchInput') { document.getElementById('suggestions').style.display = 'none'; }
+            if (!e.target.id.startsWith('input')) {
+                document.getElementById('suggest3Hole').style.display = 'none';
+                document.getElementById('suggest2Big').style.display = 'none';
+                document.getElementById('suggest2Small').style.display = 'none';
+            }
         });
     </script>
 
