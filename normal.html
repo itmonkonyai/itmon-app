@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>กลุ่มอิฐมอญดินเผาทั่วไป</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Kanit', sans-serif; }
+        body { background-color: #f4f6f8; color: #333; display: flex; justify-content: center; }
+        .app-container { width: 100%; max-width: 480px; background-color: #fffbf7; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.05); position: relative; padding-bottom: 120px; }
+        .app-header-banner { background: linear-gradient(135deg, #d84315, #e65100); padding: 35px 20px 50px 20px; text-align: left; width: 100%; position: relative; }
+        .back-btn { position: absolute; top: 15px; right: 20px; background-color: rgba(255,255,255,0.2); color: #fff; padding: 4px 12px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: 500; backdrop-filter: blur(5px); }
+        .header-banner-title { font-size: 20px; font-weight: 600; color: #ffffff; margin: 0; padding: 0; }
+        
+        /* สไตล์การ์ดรายการสินค้าเรียงแถวลงมา */
+        .product-list-container { width: 100%; padding: 0 15px; position: relative; margin-top: -30px; display: flex; flex-direction: column; gap: 15px; }
+        .product-brick-inner { background-color: #ffffff; padding: 15px; border-radius: 16px; display: flex; gap: 15px; align-items: center; justify-content: flex-start; box-shadow: 0 10px 25px rgba(230,81,0,0.12); width: 100%; border: 1px solid #ffe0b2; text-decoration: none; color: inherit; }
+        .product-img { width: 110px; height: 110px; object-fit: cover; border-radius: 8px; border: 1px solid #f5f5f5; flex-shrink: 0; }
+        .product-info-box { flex: 1; display: flex; flex-direction: column; gap: 4px; text-align: left; align-items: flex-start; justify-content: center; margin: 0; padding: 0; }
+        .product-title { font-size: 17px; font-weight: 600; color: #e65100; margin: 0 0 2px 0; text-align: left; width: 100%; }
+        .product-spec-row { font-size: 12px; color: #666; display: flex; align-items: center; gap: 4px; text-align: left; width: 100%; margin: 0; padding: 0; }
+        .product-spec-svg { width: 14px; height: 14px; flex-shrink: 0; margin-right: 4px; }
+        .product-factory-price { font-size: 14px; font-weight: 600; color: #2e7d32; margin: 4px 0 0 0; text-align: left; width: 100%; }
+        .product-factory-note { font-size: 11px; color: #d32f2f; font-weight: 600; margin: 0; text-align: left; width: 100%; }
+
+        /* แถบปุ่มติดต่อล็อกขอบล่างสุด */
+        .fixed-bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; display: flex; gap: 10px; padding: 12px 15px 25px 15px; background-color: rgba(255,255,255,0.96); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); box-shadow: 0 -8px 25px rgba(230,81,0,0.1); z-index: 999; border-top: 1px solid #ffe0b2; }
+        .btn-fixed { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; color: #fff; transition: transform 0.1s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .btn-fixed:active { transform: scale(0.98); }
+        .btn-fixed-line { background-color: #06c755; }
+        .btn-fixed-line:active { background-color: #05b04b; }
+        .btn-fixed-phone { background-color: #e65100; }
+        .btn-fixed-phone:active { background-color: #d84315; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- ส่วนหัวแอปแบนเนอร์ -->
+        <div class="app-header-banner">
+            <a href="index.html" class="back-btn">⬅️ กลับหน้าแรก</a>
+            <h1 class="header-banner-title">อิฐมอญดินเผาทั่วไป</h1>
+        </div>
+
+        <!-- รายการสินค้า 3 กล่องเรียงลำดับลงมา -->
+        <div class="product-list-container">
+            
+            <!-- กล่องที่ 1: อิฐมอญ 3 รู -->
+            <!-- พี่สามารถสร้างไฟล์ย่อยไปทำระบบค้นหาราคาจัดส่งแยกทีละรุ่นได้ในช่อง href="" ครับ -->
+            <a href="#" class="product-brick-inner">
+                <img class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="อิฐมอญ 3 รู">
+                <div class="product-info-box">
+                    <div class="product-title">อิฐมอญดินเผา 3 รู</div>
+                    <div class="product-spec-row"><svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M160 48c0-8.8-7.2-16-16-16H16C7.2 32 0 39.2 0 48v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16V48zm0 160c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-96zm336 96H224v32h48c8.8 0 16 7.2 16 16v48h32v-48c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v32zm-144 96h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16h-48v32h192v-64zm144-192H224v32h48c8.8 0 16 7.2 16 16v48h32V208c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48v32c0 8.8 7.2 16 16 16v16zm0 128h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16H224v32h272v-64z"/></svg>ขนาด: - ซม.</div>
+                    <div class="product-spec-row"><svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M12.4 170.7c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 209.7c16.5-7.8 16.5-31.2 0-39L273.9 64.1c-11.5-5.5-24.9-5.5-36.4 0L12.4 170.7zm0 128c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 337.7c16.5-7.8 16.5-31.2 0-39l-43.1-20.4-177.1 83.8c-14.4 6.8-31.4 6.8-45.8 0L55.5 278.3l-43.1 20.4z"/></svg>จำนวน: - ก้อน / ตร.ม.</div>
+                    <div class="product-factory-price">ราคารับเอง: ก้อนละ - บ.</div>
+                    <div class="product-factory-note">*ราคาก่อน vat และยังไม่รวมส่ง</div>
+                </div>
+            </a>
+
+            <!-- กล่องที่ 2: อิฐมอญ 2 รู ใหญ่ -->
+            <a href="#" class="product-brick-inner">
+                <img class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="อิฐมอญ 2 รู ใหญ่">
+                <div class="product-info-box">
+                    <div class="product-title">อิฐมอญดินเผา 2 รู ใหญ่</div>
+                    <div class="product-spec-row"><svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M160 48c0-8.8-7.2-16-16-16H16C7.2 32 0 39.2 0 48v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16V48zm0 160c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-96zm336 96H224v32h48c8.8 0 16 7.2 16 16v48h32v-48c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v32zm-144 96h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16h-48v32h192v-64zm144-192H224v32h48c8.8 0 16 7.2 16 16v48h32V208c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48v32c0 8.8 7.2 16 16 16v16zm0 128h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16H224v32h272v-64z"/></svg>ขนาด: - ซม.</div>
+                    <div class="product-spec-row"><svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M12.4 170.7c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 209.7c16.5-7.8 16.5-31.2 0-39L273.9 64.1c-11.5-5.5-24.9-5.5-36.4 0L12.4 170.7zm0 128c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 337.7c16.5-7.8 16.5-31.2 0-39l-43.1-20.4-177.1 83.8c-14.4 6.8-31.4 6.8-45.8 0L55.5 278.3l-43.1 20.4z"/></svg>จำนวน: - ก้อน / ตร.ม.</div>
+                    <div class="product-factory-price">ราคารับเอง: ก้อนละ - บ.</div>
+                    <div class="product-factory-note">*ราคาก่อน vat และยังไม่รวมส่ง</div>
+                </div>
+            </a>
+
+            <!-- กล่องที่ 3: อิฐมอญ 2 รู เล็ก -->
+            <a href="#" class="product-brick-inner">
+                <img class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="อิฐมอญ 2 รู เล็ก">
+                <div class="product-info-box">
+                    <div class="product-title">อิฐมอญดินเผา 2 รู เล็ก</div>
+                    <div class="product-spec-row"><svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M160 48c0-8.8-7.2-16-16-16H16C7.2 32 0 39.2 0 48v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16V48zm0 160c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-96zm336 96H224v32h48c8.8 0 16 7.2 16 16v48h32v-48c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v32zm-144 96h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16h-48v32h192v-64zm144-192H224v32h48c8.8 0 16 7.2 16 16v48h32V208c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48v32c0 8.8 7.2 16 16 16v16zm0 128h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16H224v32h272v-64z"/></svg>ขนาด: - ซม.</div>
+                    <div class="product-spec-row"><svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M12.4 170.7c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 209.7c16.5-7.8 16.5-31.2 0-39L273.9 64.1c-11.5-5.5-24.9-5.5-36.4 0L12.4 170.7zm0 128c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 337.7c16.5-7.8 16.5-31.2 0-39l-43.1-20.4-177.1 83.8c-14.4 6.8-31.4 6.8-45.8 0L55.5 278.3l-43.1 20.4z"/></svg>จำนวน: - ก้อน / ตร.ม.</div>
+                    <div class="product-factory-price">ราคารับเอง: ก้อนละ - บ.</div>
+                    <div class="product-factory-note">*ราคาก่อน vat และยังไม่รวมส่ง</div>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- แถบปุ่มติดต่อด่วน ลอยล็อกติดขอบล่างสุด -->
+        <div class="fixed-bottom-bar">
+            <a href="https://line.me" target="_blank" class="btn-fixed btn-fixed-line">
