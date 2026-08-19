@@ -12,21 +12,41 @@
         .app-header-banner { background: linear-gradient(135deg, #d84315, #e65100); padding: 35px 20px 50px 20px; text-align: left; width: 100%; position: relative; }
         .back-btn { position: absolute; top: 15px; right: 20px; background-color: rgba(255,255,255,0.2); color: #fff; padding: 4px 12px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: 500; backdrop-filter: blur(5px); }
         .header-banner-title { font-size: 20px; font-weight: 600; color: #ffffff; margin: 0; padding: 0; }
-        
-        /* สไตล์การ์ดรายการสินค้าเรียงแถวลงมา */
-        .product-list-container { width: 100%; padding: 0 15px; position: relative; margin-top: -30px; display: flex; flex-direction: column; gap: 15px; }
-        .product-brick-inner { background-color: #ffffff; padding: 15px; border-radius: 16px; display: flex; gap: 15px; align-items: center; justify-content: flex-start; box-shadow: 0 10px 25px rgba(230,81,0,0.12); width: 100%; border: 1px solid #ffe0b2; text-decoration: none; color: inherit; }
-        .product-img { width: 110px; height: 110px; object-fit: cover; border-radius: 8px; border: 1px solid #f5f5f5; flex-shrink: 0; }
-        .product-info-box { flex: 1; display: flex; flex-direction: column; gap: 4px; text-align: left; align-items: flex-start; justify-content: center; margin: 0; padding: 0; }
-        .product-title { font-size: 17px; font-weight: 600; color: #e65100; margin: 0 0 2px 0; text-align: left; width: 100%; }
-        .product-spec-row { font-size: 12px; color: #666; display: flex; align-items: center; gap: 4px; text-align: left; width: 100%; margin: 0; padding: 0; }
+        .product-brick-outer { background-color: #fffbf7; padding: 15px; width: 100%; position: relative; margin-top: -30px; border-top-left-radius: 24px; border-top-right-radius: 24px; border: none; }
+        .product-brick-inner { background-color: #ffffff; padding: 15px; border-radius: 16px; display: flex; flex-direction: column; gap: 0; box-shadow: 0 10px 25px rgba(230,81,0,0.12); width: 100%; position: relative; z-index: 10; margin-top: 10px; border: 1px solid #ffe0b2; }
+        .product-top-row { display: flex; gap: 15px; align-items: center; justify-content: space-around; width: 100%; }
+        .product-img { width: 125px; height: 125px; object-fit: cover; border-radius: 8px; border: 1px solid #f5f5f5; flex-shrink: 0; }
+        .product-info-box { display: flex; flex-direction: column; gap: 6px; text-align: left; align-items: flex-start; justify-content: center; margin: 0; padding: 0; }
+        .product-title { font-size: 16px; font-weight: 600; color: #e65100; margin: 0 0 10px 0; text-align: left; width: 100%; }
+        .badge-stone { background-color: #d84315; color: #ffffff; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 600; margin-right: 5px; vertical-align: middle; display: inline-block; letter-spacing: 0.5px; }
+        .text-stone-highlight { color: #d84315; font-weight: 800; font-size: 19px; text-decoration: underline; text-underline-offset: 4px; }
+        .product-spec-row { font-size: 12px; color: #666; text-align: left; width: 100%; margin: 0; padding: 0; }
+        .product-spec-row i { color: #e65100; width: 14px; text-align: left; margin: 0; padding: 0; }
+        .product-factory-price { font-size: 12px; font-weight: 600; color: #2e7d32; margin: 4px 0 0 0; text-align: left; width: 100%; }
+        .product-factory-note { font-size: 10px; color: #d32f2f; font-weight: 600; margin: 0; text-align: left; width: 100%; }
         .product-spec-svg { width: 14px; height: 14px; flex-shrink: 0; margin-right: 4px; }
-        .product-factory-price { font-size: 14px; font-weight: 600; color: #2e7d32; margin: 4px 0 0 0; text-align: left; width: 100%; }
-        .product-factory-note { font-size: 11px; color: #d32f2f; font-weight: 600; margin: 0; text-align: left; width: 100%; }
-        .product-brick-inner.active-select { border-color: #e65100; border-width: 2px; box-shadow: 0 8px 24px rgba(230,81,0,0.12); background-color: #fffbf7; }
-        .product-brick-inner-card { background-color: #ffffff; padding: 15px; border-radius: 16px; display: flex; flex-direction: column; gap: 0; box-shadow: 0 10px 25px rgba(230,81,0,0.06); width: 100%; border: 1px solid #ffe0b2; position: relative; }
-        .product-top-row { display: flex; gap: 15px; align-items: center; justify-content: flex-start; width: 100%; }
-
+        .divider-line { width: 100%; height: 1px; background-color: #f0f0f0; margin: 15px 0; }
+        .spec-badge { background-color: #fff3e0; color: #e65100; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 400; display: flex; align-items: center; gap: 6px; }
+        .search-section { width: 100%; display: flex; flex-direction: column; }
+        .section-title { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: #444; display: flex; align-items: center; gap: 8px; }
+        .search-box-container { position: relative; margin-bottom: 15px; width: 100%; }
+        .search-input { width: 100%; padding: 14px 14px 14px 45px; border-radius: 10px; border: 1px solid #ddd; font-size: 15px; outline: none; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; z-index: 5; }
+        .search-input:focus { border-color: #e65100; box-shadow: 0 2px 8px rgba(230,81,0,0.15); }
+        .suggestions-list { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ddd; border-radius: 8px; max-height: 200px; overflow-y: auto; z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: none; }
+        .suggestion-item { padding: 12px 15px; cursor: pointer; font-size: 14px; border-bottom: 1px solid #f5f5f5; }
+        .suggestion-item:last-child { border-bottom: none; }
+        .suggestion-item:hover { background-color: #f7f7f7; }
+        .price-result-card { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); display: none; }
+        .selected-location { font-size: 15px; font-weight: 600; color: #2e7d32; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .truck-price-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid #f5f5f5; }
+        .truck-price-row:last-child { border-bottom: none; }
+        .truck-name-box { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #444; }
+        .truck-name-box i { font-size: 16px; color: #e65100; width: 20px; }
+        .truck-qty { font-size: 13px; color: #888; }
+        .price-value { font-size: 16px; font-weight: 600; color: #2e7d32; }
+        .note-box { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #ddd; font-size: 13px; color: #d32f2f; font-weight: 600; display: flex; align-items: flex-start; gap: 6px; }
+        .action-section { padding: 20px; display: flex; gap: 12px; }
 
         /* แถบปุ่มติดต่อล็อกขอบล่างสุด */
         .fixed-bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; display: flex; gap: 10px; padding: 12px 15px 25px 15px; background-color: rgba(255,255,255,0.96); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); box-shadow: 0 -8px 25px rgba(230,81,0,0.1); z-index: 999; border-top: 1px solid #ffe0b2; }
