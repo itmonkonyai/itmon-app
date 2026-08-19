@@ -23,6 +23,7 @@
         .product-spec-svg { width: 14px; height: 14px; flex-shrink: 0; margin-right: 4px; }
         .product-factory-price { font-size: 14px; font-weight: 600; color: #2e7d32; margin: 4px 0 0 0; text-align: left; width: 100%; }
         .product-factory-note { font-size: 11px; color: #d32f2f; font-weight: 600; margin: 0; text-align: left; width: 100%; }
+        .product-brick-inner.active-select { border-color: #e65100; border-width: 2px; box-shadow: 0 8px 24px rgba(230,81,0,0.12); background-color: #fffbf7; }
 
         /* แถบปุ่มติดต่อล็อกขอบล่างสุด */
         .fixed-bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; display: flex; gap: 10px; padding: 12px 15px 25px 15px; background-color: rgba(255,255,255,0.96); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); box-shadow: 0 -8px 25px rgba(230,81,0,0.1); z-index: 999; border-top: 1px solid #ffe0b2; }
@@ -32,6 +33,7 @@
         .btn-fixed-line:active { background-color: #05b04b; }
         .btn-fixed-phone { background-color: #e65100; }
         .btn-fixed-phone:active { background-color: #d84315; }
+        
     </style>
 </head>
 <body>
@@ -99,7 +101,89 @@
 
     </div>
     
+    <script>
+        // --- 1. คลังฐานข้อมูลราคารถจัดส่งรายจังหวัด แยกอิฐดินเผาทั้ง 3 รุ่น ---
+        const db3Hole = [
+            { name: "กรุงเทพมหานคร", price6: "ก้อนละ 3.50 บ.", price10: "ก้อนละ 3.10 บ.", priceTrailer: "ก้อนละ 2.80 บ.", note: "" },
+            { name: "กระบี่", price6: "ก้อนละ 5.50 บ.", price10: "ก้อนละ 4.80 บ.", priceTrailer: "ก้อนละ 4.00 บ.", note: "" }
+            // 💡 พี่พิมพ์รายชื่อจังหวัดและราคาจัดส่งของรุ่น 3 รู เพิ่มเติมต่อยาวลงมาตรงนี้ได้เลยครับ
+        ];
 
+        const db2HoleBig = [
+            { name: "กรุงเทพมหานคร", price6: "ก้อนละ 3.50 บ.", price10: "ก้อนละ 3.10 บ.", priceTrailer: "ก้อนละ 2.80 บ.", note: "" },
+            { name: "กระบี่", price6: "ก้อนละ 5.50 บ.", price10: "ก้อนละ 4.80 บ.", priceTrailer: "ก้อนละ 4.00 บ.", note: "" }
+            // 💡 พิมพ์ราคาจัดส่งของรุ่น 2 รูใหญ่ เพิ่มเติมต่อยาวลงมาตรงนี้ครับ
+        ];
+
+        const db2HoleSmall = [
+            { name: "กรุงเทพมหานคร", price6: "ก้อนละ 3.50 บ.", price10: "ก้อนละ 3.10 บ.", priceTrailer: "ก้อนละ 2.80 บ.", note: "" },
+            { name: "กระบี่", price6: "ก้อนละ 5.50 บ.", price10: "ก้อนละ 4.80 บ.", priceTrailer: "ก้อนละ 4.00 บ.", note: "" }
+            // 💡 พิมพ์ราคาจัดส่งของรุ่น 2 รูเล็ก เพิ่มเติมต่อยาวลงมาตรงนี้ครับ
+        ];
+
+        // ระบบล็อกจำรุ่นสินค้าปัจจุบัน (ตั้งต้นไว้ที่รุ่น 3 รู)
+        let activeModel = '3hole';
+
+        // ฟังก์ชันเมื่อกดจิ้มเลือกกล่องสินค้าตัวหน้านั้น ๆ
+        function selectModel(modelType, element) {
+            activeModel = modelType;
+            // ล้างขอบไฮไลต์ส้มของกล่องอื่นออกให้หมด
+            document.querySelectorAll('.product-brick-inner').forEach(el => el.classList.remove('active-select'));
+            // เติมขอบส้มไฮไลต์ให้กล่องที่เพิ่งกดจิ้มเลือก
+            element.classList.add('active-select');
+            
+            // อัปเดตคำในช่องค้นหาให้ลูกค้าเข้าใจง่าย
+            const names = {'3hole':'3 รู', '2big':'2 รู ใหญ่', '2small':'2 รู เล็ก'};
+            document.getElementById('searchInput').placeholder = `ค้นหาราคารถจัดส่ง อิฐมอญ ${names[modelType]}...`;
+            
+            // ล้างประวัติการค้นหาเก่าออกชั่วคราวเพื่อรอคีย์ใหม่
+            document.getElementById('searchInput').value = '';
+            document.getElementById('priceResult').style.display = 'none';
+        }
+
+        // ระบบฟังก์ชันค้นหาอัจฉริยะ (สลับเลือกฐานข้อมูลรถตามรุ่นที่จิ้มไว้อัตโนมัติ)
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            const suggestionsDiv = document.getElementById('suggestions');
+            suggestionsDiv.innerHTML = '';
+            if (query === '') { suggestionsDiv.style.display = 'none'; return; }
+            
+            // เลือกว่าจะดึงตารางราคาของแผ่นไหนมาคำนวณ
+            let activeDb = db3Hole;
+            if (activeModel === '2big') { activeDb = db2HoleBig; }
+            else if (activeModel === '2small') { activeDb = db2HoleSmall; }
+            
+            const filtered = activeDb.filter(item => item.name.includes(query));
+            if (filtered.length > 0) {
+                filtered.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'suggestion-item';
+                    div.innerText = item.name;
+                    div.onclick = () => selectLocation(item);
+                    suggestionsDiv.appendChild(div);
+                });
+                suggestionsDiv.style.display = 'block';
+            } else { suggestionsDiv.style.display = 'none'; }
+        }
+
+        function selectLocation(item) {
+            document.getElementById('searchInput').value = item.name;
+            document.getElementById('suggestions').style.display = 'none';
+            document.getElementById('price6wheel').innerText = item.price6;
+            document.getElementById('price10wheel').innerText = item.price10;
+            document.getElementById('priceTrailer').innerText = item.priceTrailer;
+            const noteContainer = document.getElementById('noteContainer');
+            if (item.note) {
+                document.getElementById('textNote').innerText = item.note;
+                noteContainer.style.display = 'flex';
+            } else { noteContainer.style.display = 'none'; }
+            document.getElementById('priceResult').style.display = 'block';
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.id !== 'searchInput') { document.getElementById('suggestions').style.display = 'none'; }
+        });
+    </script>
 
     
 </body>
