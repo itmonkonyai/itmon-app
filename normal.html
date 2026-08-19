@@ -12,6 +12,7 @@
         .app-header-banner { background: linear-gradient(135deg, #d84315, #e65100); padding: 35px 20px 50px 20px; text-align: left; width: 100%; position: relative; }
         .back-btn { position: absolute; top: 15px; right: 20px; background-color: rgba(255,255,255,0.2); color: #fff; padding: 4px 12px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: 500; backdrop-filter: blur(5px); }
         .header-banner-title { font-size: 20px; font-weight: 600; color: #ffffff; margin: 0; padding: 0; }
+        .product-list-container { width: 100%; padding: 0 15px; position: relative; margin-top: -30px; display: flex; flex-direction: column; gap: 15px; }
         .product-brick-outer { background-color: #fffbf7; padding: 15px; width: 100%; position: relative; margin-top: -30px; border-top-left-radius: 24px; border-top-right-radius: 24px; border: none; }
         .product-brick-inner { background-color: #ffffff; padding: 15px; border-radius: 16px; display: flex; flex-direction: column; gap: 0; box-shadow: 0 10px 25px rgba(230,81,0,0.12); width: 100%; position: relative; z-index: 10; margin-top: 10px; border: 1px solid #ffe0b2; }
         .product-top-row { display: flex; gap: 15px; align-items: center; justify-content: space-around; width: 100%; }
@@ -70,6 +71,74 @@
 
         <!-- รายการสินค้า 3 กล่องเรียงลำดับลงมา -->
         <div class="product-list-container">
+
+            <div class="product-brick-outer">
+            <div class="product-brick-inner">
+                <div class="product-title"> อิฐมอญดินเผา 3 รู</div>
+                    <div class="product-top-row">
+                        <img class="product-img" src="https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/itmon-kon-yai-icons---.jpg" alt="อิฐมอญดินเผา 3 รู">
+                        <div class="product-info-box">
+                            <div class="product-spec-row">
+                                <svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M160 48c0-8.8-7.2-16-16-16H16C7.2 32 0 39.2 0 48v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16V48zm0 160c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-96zm336 96H224v32h48c8.8 0 16 7.2 16 16v48h32v-48c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v32zm-144 96h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16h-48v32h192v-64zm144-192H224v32h48c8.8 0 16 7.2 16 16v48h32V208c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48v32c0 8.8 7.2 16 16 16v16zm0 128h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16H224v32h272v-64z"/></svg>
+                                ขนาด: 6 x 10 x 20 ซม.
+                            </div>
+                            <div class="product-spec-row">
+                                <svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M12.4 170.7c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 209.7c16.5-7.8 16.5-31.2 0-39L273.9 64.1c-11.5-5.5-24.9-5.5-36.4 0L12.4 170.7zm0 128c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 337.7c16.5-7.8 16.5-31.2 0-39l-43.1-20.4-177.1 83.8c-14.4 6.8-31.4 6.8-45.8 0L55.5 278.3l-43.1 20.4z"/></svg>
+                                จำนวน: 36 ก้อน / ตร.ม.
+                            </div>
+                            <div class="product-factory-price">ราคารับเอง: ก้อนละ 2.70 บ.</div>
+                            <div class="product-factory-note">*ราคาก่อน vat และยังไม่รวมส่ง</div>
+                    </div>
+                </div>
+
+                <div class="divider-line"></div>
+
+                <div class="search-section">
+                    <div class="search-box-container">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="input3Hole" class="search-input" placeholder="ค้นหา พิมพ์ชื่อจังหวัด เช่น กรุงเทพ..." oninput="handleSearch()">
+                        <div id="suggest3Hole" class="suggestions-list"></div>
+                    </div>
+    
+                    <div id="result3Hole" class="price-result-card">
+                        <div class="truck-price-row">
+                             <div class="truck-name-box">
+                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="#e65100" style="flex-shrink:0;"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm2.5-6.5H17V9.5h1.9l1.6 2z"/></svg>
+                                 <div>
+                                     <div>รถ 6 ล้อ</div>
+                                     <div class="truck-qty">บรรจุ 4,000 ก้อน</div>
+                                 </div>
+                             </div>
+                             <div class="price-value" id="p6-3hole">-</div>
+                        </div>
+                        <div class="truck-price-row">
+                            <div class="truck-name-box">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="#e65100" style="flex-shrink:0;"><path d="M19 8h-2V5H1v12h2c0 1.66 1.34 3 3 3s3-1.34 3-3h3c0 1.66 1.34 3 3 3s3-1.34 3-3h1c0 1.66 1.34 3 3 3s3-1.34 3-3h1v-4l-3-5zm-13 10.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-5H14V9.5h2.5l1.5 2V13.5zm1 5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                                <div>
+                                    <div>รถ 10 ล้อ</div>
+                                    <div class="truck-qty">บรรจุ 8,000 ก้อน</div>
+                                </div>
+                            </div>
+                            <div class="price-value" id="p10-3hole">-</div>
+                        </div>
+                        <div class="truck-price-row">
+                            <div class="truck-name-box">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="#e65100" style="flex-shrink:0;"><path d="M17 4H1v13h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h3v-5l-3-4zm-11 14.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm2.5-6.5H14V9.5h2.9l1.6 2zM23 7h-4v2h4V7zm0 4h-4v2h4v-2z"/></svg>
+                                <div>
+                                    <div>รถพ่วง</div>
+                                    <div class="truck-qty">บรรจุ 18,000 ก้อน</div>
+                                </div>
+                            </div>
+                            <div class="price-value" id="pTr-3hole">-</div>
+                        </div>
+                        
+                        <div class="note-box" id="noteContainer" style="display: none;">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                            <span id="note-3hole">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
                         <!-- กล่องที่ 1: อิฐมอญดินเผา 3 รู (ก๊อปสไตล์สวยจากหน้าแรกมาเลยครับ) -->
             <div class="product-brick-inner-card" style="background-color: #ffffff; padding: 15px; border-radius: 16px; display: flex; flex-direction: column; gap: 0; box-shadow: 0 10px 25px rgba(230,81,0,0.06); width: 100%; border: 1px solid #ffe0b2; margin-top: 10px;">
