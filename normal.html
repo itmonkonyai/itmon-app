@@ -66,9 +66,8 @@
         <!-- ส่วนหัวแอปแบนเนอร์ -->
         <div class="app-header-banner">
             
-            <!-- ปุ่มกลับหน้าแรกสไตล์โมเดิร์นแอป (เปลี่ยนอีโมจิเป็นลูกศรเส้นเรียบหรูแล้วครับ) -->
+            <!-- ปุ่มกลับหน้าแรกสไตล์โมเดิร์นแอป -->
             <a href="index.html" class="back-btn" style="position: absolute; top: 15px; right: 20px; background-color: rgba(255,255,255,0.2); color: #ffffff; padding: 6px 14px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: 500; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); display: flex; align-items: center; gap: 5px;">
-            <!-- รูปไอคอนลูกศรชี้ซ้ายสไตล์มินิมอล คมชัดทุกหน้าจอ -->
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
             กลับหน้าแรก
             </a>
@@ -303,7 +302,7 @@
     
         <!--  ค้นหาราคาจัดส่งแยกอิสระทั้ง 3 กล่องสินค้า -->
     <script>
-        // --- 1. คลังฐานข้อมูลราคาแยกตามประเภทคันรถของแต่ละรุ่น (พี่มาพิมพ์แก้ตัวเลขราคารายจังหวัดตรงนี้ได้เลยครับ) ---
+        // --- 1. คลังฐานข้อมูลราคาแยกตามประเภทคันรถของแต่ละรุ่น ---
         const db3Hole = [
             { name: "กรุงเทพมหานคร", price6: "ก้อนละ 4.40 บ.", price10: "ก้อนละ 4.00 บ.", priceTrailer: "ก้อนละ 3.60 บ.", note: "" },
             { name: "กระบี่", price6: "ก้อนละ 7.00 บ.", price10: "ก้อนละ 5.80 บ.", priceTrailer: "ก้อนละ 4.80 บ.", note: "" },
@@ -548,7 +547,7 @@
             // ถ้าลูกค้าพิมพ์ตัวหนังสือค้างไว้แล้ว ให้หยุดฟังก์ชันนี้ทันทีเพื่อให้ระบบค้นหาปกติทำงานแทน
             if (query !== '') return; 
 
-            // รายชื่อ 10 จังหวัดฮิตจัดส่งบ่อย (พี่สามารถพิมพ์แก้ไขชื่อจังหวัดตรงนี้ได้เลยนะครับ)
+            // รายชื่อ 10 จังหวัดฮิตจัดส่งบ่อย 
             const populars = ["กรุงเทพมหานคร", "นนทบุรี", "ปทุมธานี", "สมุทรปราการ", "สมุทรสาคร", "นครปฐม", "ราชบุรี", "จันทบุรี", "ชลบุรี อ.เมือง", "ชลบุรี อ.บางละมุง(พัทยา)"];
             
             const suggestionsDiv = document.getElementById(suggestId);
