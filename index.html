@@ -96,7 +96,7 @@
                 <div class="search-section">
                     <div class="search-box-container">
                         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <input type="text" id="searchInput" class="search-input" placeholder="ค้นหา พิมพ์ชื่อจังหวัด เช่น กรุงเทพ..." oninput="handleSearch()">
+                        <input type="text" id="searchInput" class="search-input" placeholder="ค้นหา พิมพ์ชื่อจังหวัด เช่น กรุงเทพ..." oninput="handleSearch()" onfocus="showPopularLocations()">
                         <div id="suggestions" class="suggestions-list"></div>
                     </div>
     
@@ -360,6 +360,33 @@
         document.addEventListener('click', function(e) {
             if (e.target.id !== 'searchInput') { document.getElementById('suggestions').style.display = 'none'; }
         });
+
+                // ฟังก์ชันสั่งเด้ง 10 จังหวัดฮิตทันทีเมื่อลูกค้าเอานิ้วจิ้มช่องค้นหา
+        function showPopularLocations() {
+            const query = document.getElementById('searchInput').value.trim();
+            // ถ้าลูกค้าพิมพ์ตัวอักษรค้างไว้แล้ว ให้ระบบค้นหาปกติทำงานแทน ไม่ต้องเด้งจังหวัดฮิตทับครับ
+            if (query !== '') return; 
+            
+            // รายชื่อ 10 จังหวัดฮิตส่งบ่อยของโรงงานพี่ (พี่ปรับเปลี่ยนชื่อในเครื่องหมายคำพูดได้ตามใจชอบเลยครับ)
+            const populars = ["กรุงเทพมหานคร", "นนทบุรี", "ปทุมธานี", "สมุทรปราการ", "สมุทรสาคร", "นครปฐม", "ราชบุรี", "จันทบุรี", "ชลบุรี อ.เมือง", "ชลบุรี อ.บางละมุง(พัทยา)"];
+            
+            const suggestionsDiv = document.getElementById('suggestions');
+            suggestionsDiv.innerHTML = '';
+            
+            // วนลูปดึงรายชื่อ 10 จังหวัดฮิตมาวาดสไลด์ลงมาโชว์
+            populars.forEach(cityName => {
+                const item = locationDatabase.find(loc => loc.name === cityName);
+                if (item) {
+                    const div = document.createElement('div');
+                    div.className = 'suggestion-item';
+                    div.innerText = item.name;
+                    div.onclick = () => selectLocation(item);
+                    suggestionsDiv.appendChild(div);
+                }
+            });
+            suggestionsDiv.style.display = 'block';
+        }
+
     </script>
 </body>
 </html>
