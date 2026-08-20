@@ -104,7 +104,7 @@
                 <div class="search-section">
                     <div class="search-box-container">
                         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <input type="text" id="input3Hole" class="search-input" placeholder="ค้นหา พิมพ์ชื่อจังหวัด เช่น กรุงเทพ..." oninput="searchBrick('3hole')">
+                        <input type="text" id="input3Hole" style="..." placeholder="ค้นหา พิมพ์ชื่อจังหวัด เพื่อเช็กราคาจัดส่ง อิฐ 3 รู..." oninput="searchBrick('3hole')" onfocus="showPopularBrick('3hole')">
                         <div id="suggest3Hole" class="suggestions-list"></div>
                     </div>
     
@@ -172,7 +172,7 @@
                 <div class="search-section">
                     <div class="search-box-container">
                         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <input type="text" id="input2Big" class="search-input" placeholder="ค้นหา พิมพ์ชื่อจังหวัด เช่น กรุงเทพ..." oninput="searchBrick('2big')">
+                        <input type="text" id="input2Big" style="..." placeholder="ค้นหา พิมพ์ชื่อจังหวัด เพื่อเช็กราคาจัดส่ง อิฐ 2 รู..." oninput="searchBrick('2big')" onfocus="showPopularBrick('2big')">
                         <div id="suggest2Big" class="suggestions-list"></div>
                     </div>
     
@@ -240,7 +240,7 @@
                 <div class="search-section">
                     <div class="search-box-container">
                         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <input type="text" id="input2Small" class="search-input" placeholder="ค้นหา พิมพ์ชื่อจังหวัด เช่น กรุงเทพ..." oninput="searchBrick('2small')">
+                        <input type="text" id="input2Small" style="..." placeholder="ค้นหา พิมพ์ชื่อจังหวัด เพื่อเช็กราคาจัดส่ง อิฐ 2 รูเล็ก..." oninput="searchBrick('2small')" onfocus="showPopularBrick('2small')">
                         <div id="suggest2Small" class="suggestions-list"></div>
                     </div>
     
@@ -534,6 +534,42 @@
                 document.getElementById('suggest2Small').style.display = 'none';
             }
         });
+
+                // ฟังก์ชันสั่งเด้ง 10 จังหวัดฮิต ประจำหน้าสอง (แยกตามกล่องสินค้า 3 รุ่นอัตโนมัติ)
+        function showPopularBrick(model) {
+            let inputId, suggestId, database;
+            
+            // ล็อกเป้าหมาย ID และฐานข้อมูลตามรุ่นที่ลูกค้ากำลังเอานิ้วจิ้มช่องค้นหา
+            if (model === '3hole') { inputId = 'input3Hole'; suggestId = 'suggest3Hole'; database = db3Hole; }
+            else if (model === '2big') { inputId = 'input2Big'; suggestId = 'suggest2Big'; database = db2HoleBig; }
+            else if (model === '2small') { inputId = 'input2Small'; suggestId = 'suggest2Small'; database = db2HoleSmall; }
+
+            const query = document.getElementById(inputId).value.trim();
+            // ถ้าลูกค้าพิมพ์ตัวหนังสือค้างไว้แล้ว ให้หยุดฟังก์ชันนี้ทันทีเพื่อให้ระบบค้นหาปกติทำงานแทน
+            if (query !== '') return; 
+
+            // รายชื่อ 10 จังหวัดฮิตจัดส่งบ่อย (พี่สามารถพิมพ์แก้ไขชื่อจังหวัดตรงนี้ได้เลยนะครับ)
+            const populars = ["กรุงเทพมหานคร", "นนทบุรี", "ปทุมธานี", "สมุทรปราการ", "สมุทรสาคร", "พระนครศรีอยุธยา", "ชลบุรี อ.เมือง", "ฉะเชิงเทรา", "นครปฐม", "สระบุรี"];
+            
+            const suggestionsDiv = document.getElementById(suggestId);
+            suggestionsDiv.innerHTML = '';
+            
+            populars.forEach(cityName => {
+                const item = database.find(loc => loc.name === cityName);
+                if (item) {
+                    const div = document.createElement('div');
+                    div.style.padding = '12px 15px';
+                    div.style.cursor = 'pointer';
+                    div.style.fontSize = '14px';
+                    div.style.borderBottom = '1px solid #f5f5f5';
+                    div.innerText = item.name;
+                    div.onclick = () => selectBrickLocation(model, item);
+                    suggestionsDiv.appendChild(div);
+                }
+            });
+            suggestionsDiv.style.display = 'block';
+        }
+
     </script>
 
     
