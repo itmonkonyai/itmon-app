@@ -143,8 +143,8 @@
                 </div>
                 <div id="tPriceNote" style="display: none; font-size: 12px; color: #d32f2f; font-weight: 600; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span id="tPriceNoteText">-</span></div>
             </div>
-
         </div>
+        
 
         <!-- 📦 กล่องสินค้าใหญ่ชิ้นที่ 2: บล็อกปูนถนน / แผ่นทางเท้า (ฝังกรอบและระบบไอคอนแยกส่วนชัดเจน) -->
         <div class="product-brick-inner-card" style="margin-top: 20px;">
@@ -220,9 +220,78 @@
                 </div>
                 <div id="bPriceNote" style="display: none; font-size: 12px; color: #d32f2f; font-weight: 600; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span id="bPriceNoteText">-</span></div>
             </div>
-
         </div>
-        
+
+
+        <!-- 📦 กล่องสินค้าใหญ่ชิ้นที่ 3: ขอบฟุตบาท (สไตล์คมชัด กรอบส้ม และระบบแยก ID ค้นหาเฉพาะรุ่น) -->
+        <div class="product-brick-inner-card" style="margin-top: 20px;">
+            <div class="product-title-header">ขอบฟุตบาท</div>
+            
+            <!-- ปุ่มดรอปดาวน์เลือกสินค้าประจำกล่องที่ 3 (Combobox) -->
+            <div class="combobox-trigger" onclick="openCurbModal()">
+                <span id="selectedCurbLabel">เลือกสินค้า</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+
+            <!-- โซนตรงกลาง: รูปภาพซ้ายติดกรอบส้ม และรายละเอียดสเปกราคาฝั่งขวา (จะเปิดแสดงอัตโนมัติหลังจากลูกค้ากดเลือกสินค้า) -->
+            <div id="curbSpecSection" class="product-top-row" style="display: none;">
+                <!-- ฝั่งซ้าย: รูปภาพตัวอย่างสินค้าขอบฟุตบาทแบบติดกรอบส้มพรีเมียม -->
+                <div style="border: 2px solid #ff9100; border-radius: 10px; padding: 3px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <img class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="ขอบฟุตบาท" style="border: none; border-radius: 6px;">
+                </div>
+                <!-- ฝั่งขวา: รายละเอียดราคา ขนาด น้ำหนัก และการแพ็คพาเลทแยกตามรุ่น -->
+                <div class="product-info-box" style="line-height: 1.6;">
+                    <div class="product-title" id="displayCurbTitle" style="margin-bottom: 2px;">-</div>
+                    <div id="displayCurbPrice" style="font-size: 15px; font-weight: 600; color: #2e7d32;">-</div>
+                    <div class="product-spec-row" id="displayCurbSize" style="margin-top: 4px;"><svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M160 48c0-8.8-7.2-16-16-16H16C7.2 32 0 39.2 0 48v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16V48zm0 160c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-96zm336 96H224v32h48c8.8 0 16 7.2 16 16v48h32v-48c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v32zm-144 96h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16h-48v32h192v-64zm144-192H224v32h48c8.8 0 16 7.2 16 16v48h32V208c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48v32c0 8.8 7.2 16 16 16v16zm0 128h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16H224v32h272v-64z"/></svg>ขนาด: -</div>
+                    <div class="product-spec-row" id="displayCurbWeight"><svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M12.4 170.7c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 209.7c16.5-7.8 16.5-31.2 0-39L273.9 64.1c-11.5-5.5-24.9-5.5-36.4 0L12.4 170.7zm0 128c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 337.7c16.5-7.8 16.5-31.2 0-39l-43.1-20.4-177.1 83.8c-14.4 6.8-31.4 6.8-45.8 0L55.5 278.3l-43.1 20.4z"/></svg>น้ำหนัก: -</div>
+                    <div class="product-factory-note" style="margin-top: 3px; color: #666;">*ราคายังไม่รวมส่ง</div>
+                </div>
+            </div>
+
+            <!-- ข้อความตั้งต้นล็อกตามรูปภาพโชว์ก่อนที่ลูกค้าจะคลิกเลือกขนาดวัสดุ -->
+            <div id="curbDefaultText" class="product-top-row">
+                <div style="border: 2px solid #ff9100; border-radius: 10px; padding: 3px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <img class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="ขอบฟุตบาท" style="border: none; border-radius: 6px;">
+                </div>
+                <div class="product-info-box" style="font-size: 14.5px; color: #555; font-weight: 500; justify-content: center; gap: 4px; line-height: 1.5;">
+                    <div>ความยาว 50 *เฉพาะ 11 x 21 cm</div>
+                    <div>นอกนั้นความยาว 100 cm</div>
+                </div>
+            </div>
+
+            <!-- เส้นคั่นแบ่งสัดส่วนภายในกล่องชิ้นที่ 3 -->
+            <div style="width: 100%; height: 1px; background-color: #f0f0f0; margin: 15px 0;"></div>
+
+            <!-- โซนล่างสุด: กล่องพิมพ์ค้นหาค่าขนส่งประจำกล่องขอบฟุตบาท (เซตแยก ID กันเอ๋อ 100%) -->
+            <div class="search-box-container">
+                <svg style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; z-index: 5;" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="curbTransportInput" class="search-input" placeholder="ค่าขนส่ง" oninput="handleCurbTransportSearch()" onfocus="showPopularCurbTransport()" disabled>
+                <div id="curbTransportSuggest" class="suggestions-list"></div>
+            </div>
+
+            <!-- ตารางแสดงราคาค่ารถส่งด่วนแยก 3 ประเภท ของกล่องที่ 3 (กางตัวเป็นเอกเทศ) -->
+            <div id="curbTransportResult" class="price-result-card">
+                <div class="truck-price-row">
+                     <div class="truck-name-box">
+                         <svg width="20" height="20" viewBox="0 0 24 24" fill="#e65100" style="flex-shrink: 0;"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm2.5-6.5H17V9.5h1.9l1.6 2z"/></svg>
+                         รถ 6 ล้อ
+                     </div>
+                     <div class="price-value" id="cPrice6">-</div>
+                </div>
+                <div class="truck-price-row">
+                    <div class="truck-name-box">🚚 รถ 10-12 ล้อ</div>
+                    <div class="price-value" id="cPrice10">-</div>
+                </div>
+                <div class="truck-price-row">
+                    <div class="truck-name-box">🚚 รถ พ่วง/เทเลอร์</div>
+                    <div class="price-value" id="cPriceTr">-</div>
+                </div>
+                <div id="cPriceNote" style="display: none; font-size: 12px; color: #d32f2f; font-weight: 600; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span id="cPriceNoteText">-</span></div>
+            </div>
+        </div>
+
+   
     </div>
 
     <!-- หน้าต่างป๊อปอัปขาวสำหรับเลือกสินค้าพร้อมช่องค้นหา (Searchable Dropdown Modal) -->
@@ -240,8 +309,6 @@
     </div>
 
 
-    
-
         <!-- หน้าต่างป๊อปอัปขาว (Modal) ชิ้นที่ 2 สำหรับเลือกชนิดบล็อกทางเท้าทั้ง 12 รายการพร้อมช่องค้นหา -->
         <div id="blockModal" class="modal-overlay" onclick="closeBlockModalOutside(event)">
             <div class="modal-content">
@@ -256,6 +323,19 @@
             </div>
         </div>
 
+        <!-- หน้าต่างป๊อปอัปขาว (Modal) ชิ้นที่ 3 สำหรับเลือกขนาดขอบฟุตบาททั้ง 5 รายการพร้อมช่องค้นหา -->
+        <div id="curbModal" class="modal-overlay" onclick="closeCurbModalOutside(event)">
+            <div class="modal-content">
+                <div class="modal-header-title">Select Item</div>
+                <div class="modal-search-box">
+                    <svg style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="curbModalSearchInput" class="modal-search-input" placeholder="ค้นหาขนาดขอบฟุตบาท..." oninput="filterCurbModalItems()">
+                </div>
+                <!-- รายชื่อขอบฟุตบาททั้ง 5 ขนาดจะถูกวาดลงในนี้โดยอัตโนมัติครับ -->
+                <div id="curbModalItemsList" class="modal-list"></div>
+                <button class="modal-close-btn" onclick="closeCurbModal()">CLOSE</button>
+            </div>
+        </div>
         
 
     <!-- แถบปุ่มติดต่อด่วน ลอยล็อกติดขอบล่างสุด -->
@@ -558,7 +638,143 @@
                 if(document.getElementById('blockTransportSuggest')) document.getElementById('blockTransportSuggest').style.display = 'none';
             }
         });
-  
+
+
+
+                // --- 1. คลังฐานข้อมูลสเปกสินค้า 5 รุ่นย่อย ประจำกล่องที่ 3 (ขอบฟุตบาท) ---
+        const curbCatalog = [
+            { id: "curb_11_21", name: "ขอบฟุตบาท 11 x 21 cm", price: "ท่อนละ 81.6 บ.", size: "11 x 21 x 50 ซม.", weight: "30 kg/ท่อน (60 ท่อน/พาเลท)" },
+            { id: "curb_15_15", name: "ขอบฟุตบาท 15 x 15 cm", price: "ท่อนละ - บ.", size: "15 x 15 x 100 ซม.", weight: "- kg/ท่อน" },
+            { id: "curb_15_20", name: "ขอบฟุตบาท 15 x 20 cm", price: "ท่อนละ - บ.", size: "15 x 20 x 100 ซม.", weight: "- kg/ท่อน" },
+            { id: "curb_15_30", name: "ขอบฟุตบาท 15 x 30 cm", price: "ท่อนละ - บ.", size: "15 x 30 x 100 ซม.", weight: "- kg/ท่อน" },
+            { id: "angle_15_30", name: "เข้ามุมใหญ่ 15 x 30 cm", price: "ท่อนละ - บ.", size: "15 x 30 x 100 ซม.", weight: "- kg/ท่อน" }
+        ];
+
+        // --- 2. คลังฐานข้อมูลตารางอัตราค่าจัดส่งรายพื้นที่ สำหรับกล่องขอบฟุตบาทชิ้นที่ 3 ---
+        const curbTransportDatabase = [
+            { name: "กรุงเทพมหานคร", price6: "6,500 บ.", price10: "7,500 บ.", priceTr: "11,000 บ.", note: "" },
+            { name: "กาญจนบุรี อ.เมือง", price6: "6,000 บ.", price10: "7,000 บ.", priceTr: "10,000 บ.", note: "" },
+            { name: "นนทบุรี", price6: "6,500 บ.", price10: "7,500 บ.", priceTr: "11,000 บ.", note: "" },
+            { name: "ปทุมธานี", price6: "6,500 บ.", price10: "7,500 บ.", priceTr: "11,000 บ.", note: "" }
+        ];
+
+        const curbPopularCities = ["กรุงเทพมหานคร", "กาญจนบุรี อ.เมือง", "นนทบุรี", "ปทุมธานี"];
+        let currentSelectedCurb = null;
+
+        // --- 3. ฟังก์ชันเปิด-ปิด หน้าต่างป๊อปอัปเลือกวัสดุกล่องสาม (Modal ฟังก์ชัน) ---
+        function openCurbModal() {
+            document.getElementById('curbModal').style.display = 'flex';
+            document.getElementById('curbModalSearchInput').value = '';
+            renderCurbModalItems(curbCatalog);
+        }
+        function closeCurbModal() { document.getElementById('curbModal').style.display = 'none'; }
+        function closeCurbModalOutside(e) { if(e.target.id === 'curbModal') closeCurbModal(); }
+
+        // วาดแผงตัวเลือกรุ่นขอบฟุตบาททั้ง 5 ขนาด
+        function renderCurbModalItems(items) {
+            const listDiv = document.getElementById('curbModalItemsList');
+            listDiv.innerHTML = '';
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'modal-item';
+                div.innerText = item.name;
+                div.onclick = () => selectCurbItem(item);
+                listDiv.appendChild(div);
+            });
+        }
+
+        // ระบบตัวกรองพิมพ์กล่องคำค้นหาชนิดขอบฟุตบาทในหน้าต่างป๊อปอัปขาว
+        function filterCurbModalItems() {
+            const text = document.getElementById('curbModalSearchInput').value.trim().toLowerCase();
+            const filtered = curbCatalog.filter(item => item.name.toLowerCase().includes(text));
+            renderCurbModalItems(filtered);
+        }
+
+        // --- 4. ฟังก์ชันสลับหยอดราคาและสเปกแปรผัน (ยาว 50 ซม. หรือ 100 ซม.) ขึ้นแสดงผล ---
+        function selectCurbItem(item) {
+            currentSelectedCurb = item;
+            closeCurbModal();
+            
+            // นำข้อมูลราคา ขนาด น้ำหนัก ขอบฟุตบาทรุ่นที่จิ้มไปอัปเดตลงหน้าจอพาร์ทขวา
+            document.getElementById('selectedCurbLabel').innerText = item.name;
+            document.getElementById('displayCurbTitle').innerText = item.name;
+            document.getElementById('displayCurbPrice').innerText = item.price;
+            document.getElementById('displayCurbSize').innerHTML = `<svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M160 48c0-8.8-7.2-16-16-16H16C7.2 32 0 39.2 0 48v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16V48zm0 160c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-96zm336 96H224v32h48c8.8 0 16 7.2 16 16v48h32v-48c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v32zm-144 96h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16h-48v32h192v-64zm144-192H224v32h48c8.8 0 16 7.2 16 16v48h32V208c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48v-32c0 8.8 7.2 16 16 16v16zm0 128h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16H224v32h272v-64z"/></svg>ขนาด: ${item.size}`;
+            document.getElementById('displayCurbWeight').innerHTML = `<svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M12.4 170.7c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 209.7c16.5-7.8 16.5-31.2 0-39L273.9 64.1c-11.5-5.5-24.9-5.5-36.4 0L12.4 170.7zm0 128c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 337.7c16.5-7.8 16.5-31.2 0-39l-43.1-20.4-177.1 83.8c-14.4 6.8-31.4 6.8-45.8 0L55.5 278.3l-43.1 20.4z"/></svg>น้ำหนัก: ${item.weight}`;
+
+            // เปิดแสดงแผงสเปก สลับซ่อนข้อความเริ่มต้น และปลดล็อกเปิดช่องพิมพ์ค้นหาจังหวัดค่าขนส่ง
+            document.getElementById('curbDefaultText').style.display = 'none';
+            document.getElementById('curbSpecSection').style.display = 'flex';
+            document.getElementById('curbTransportInput').removeAttribute('disabled');
+            document.getElementById('curbTransportInput').placeholder = "พิมพ์ชื่อจังหวัด เพื่อเช็กราคาจัดส่งขอบฟุตบาท...";
+            
+            // ล้างตารางสถิติจังหวัดเก่าออกเพื่อเตรียมรับคีย์ใหม่
+            document.getElementById('curbTransportInput').value = '';
+            document.getElementById('curbTransportResult').style.display = 'none';
+        }
+        // --- 5. ฟังก์ชันระบบการพิมพ์ค้นหาจังหวัดค่ารถจัดส่งประจำกล่องขอบฟุตบาท ---
+        function handleCurbTransportSearch() {
+            const query = document.getElementById('curbTransportInput').value.trim();
+            const suggestDiv = document.getElementById('curbTransportSuggest');
+            suggestDiv.innerHTML = '';
+            if (query === '') { suggestDiv.style.display = 'none'; return; }
+
+            const filtered = curbTransportDatabase.filter(item => item.name.includes(query));
+            if (filtered.length > 0) {
+                filtered.forEach(item => {
+                    const div = document.createElement('div');
+                    div.style.padding = '12px 15px'; div.style.cursor = 'pointer'; div.style.fontSize = '14px'; div.style.borderBottom = '1px solid #f5f5f5';
+                    div.innerText = item.name;
+                    div.onclick = () => selectCurbTransportLocation(item);
+                    suggestDiv.appendChild(div);
+                });
+                suggestDiv.style.display = 'block';
+            } else { suggestDiv.style.display = 'none'; }
+        }
+
+        // ระบบสั่งสไลด์เด้ง 10 จังหวัดแนะนำยอดนิยมทันทีเมื่อลูกค้าจิ้มช่องค้นหาขนส่งกล่องสาม
+        function showPopularCurbTransport() {
+            const query = document.getElementById('curbTransportInput').value.trim();
+            if (query !== '') return;
+            const suggestDiv = document.getElementById('curbTransportSuggest');
+            suggestDiv.innerHTML = '';
+            curbPopularCities.forEach(cityName => {
+                const item = curbTransportDatabase.find(loc => loc.name === cityName);
+                if (item) {
+                    const div = document.createElement('div');
+                    div.style.padding = '12px 15px'; div.style.cursor = 'pointer'; div.style.fontSize = '14px'; div.style.borderBottom = '1px solid #f5f5f5';
+                    div.innerText = item.name;
+                    div.onclick = () => selectCurbTransportLocation(item);
+                    suggestDiv.appendChild(div);
+                }
+            });
+            suggestDiv.style.display = 'block';
+        }
+
+        // หยอดค่าตัวเลขราคาลงในแผงตารางรถก้นกล่องที่ 3 ขอบฟุตบาท
+        function selectCurbTransportLocation(item) {
+            document.getElementById('curbTransportInput').value = item.name;
+            document.getElementById('curbTransportSuggest').style.display = 'none';
+            document.getElementById('cPrice6').innerText = "เที่ยวละ " + item.price6;
+            document.getElementById('cPrice10').innerText = "เที่ยวละ " + item.price10;
+            document.getElementById('cPriceTr').innerText = "เที่ยวละ " + item.priceTr;
+            
+            const noteBox = document.getElementById('cPriceNote');
+            if (item.note) {
+                document.getElementById('cPriceNoteText').innerText = item.note;
+                noteBox.style.display = 'flex';
+            } else { noteBox.style.display = 'none'; }
+            
+            document.getElementById('curbTransportResult').style.display = 'block';
+        }
+
+        // เอานิ้วคลิกพื้นที่ว่างเปล่าส่วนอื่น ให้แถบเสนอแนะรายชื่อจังหวัดหุบปิดลงไปอัตโนมัติ
+        document.addEventListener('click', function(e) {
+            if (e.target.id !== 'curbTransportInput') {
+                if(document.getElementById('curbTransportSuggest')) document.getElementById('curbTransportSuggest').style.display = 'none';
+            }
+        });
+
         
     </script>
 
