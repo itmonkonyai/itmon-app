@@ -1,1 +1,273 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หมวดวัสดุอื่นๆ</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+        <!-- โค้ดสำหรับทำไอคอนโชว์บนแท็บเบราว์เซอร์คอมพิวเตอร์ -->
+    <link rel="icon" type="image/png" href="https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/icon-web-app.png">
+    <!-- โค้ดสำหรับทำโลโก้แอปเมื่อลูกค้ากด "เพิ่มไปยังหน้าจอโฮม" บน iPhone/Android -->
+    <link rel="apple-touch-icon" href="https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/icon-web-app.png">
+  
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Kanit', sans-serif; }
+        body { background-color: #f4f6f8; display: flex; justify-content: center; }
+        .app-container { width: 100%; max-width: 480px; background-color: #fffbf7; min-height: 100vh; position: relative; padding-bottom: 120px; }
+        .app-header-banner { background: linear-gradient(135deg, #d84315, #e65100); padding: 35px 20px 50px 20px; text-align: left; width: 100%; }
+        .header-banner-title { font-size: 20px; font-weight: 600; color: #ffffff; }
+        
+        /* สไตล์กล่องสินค้าใหญ่ครอบทั้งหมด */
+        .product-brick-inner-card { background-color: #ffffff; padding: 15px; border-radius: 16px; display: flex; flex-direction: column; gap: 0; box-shadow: 0 10px 25px rgba(230,81,0,0.06); width: 100%; border: 1px solid #ffe0b2; margin-top: -30px; position: relative; z-index: 10; }
+        .product-top-row { display: flex; gap: 15px; align-items: center; justify-content: flex-start; width: 100%; margin-top: 12px; }
+        .product-img { width: 110px; height: 110px; object-fit: cover; border-radius: 8px; border: 1px solid #f5f5f5; flex-shrink: 0; }
+        .product-info-box { flex: 1; display: flex; flex-direction: column; gap: 4px; text-align: left; align-items: flex-start; }
+        .product-title-header { font-size: 16px; font-weight: 600; color: #333; width: 100%; text-align: left; }
+        .product-title { font-size: 17px; font-weight: 600; color: #e65100; }
+        .product-spec-row { font-size: 12px; color: #666; display: flex; align-items: center; gap: 4px; line-height: 1.5; }
+        .product-spec-svg { width: 14px; height: 14px; flex-shrink: 0; margin-right: 4px; }
+        .product-factory-price { font-size: 15px; font-weight: 600; color: #2e7d32; margin-top: 2px; }
+        .product-factory-note { font-size: 11px; color: #777; font-weight: 500; }
 
+        /* สไตล์ปุ่มกดเปิดหน้าต่างเลือกสินค้า Combobox */
+        .combobox-trigger { width: 100%; padding: 12px 15px; border-radius: 10px; border: 1px solid #ddd; background: #fff; font-size: 15px; font-weight: 500; color: #333; display: flex; justify-content: space-between; align-items: center; cursor: pointer; margin-top: 10px; }
+        
+        /* สไตล์หน้าต่างป๊อปอัปเลือกสินค้า Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
+        .modal-content { background: #ffffff; width: 100%; max-width: 400px; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+        .modal-header-title { font-size: 18px; font-weight: 600; color: #333; margin-bottom: 12px; text-align: left; }
+        .modal-search-box { width: 100%; position: relative; margin-bottom: 12px; }
+        .modal-search-input { width: 100%; padding: 10px 10px 10px 35px; border-radius: 8px; border: 1px solid #ddd; font-size: 14px; outline: none; }
+        .modal-list { max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; width: 100%; }
+        .modal-item { width: 100%; padding: 12px 10px; font-size: 14px; text-align: left; border-bottom: 1px solid #f5f5f5; cursor: pointer; color: #444; }
+        .modal-item:active { background-color: #fffbf7; color: #e65100; font-weight: 600; }
+        .modal-close-btn { align-self: flex-end; margin-top: 15px; background: none; border: none; font-size: 14px; font-weight: 600; color: #333; cursor: pointer; padding: 5px 10px; letter-spacing: 0.5px; }
+
+        /* สไตล์ช่องค้นหาจังหวัดค่าขนส่ง */
+        .search-box-container { position: relative; margin-top: 15px; width: 100%; z-index: 15; }
+        .search-input { width: 100%; padding: 12px 12px 12px 42px; border-radius: 10px; border: 1px solid #ddd; font-size: 15px; outline: none; }
+        .suggestions-list { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ddd; border-radius: 8px; max-height: 200px; overflow-y: auto; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: none; }
+        
+        /* ตารางแสดงค่าจัดส่งรถ 3 ประเภท */
+        .price-result-card { display: none; background: #ffffff; padding: 15px; border-radius: 16px; border: 1px solid #ffe0b2; box-shadow: 0 10px 25px rgba(230,81,0,0.03); flex-direction: column; gap: 12px; margin-top: 12px; width: 100%; }
+        .truck-price-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid #f9f9f9; }
+        .truck-name-box { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #444; }
+        .price-value { font-size: 16px; font-weight: 600; color: #2e7d32; }
+
+        /* แถบปุ่มติดต่อด่วนล็อกขอบล่างสุด */
+        .fixed-bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; display: flex; gap: 10px; padding: 12px 15px 25px 15px; background-color: rgba(255,255,255,0.96); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); z-index: 999; border-top: 1px solid #ffe0b2; }
+        .btn-fixed { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; color: #fff; }
+        .btn-fixed-line { background-color: #06c755; }
+        .btn-fixed-phone { background-color: #e65100; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- ส่วนหัวแอปแบนเนอร์ -->
+        <div class="app-header-banner">
+            <h1 class="header-banner-title">เช็กราคาวัสดุอื่นๆ</h1>
+        </div>
+
+        <div style="padding: 0 15px; width: 100%;">
+            
+            <!-- 📦 กล่องสินค้าใหญ่: ผนังสำเร็จรูป (INNOWALL) -->
+            <div class="product-brick-inner-card">
+                <div class="product-title-header">ผนังสำเร็จรูป (INNOWALL)</div>
+                
+                <!-- ปุ่มดรอปดาวน์เลือกสินค้า (Combobox) -->
+                <div class="combobox-trigger" onclick="openItemModal()">
+                    <span id="selectedItemLabel">เลือกสินค้า</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+
+                <!-- โซนตรงกลาง: รูปภาพซ้าย สเปกและกำลังบรรจุขวา (จะโชว์หลังจากเลือกขนาดแล้ว) -->
+                <div id="productSpecSection" class="product-top-row" style="display: none;">
+                    <img class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="ผนังสำเร็จรูป">
+                    <div class="product-info-box">
+                        <div class="product-title" id="displayTitle">ความหนา - cm</div>
+                        <div class="product-factory-price" id="displayPrice">ราคา - บ./ตร.ม.</div>
+                        <div class="product-spec-row" id="displayWeight" style="margin-top:4px;">น้ำหนัก - kg/ตร.ม.</div>
+                        <div class="product-spec-row" id="displayTruckQty" style="color:#e65100; font-weight:500;">-</div>
+                        <div class="product-factory-note" style="margin-top:2px;">*ราคายังไม่รวมส่ง</div>
+                    </div>
+                </div>
+
+                <!-- เส้นคั่นแบ่งสัดส่วนภายในกล่อง -->
+                <div style="width: 100%; height: 1px; background-color: #f0f0f0; margin: 15px 0;"></div>
+
+                <!-- โซนล่าง: กล่องพิมพ์ค้นหาค่าขนส่งรายจังหวัด -->
+                <div class="search-box-container">
+                    <svg style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; z-index: 5;" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="transportInput" class="search-input" placeholder="ค่าขนส่ง" oninput="handleTransportSearch()" onfocus="showPopularTransport()" disabled>
+                    <div id="transportSuggest" class="suggestions-list"></div>
+                </div>
+
+                <!-- ตารางแสดงราคาค่ารถส่งด่วนแยก 3 ประเภท -->
+                <div id="transportResult" class="price-result-card">
+                    <div class="truck-price-row">
+                         <div class="truck-name-box">🚚 รถ 6 ล้อ</div>
+                         <div class="price-value" id="tPrice6">-</div>
+                    </div>
+                    <div class="truck-price-row">
+                        <div class="truck-name-box">🚚 รถ 10-12 ล้อ</div>
+                        <div class="price-value" id="tPrice10">-</div>
+                    </div>
+                    <div class="truck-price-row">
+                        <div class="truck-name-box">🚚 รถพ่วง / เทเลอร์</div>
+                        <div class="price-value" id="tPriceTr">-</div>
+                    </div>
+                    <div id="tPriceNote" style="display: none; font-size: 12px; color: #d32f2f; font-weight: 600; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span id="tPriceNoteText">-</span></div>
+                </div>
+
+            </div>
+        </div>
+
+    <!-- 🧠 สมองควบคุมระบบสลับสเปกสินค้าและคำนวณค่ารถจัดส่งรายจังหวัด (ตัวเต็มร้อยเปอร์เซ็นต์) -->
+    <script>
+        // --- 1. คลังสเปกสินค้าและความจุรถแยกตามขนาดความหนา (พี่แก้ไขตัวเลขตรงนี้ได้เลยครับ) ---
+        const productCatalog = [
+            { id: "7.5", name: "ความหนา 7.5 cm", price: "ราคา 505 บ./ตร.ม.", weight: "น้ำหนัก 60-65 kg/ตร.ม.", qtyNote: "6 ล้อ 115, 10 ล้อ 216, รถพ่วง 432 (ตร.ม.)" },
+            { id: "9", name: "ความหนา 9 cm", price: "ราคา 550 บ./ตร.ม.", weight: "น้ำหนัก 70-75 kg/ตร.ม.", qtyNote: "6 ล้อ 95, 10 ล้อ 180, รถพ่วง 360 (ตร.ม.)" },
+            { id: "10", name: "ความหนา 10 cm", price: "ราคา 600 บ./ตร.ม.", weight: "น้ำหนัก 80-85 kg/ตร.ม.", qtyNote: "6 ล้อ 85, 10 ล้อ 160, รถพ่วง 320 (ตร.ม.)" },
+            { id: "12.5", name: "ความหนา 12.5 cm", price: "ราคา 680 บ./ตร.ม.", weight: "น้ำหนัก 95-100 kg/ตร.ม.", qtyNote: "6 ล้อ 70, 10 ล้อ 135, รถพ่วง 270 (ตร.ม.)" },
+            { id: "15", name: "ความหนา 15 cm", price: "ราคา 750 บ./ตร.ม.", weight: "น้ำหนัก 110-115 kg/ตร.ม.", qtyNote: "6 ล้อ 60, 10 ล้อ 115, รถพ่วง 230 (ตร.ม.)" },
+            { id: "20", name: "ความหนา 20 cm", price: "ราคา 900 บ./ตร.ม.", weight: "น้ำหนัก 140-150 kg/ตร.ม.", qtyNote: "6 ล้อ 45, 10 ล้อ 90, รถพ่วง 180 (ตร.ม.)" },
+            { id: "cline", name: "ผนังเสริม c-line (สั่งผลิต)", price: "ราคาตามตกลง บ./ตร.ม.", weight: "น้ำหนักระบุตามแบบ", qtyNote: "ความจุระบุตามรอบจัดส่ง" }
+        ];
+
+        // --- 2. คลังฐานข้อมูลราคาค่าจัดส่งแยกตามขนาดรถ (พี่พิมพ์เพิ่มจังหวัดยาวลงมาตรงนี้ได้เลยครับ) ---
+        const transportDatabase = [
+            { name: "กรุงเทพมหานคร", price6: "6,500 บ.", price10: "7,500 บ.", priceTr: "11,000 บ.", note: "" },
+            { name: "กาญจนบุรี อ.เมือง", price6: "6,000 บ.", price10: "7,000 บ.", priceTr: "10,000 บ.", note: "" },
+            { name: "นนทบุรี", price6: "6,500 บ.", price10: "7,500 บ.", priceTr: "11,000 บ.", note: "" },
+            { name: "ปทุมธานี", price6: "6,500 บ.", price10: "7,500 บ.", priceTr: "11,000 บ.", note: "" }
+        ];
+
+        // รายชื่อ 10 จังหวัดฮิตจัดส่งบ่อยเมื่อเอานิ้วจิ้มช่องค้นหาค่าขนส่ง
+        const popularCities = ["กรุงเทพมหานคร", "กาญจนบุรี อ.เมือง", "นนทบุรี", "ปทุมธานี"];
+
+        let selectedProduct = null;
+
+        // --- 3. ฟังก์ชันควบคุมหน้าต่างป๊อปอัปเลือกสินค้า (Searchable Dropdown Modal) ---
+        function openItemModal() {
+            document.getElementById('itemModal').style.display = 'flex';
+            document.getElementById('modalSearchInput').value = '';
+            renderModalItems(productCatalog);
+        }
+        function closeItemModal() { 
+            document.getElementById('itemModal').style.display = 'none'; 
+        }
+        function closeItemModalOutside(e) { 
+            if(e.target.id === 'itemModal') closeItemModal(); 
+        }
+
+        // วาดรายชื่อความหนาลงบนหน้าต่างขาว
+        function renderModalItems(items) {
+            const listDiv = document.getElementById('modalItemsList');
+            listDiv.innerHTML = '';
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'modal-item';
+                div.innerText = item.name;
+                div.onclick = () => selectProductItem(item);
+                listDiv.appendChild(div);
+            });
+        }
+
+        // ระบบตัวคัดกรองพิมพ์คำค้นหาขนาดความหนาภายในหน้าต่างขาว
+        function filterModalItems() {
+            const text = document.getElementById('modalSearchInput').value.trim().toLowerCase();
+            const filtered = productCatalog.filter(item => item.name.toLowerCase().includes(text));
+            renderModalItems(filtered);
+        }
+
+        // --- 4. ฟังก์ชันยิงสลับค่าสเปกรูปภาพตัวเลขความจุรถเมื่อลูกค้ากดเลือกสินค้า ---
+        function selectProductItem(item) {
+            selectedProduct = item;
+            closeItemModal();
+            
+            // นำสเปกและราคาไปหยอดลงหน้าหลักของกล่องที่ 1
+            document.getElementById('selectedItemLabel').innerText = item.name;
+            document.getElementById('displayTitle').innerText = item.name;
+            document.getElementById('displayPrice').innerText = item.price;
+            document.getElementById('displayWeight').innerText = item.weight;
+            document.getElementById('displayTruckQty').innerText = item.qtyNote;
+            
+            // เปิดแผงรูปภาพข้อมูลสเปก และปลดล็อกช่องค้นหาจังหวัดค่าขนส่งให้เปิดทำงานได้
+            document.getElementById('productSpecSection').style.display = 'flex';
+            document.getElementById('transportInput').removeAttribute('disabled');
+            document.getElementById('transportInput').placeholder = "พิมพ์ชื่อจังหวัด เพื่อเช็กราคาจัดส่ง...";
+            
+            // ล้างค่าข้อมูลการค้นหาจังหวัดเดิมออกเพื่อรอการค้นหาค่ารถรอบใหม่
+            document.getElementById('transportInput').value = '';
+            document.getElementById('transportResult').style.display = 'none';
+        }
+
+        // --- 5. ฟังก์ชันระบบค้นหาจังหวัดค่ารถจัดส่งรายภูมิภาค ---
+        function handleTransportSearch() {
+            const query = document.getElementById('transportInput').value.trim();
+            const suggestDiv = document.getElementById('transportSuggest');
+            suggestDiv.innerHTML = '';
+            if (query === '') { suggestDiv.style.display = 'none'; return; }
+
+            const filtered = transportDatabase.filter(item => item.name.includes(query));
+            if (filtered.length > 0) {
+                filtered.forEach(item => {
+                    const div = document.createElement('div');
+                    div.style.padding = '12px 15px'; div.style.cursor = 'pointer'; div.style.fontSize = '14px'; div.style.borderBottom = '1px solid #f5f5f5';
+                    div.innerText = item.name;
+                    div.onclick = () => selectTransportLocation(item);
+                    suggestDiv.appendChild(div);
+                });
+                suggestDiv.style.display = 'block';
+            } else { suggestDiv.style.display = 'none'; }
+        }
+
+        // ฟังก์ชันเด้งจังหวัดส่งบ่อยขึ้นมารอทันทีที่นิ้วสัมผัสช่องขนส่ง
+        function showPopularTransport() {
+            const query = document.getElementById('transportInput').value.trim();
+            if (query !== '') return;
+            const suggestDiv = document.getElementById('transportSuggest');
+            suggestDiv.innerHTML = '';
+            popularCities.forEach(cityName => {
+                const item = transportDatabase.find(loc => loc.name === cityName);
+                if (item) {
+                    const div = document.createElement('div');
+                    div.style.padding = '12px 15px'; div.style.cursor = 'pointer'; div.style.fontSize = '14px'; div.style.borderBottom = '1px solid #f5f5f5';
+                    div.innerText = item.name;
+                    div.onclick = () => selectTransportLocation(item);
+                    suggestDiv.appendChild(div);
+                }
+            });
+            suggestDiv.style.display = 'block';
+        }
+
+        // ฟังก์ชันหยอดราคาค่ารถจัดส่งทั้ง 3 ประเภทแสดงแถวบนหน้าจอ
+        function selectTransportLocation(item) {
+            document.getElementById('transportInput').value = item.name;
+            document.getElementById('transportSuggest').style.display = 'none';
+            document.getElementById('tPrice6').innerText = "เที่ยวละ " + item.price6;
+            document.getElementById('tPrice10').innerText = "เที่ยวละ " + item.price10;
+            document.getElementById('tPriceTr').innerText = "เที่ยวละ " + item.priceTr;
+            
+            const noteBox = document.getElementById('tPriceNote');
+            if (item.note) {
+                document.getElementById('tPriceNoteText').innerText = item.note;
+                noteBox.style.display = 'flex';
+            } else { noteBox.style.display = 'none'; }
+            
+            document.getElementById('transportResult').style.display = 'block';
+        }
+
+        // คลิกพื้นที่ส่วนอื่นที่ไม่ใช่ช่องค้นหา ให้แผ่นป๊อปอัปจังหวัดรายชื่อหุบเก็บลงไป
+        document.addEventListener('click', function(e) {
+            if (e.target.id !== 'transportInput') {
+                if(document.getElementById('transportSuggest')) document.getElementById('transportSuggest').style.display = 'none';
+            }
+        });
+    </script>
+
+    
+</body>
+</html>
