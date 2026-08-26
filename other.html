@@ -64,64 +64,85 @@
 <body>
 
     <div class="app-container">
-        <!-- ส่วนหัวแอปแบนเนอร์ -->
-        <div class="app-header-banner">
-            <h1 class="header-banner-title">เช็กราคาวัสดุอื่นๆ</h1>
-        </div>
+    <!-- ส่วนหัวแอปแบนเนอร์ -->
+    <div class="app-header-banner">
+        <h1 class="header-banner-title">เช็กราคารวมส่งรายจังหวัด</h1>
+    </div>
 
-        <div style="padding: 0 15px; width: 100%;">
+    <div style="padding: 0 15px; width: 100%;">
+        
+        <!-- 📦 กล่องสินค้าใหญ่: ผนังสำเร็จรูป (INNOWALL) -->
+        <div class="product-brick-inner-card">
+            <div class="product-title-header">ผนังสำเร็จรูป (INNOWALL)</div>
             
-            <!-- 📦 กล่องสินค้าใหญ่: ผนังสำเร็จรูป (INNOWALL) -->
-            <div class="product-brick-inner-card">
-                <div class="product-title-header">ผนังสำเร็จรูป (INNOWALL)</div>
-                
-                <!-- ปุ่มดรอปดาวน์เลือกสินค้า (Combobox) -->
-                <div class="combobox-trigger" onclick="openItemModal()">
-                    <span id="selectedItemLabel">เลือกสินค้า</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </div>
-
-                <!-- โซนตรงกลาง: รูปภาพซ้าย สเปกและกำลังบรรจุขวา (จะโชว์หลังจากเลือกขนาดแล้ว) -->
-                <div id="productSpecSection" class="product-top-row" style="display: none;">
-                    <img class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="ผนังสำเร็จรูป">
-                    <div class="product-info-box">
-                        <div class="product-title" id="displayTitle">ความหนา - cm</div>
-                        <div class="product-factory-price" id="displayPrice">ราคา - บ./ตร.ม.</div>
-                        <div class="product-spec-row" id="displayWeight" style="margin-top:4px;">น้ำหนัก - kg/ตร.ม.</div>
-                        <div class="product-spec-row" id="displayTruckQty" style="color:#e65100; font-weight:500;">-</div>
-                        <div class="product-factory-note" style="margin-top:2px;">*ราคายังไม่รวมส่ง</div>
-                    </div>
-                </div>
-
-                <!-- เส้นคั่นแบ่งสัดส่วนภายในกล่อง -->
-                <div style="width: 100%; height: 1px; background-color: #f0f0f0; margin: 15px 0;"></div>
-
-                <!-- โซนล่าง: กล่องพิมพ์ค้นหาค่าขนส่งรายจังหวัด -->
-                <div class="search-box-container">
-                    <svg style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; z-index: 5;" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    <input type="text" id="transportInput" class="search-input" placeholder="ค่าขนส่ง" oninput="handleTransportSearch()" onfocus="showPopularTransport()" disabled>
-                    <div id="transportSuggest" class="suggestions-list"></div>
-                </div>
-
-                <!-- ตารางแสดงราคาค่ารถส่งด่วนแยก 3 ประเภท -->
-                <div id="transportResult" class="price-result-card">
-                    <div class="truck-price-row">
-                         <div class="truck-name-box">🚚 รถ 6 ล้อ</div>
-                         <div class="price-value" id="tPrice6">-</div>
-                    </div>
-                    <div class="truck-price-row">
-                        <div class="truck-name-box">🚚 รถ 10-12 ล้อ</div>
-                        <div class="price-value" id="tPrice10">-</div>
-                    </div>
-                    <div class="truck-price-row">
-                        <div class="truck-name-box">🚚 รถพ่วง / เทเลอร์</div>
-                        <div class="price-value" id="tPriceTr">-</div>
-                    </div>
-                    <div id="tPriceNote" style="display: none; font-size: 12px; color: #d32f2f; font-weight: 600; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span id="tPriceNoteText">-</span></div>
-                </div>
-
+            <!-- ปุ่มดรอปดาวน์เลือกสินค้า (Combobox) -->
+            <div class="combobox-trigger" onclick="openItemModal()">
+                <span id="selectedItemLabel">เลือกสินค้า</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </div>
+
+            <!-- โซนตรงกลาง: รูปภาพซ้าย สเปกและกำลังบรรจุขวา (จะโชว์หลังจากเลือกขนาดแล้ว) -->
+            <div id="productSpecSection" class="product-top-row" style="display: none;">
+                <img class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="ผนังสำเร็จรูป">
+                <div class="product-info-box">
+                    <div class="product-title" id="displayTitle">ความหนา - cm</div>
+                    <div class="product-factory-price" id="displayPrice">ราคา - บ./ตร.ม.</div>
+                    <div class="product-spec-row" id="displayWeight" style="margin-top:4px;">น้ำหนัก - kg/ตร.ม.</div>
+                    <div class="product-spec-row" id="displayTruckQty" style="color:#e65100; font-weight:500;">-</div>
+                    <div class="product-factory-note" style="margin-top:2px;">*ราคายังไม่รวมส่ง</div>
+                </div>
+            </div>
+
+            <!-- เส้นคั่นแบ่งสัดส่วนภายในกล่อง -->
+            <div style="width: 100%; height: 1px; background-color: #f0f0f0; margin: 15px 0;"></div>
+
+            <!-- โซนล่าง: กล่องพิมพ์ค้นหาค่าขนส่งรายจังหวัด -->
+            <div class="search-box-container">
+                <svg style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; z-index: 5;" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="transportInput" class="search-input" placeholder="ค่าขนส่ง" oninput="handleTransportSearch()" onfocus="showPopularTransport()" disabled>
+                <div id="transportSuggest" class="suggestions-list"></div>
+            </div>
+
+            <!-- ตารางแสดงราคาค่ารถส่งด่วนแยก 3 ประเภท -->
+            <div id="transportResult" class="price-result-card">
+                <div class="truck-price-row">
+                     <div class="truck-name-box">🚚 รถ 6 ล้อ</div>
+                     <div class="price-value" id="tPrice6">-</div>
+                </div>
+                <div class="truck-price-row">
+                    <div class="truck-name-box">🚚 รถ 10-12 ล้อ</div>
+                    <div class="price-value" id="tPrice10">-</div>
+                </div>
+                <div class="truck-price-row">
+                    <div class="truck-name-box">🚚 รถ พ่วง/เทเลอร์</div>
+                    <div class="price-value" id="tPriceTr">-</div>
+                </div>
+                <div id="tPriceNote" style="display: none; font-size: 12px; color: #d32f2f; font-weight: 600; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span id="tPriceNoteText">-</span></div>
+            </div>
+
         </div>
+    </div>
+
+    <!-- หน้าต่างป๊อปอัปขาวสำหรับเลือกสินค้าพร้อมช่องค้นหา (Searchable Dropdown Modal) -->
+    <div id="itemModal" class="modal-overlay" onclick="closeItemModalOutside(event)">
+        <div class="modal-content">
+            <div class="modal-header-title">Select Item</div>
+            <div class="modal-search-box">
+                <svg style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="ค้นหาขนาดความหนา..." oninput="filterModalItems()">
+            </div>
+            <!-- รายการความหนาที่เด้งโชว์ให้จิ้มเลือก -->
+            <div id="modalItemsList" class="modal-list"></div>
+            <button class="modal-close-btn" onclick="closeItemModal()">CLOSE</button>
+        </div>
+    </div>
+
+    <!-- แถบปุ่มติดต่อด่วน ลอยล็อกติดขอบล่างสุด -->
+    <div class="fixed-bottom-bar">
+        <a href="https://line.me" target="_blank" class="btn-fixed btn-fixed-line">💬 ทักแชท LINE</a>
+        <a href="tel:+66843886044" class="btn-fixed btn-fixed-phone">📞 โทรสอบถาม</a>
+    </div>
+    </div>
 
     <!-- 🧠 สมองควบคุมระบบสลับสเปกสินค้าและคำนวณค่ารถจัดส่งรายจังหวัด (ตัวเต็มร้อยเปอร์เซ็นต์) -->
     <script>
