@@ -80,7 +80,6 @@
         <div class="product-brick-inner-card" style="position: relative; z-index: 12 !important;">
             <div class="product-title-header">ผนังสำเร็จรูป (INNOWALL)</div>
                     <div class="product-top-row">
-                        <img class="product-img" src="https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/itmon-normal-3hole.jpg" alt="ผนังสำเร็จรูป">
                         <div class="product-info-box">
                             <div class="product-spec-row">
                                 <svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M160 48c0-8.8-7.2-16-16-16H16C7.2 32 0 39.2 0 48v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16V48zm0 160c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-96zm336 96H224v32h48c8.8 0 16 7.2 16 16v48h32v-48c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v32zm-144 96h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16h-48v32h192v-64zm144-192H224v32h48c8.8 0 16 7.2 16 16v48h32V208c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48v32c0 8.8 7.2 16 16 16v16zm0 128h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16H224v32h272v-64z"/></svg>
@@ -178,7 +177,7 @@
             <div id="blockSpecSection" class="product-top-row" style="display: none;">
                 <!-- ฝั่งซ้าย: รูปภาพตัวอย่างสินค้าแบบติดกรอบส้มหรูหรา -->
                 <div style="border: 2px solid #ff9100; border-radius: 10px; padding: 3px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                    <img class="product-img" src="https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/itmon-normal-3hole.jpg" alt="บล็อกปูนถนน" style="border: none; border-radius: 6px;">
+                    <img id="blockProductImg" class="product-img" src="https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/itmon-normal-3hole.jpg" alt="บล็อกปูนถนน" style="border: none; border-radius: 6px;">
                 </div>
                 <!-- ฝั่งขวา: รายละเอียดเฉดราคาแยกตามสี ขนาด และน้ำหนักก้อน -->
                 <div class="product-info-box" id="blockInfoText" style="line-height: 1.6;">
@@ -255,7 +254,7 @@
             <div id="curbSpecSection" class="product-top-row" style="display: none;">
                 <!-- ฝั่งซ้าย: รูปภาพตัวอย่างสินค้าขอบฟุตบาทแบบติดกรอบส้มพรีเมียม -->
                 <div style="border: 2px solid #ff9100; border-radius: 10px; padding: 3px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                    <img class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="ขอบฟุตบาท" style="border: none; border-radius: 6px;">
+                    <img id="curbProductImg" class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="ขอบฟุตบาท" style="border: none; border-radius: 6px;">
                 </div>
                 <!-- ฝั่งขวา: รายละเอียดราคา ขนาด น้ำหนัก และการแพ็คพาเลทแยกตามรุ่น -->
                 <div class="product-info-box" style="line-height: 1.6;">
@@ -520,18 +519,18 @@
 
         // --- 1. คลังฐานข้อมูลสินค้า 12 ชนิดย่อย ประจำกล่องที่ 2 (บล็อกปูนถนน) ---
         const blockCatalog = [
-            { id: "worm", name: "ตัวหนอน", colors: ["สีปูน/เทา ก้อนละ 6.4 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 7.6 บ.", "สีส้ม/เหลือง ก้อนละ 7.9 บ.", "สีเขียว/ฟ้า ก้อนละ 10.2 บ."], size: "11.25 x 22.50 x 6 ซม.", weight: "3-3.3 kg/ก้อน (40 ก้อน/ตร.ม.)" },
-            { id: "octagon", name: "แปดเหลี่ยม", colors: ["สีเทา ก้อนละ - บ.", "สีอื่น ๆ ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน" },
-            { id: "hexagon_s", name: "หกเหลี่ยม (เล็ก)", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน" },
-            { id: "hexagon_l", name: "หกเหลี่ยม (ใหญ่)", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน" },
-            { id: "dice", name: "ลูกเต๋า (ใช้คู่แปดเหลี่ยม)", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน" },
-            { id: "i_block", name: "ตัวไอ", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน" },
-            { id: "sila", name: "ศิลาเหลี่ยม 10 x 20 cm", colors: ["ก้อนละ - บ."], size: "10 x 20 ซม.", weight: "- kg/ก้อน" },
-            { id: "magic", name: "คทา", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน" },
-            { id: "grass", name: "บล็อกปูสนามหญ้า", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน" },
-            { id: "walk_20", name: "แผ่นทางเท้า 20 x 20 cm", colors: ["แผ่นละ - บ."], size: "20 x 20 ซม.", weight: "- kg/แผ่น" },
-            { id: "walk_30", name: "แผ่นทางเท้า 30 x 30 cm", colors: ["แผ่นละ - บ."], size: "30 x 30 ซม.", weight: "- kg/แผ่น" },
-            { id: "walk_40", name: "แผ่นทางเท้า 40 x 40 cm", colors: ["แผ่นละ - บ."], size: "40 x 40 ซม.", weight: "- kg/แผ่น" }
+            { id: "worm", name: "ตัวหนอน", colors: ["สีปูน/เทา ก้อนละ 6.4 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 7.6 บ.", "สีส้ม/เหลือง ก้อนละ 7.9 บ.", "สีเขียว/ฟ้า ก้อนละ 10.2 บ."], size: "11.25 x 22.50 x 6 ซม.", weight: "3-3.3 kg/ก้อน (40 ก้อน/ตร.ม.)", img: "https://icons.com"},
+            { id: "octagon", name: "แปดเหลี่ยม", colors: ["สีเทา ก้อนละ - บ.", "สีอื่น ๆ ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน", img: "https://icons.com" },
+            { id: "hexagon_s", name: "หกเหลี่ยม (เล็ก)", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน", img: "https://icons.com" },
+            { id: "hexagon_l", name: "หกเหลี่ยม (ใหญ่)", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน", img: "https://icons.com" },
+            { id: "dice", name: "ลูกเต๋า (ใช้คู่แปดเหลี่ยม)", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน", img: "https://icons.com" },
+            { id: "i_block", name: "ตัวไอ", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน", img: "https://icons.com" },
+            { id: "sila", name: "ศิลาเหลี่ยม 10 x 20 cm", colors: ["ก้อนละ - บ."], size: "10 x 20 ซม.", weight: "- kg/ก้อน", img: "https://icons.com" },
+            { id: "magic", name: "คทา", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน", img: "https://icons.com" },
+            { id: "grass", name: "บล็อกปูสนามหญ้า", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน", img: "https://icons.com" },
+            { id: "walk_20", name: "แผ่นทางเท้า 20 x 20 cm", colors: ["แผ่นละ - บ."], size: "20 x 20 ซม.", weight: "- kg/แผ่น", img: "https://icons.com" },
+            { id: "walk_30", name: "แผ่นทางเท้า 30 x 30 cm", colors: ["แผ่นละ - บ."], size: "30 x 30 ซม.", weight: "- kg/แผ่น", img: "https://icons.com" },
+            { id: "walk_40", name: "แผ่นทางเท้า 40 x 40 cm", colors: ["แผ่นละ - บ."], size: "40 x 40 ซม.", weight: "- kg/แผ่น", img: "https://icons.com" }
         ];
 
         // --- 2. ฐานข้อมูลอัตราค่าขนส่งรายภูมิภาค แยกเฉพาะสำหรับแผงบล็อกปูนถนนกล่องที่ 2 ---
@@ -576,6 +575,10 @@
         function selectBlockItem(item) {
             currentSelectedBlock = item;
             closeBlockModal();
+            
+            // พิมพ์บรรทัดนี้เติมเข้าไป ระบบจะสั่งเปลี่ยนรูปบนหน้าจอให้ทันทีทันตาเห็นครับพี่
+            document.getElementById('blockProductImg').src = item.img;
+
             document.getElementById('selectedBlockLabel').innerText = item.name;
             document.getElementById('displayBlockTitle').innerText = item.name;
             document.getElementById('displayBlockSize').innerHTML = `<svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M160 48c0-8.8-7.2-16-16-16H16C7.2 32 0 39.2 0 48v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16V48zm0 160c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-96zm336 96H224v32h48c8.8 0 16 7.2 16 16v48h32v-48c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v32zm-144 96h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16h-48v32h192v-64zm144-192H224v32h48c8.8 0 16 7.2 16 16v48h32V208c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48v32c0 8.8 7.2 16 16 16v16zm0 128h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16H224v32h272v-64z"/></svg>ขนาด: ${item.size}`;
@@ -664,11 +667,11 @@
 
                 // --- 1. คลังฐานข้อมูลสเปกสินค้า 5 รุ่นย่อย ประจำกล่องที่ 3 (ขอบฟุตบาท) ---
         const curbCatalog = [
-            { id: "curb_11_21", name: "ขอบฟุตบาท 11 x 21 cm", price: "ท่อนละ 81.6 บ.", size: "11 x 21 x 50 ซม.", weight: "30 kg/ท่อน (60 ท่อน/พาเลท)" },
-            { id: "curb_15_15", name: "ขอบฟุตบาท 15 x 15 cm", price: "ท่อนละ - บ.", size: "15 x 15 x 100 ซม.", weight: "- kg/ท่อน" },
-            { id: "curb_15_20", name: "ขอบฟุตบาท 15 x 20 cm", price: "ท่อนละ - บ.", size: "15 x 20 x 100 ซม.", weight: "- kg/ท่อน" },
-            { id: "curb_15_30", name: "ขอบฟุตบาท 15 x 30 cm", price: "ท่อนละ - บ.", size: "15 x 30 x 100 ซม.", weight: "- kg/ท่อน" },
-            { id: "angle_15_30", name: "เข้ามุมใหญ่ 15 x 30 cm", price: "ท่อนละ - บ.", size: "15 x 30 x 100 ซม.", weight: "- kg/ท่อน" }
+            { id: "curb_11_21", name: "ขอบฟุตบาท 11 x 21 cm", price: "ท่อนละ 81.6 บ.", size: "11 x 21 x 50 ซม.", weight: "30 kg/ท่อน (60 ท่อน/พาเลท)", img: "https://icons.com" },
+            { id: "curb_15_15", name: "ขอบฟุตบาท 15 x 15 cm", price: "ท่อนละ - บ.", size: "15 x 15 x 100 ซม.", weight: "- kg/ท่อน", img: "https://icons.com"  },
+            { id: "curb_15_20", name: "ขอบฟุตบาท 15 x 20 cm", price: "ท่อนละ - บ.", size: "15 x 20 x 100 ซม.", weight: "- kg/ท่อน", img: "https://icons.com"  },
+            { id: "curb_15_30", name: "ขอบฟุตบาท 15 x 30 cm", price: "ท่อนละ - บ.", size: "15 x 30 x 100 ซม.", weight: "- kg/ท่อน", img: "https://icons.com"  },
+            { id: "angle_15_30", name: "เข้ามุมใหญ่ 15 x 30 cm", price: "ท่อนละ - บ.", size: "15 x 30 x 100 ซม.", weight: "- kg/ท่อน", img: "https://icons.com"  }
         ];
 
         // --- 2. คลังฐานข้อมูลตารางอัตราค่าจัดส่งรายพื้นที่ สำหรับกล่องขอบฟุตบาทชิ้นที่ 3 ---
@@ -715,6 +718,9 @@
         function selectCurbItem(item) {
             currentSelectedCurb = item;
             closeCurbModal();
+
+             // 🔥 พิมพ์บรรทัดนี้เติมเข้าไป เพื่อให้รูปภาพกล่องสามเปลี่ยนตามขนาดที่เลือกครับ
+            document.getElementById('curbProductImg').src = item.img;
             
             // นำข้อมูลราคา ขนาด น้ำหนัก ขอบฟุตบาทรุ่นที่จิ้มไปอัปเดตลงหน้าจอพาร์ทขวา
             document.getElementById('selectedCurbLabel').innerText = item.name;
