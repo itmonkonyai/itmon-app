@@ -163,6 +163,96 @@
         </div>
     </div>
 
+
+    <!-- 📦 กล่องสินค้าใหญ่ชิ้นที่ 2: บล็อกปูนถนน / แผ่นทางเท้า (ฝังกรอบและระบบไอคอนแยกส่วนชัดเจน) -->
+    <div class="product-brick-inner-card" style="margin-top: 20px;">
+            <div class="product-title-header">บล็อกปูนถนน / แผ่นทางเท้า</div>
+            
+            <!-- ปุ่มดรอปดาวน์เลือกสินค้าประจำกล่องที่ 2 (Combobox) -->
+            <div class="combobox-trigger" onclick="openBlockModal()">
+                <span id="selectedBlockLabel">เลือกสินค้า</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+
+            <!-- โซนตรงกลาง: รูปภาพซ้ายติดกรอบส้ม และรายละเอียดราคาแยกตามสีฝั่งขวา (จะถูกเปลี่ยนคำและเปิดแสดงหลังจากกดเลือกสินค้า) -->
+            <div id="blockSpecSection" class="product-top-row" style="display: none;">
+                <!-- ฝั่งซ้าย: รูปภาพตัวอย่างสินค้าแบบติดกรอบส้มหรูหรา -->
+                <div style="border: 2px solid #ff9100; border-radius: 10px; padding: 3px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <img class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="บล็อกปูนถนน" style="border: none; border-radius: 6px;">
+                </div>
+                <!-- ฝั่งขวา: รายละเอียดเฉดราคาแยกตามสี ขนาด และน้ำหนักก้อน -->
+                <div class="product-info-box" id="blockInfoText" style="line-height: 1.6;">
+                    <div class="product-title" id="displayBlockTitle" style="margin-bottom: 2px;">-</div>
+                    <div id="displayBlockColors" style="font-size: 13.5px; color: #444; font-weight: 500; display: flex; flex-direction: column; gap: 2px;"></div>
+                    <div class="product-spec-row" id="displayBlockSize" style="margin-top: 6px;">
+                        <svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M160 48c0-8.8-7.2-16-16-16H16C7.2 32 0 39.2 0 48v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16V48zm0 160c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-96zm336 96H224v32h48c8.8 0 16 7.2 16 16v48h32v-48c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v32zm-144 96h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16h-48v32h192v-64zm144-192H224v32h48c8.8 0 16 7.2 16 16v48h32V208c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48v32c0 8.8 7.2 16 16 16v16zm0 128h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16H224v32h272v-64z"/></svg>
+                        ขนาด: -</div>
+                    <div class="product-spec-row" id="displayBlockWeight">
+                        <svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M12.4 170.7c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 209.7c16.5-7.8 16.5-31.2 0-39L273.9 64.1c-11.5-5.5-24.9-5.5-36.4 0L12.4 170.7zm0 128c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 337.7c16.5-7.8 16.5-31.2 0-39l-43.1-20.4-177.1 83.8c-14.4 6.8-31.4 6.8-45.8 0L55.5 278.3l-43.1 20.4z"/></svg>
+                        น้ำหนัก: -</div>
+                    <div class="product-factory-note" style="margin-top: 3px; color: #666;">*ราคายังไม่รวมส่ง</div>
+                </div>
+            </div>
+
+            <!-- ข้อความตั้งต้นก่อนที่ลูกค้าจะกดเลือกชื่อวัสดุ (โชว์คู่ขนานกับรูปภาพ) -->
+            <div id="blockDefaultText" class="product-top-row">
+                <div style="border: 2px solid #ff9100; border-radius: 10px; padding: 3px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <img class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="บล็อกปูนถนน" style="border: none; border-radius: 6px;">
+                </div>
+                <div class="product-info-box" style="font-size: 15px; color: #555; font-weight: 500; justify-content: center; gap: 4px;">
+                    <div>สินค้ามีหลายสี</div>
+                    <div>มีหลายขนาด</div>
+                </div>
+            </div>
+
+            <!-- เส้นคั่นแบ่งสัดส่วนภายในกล่องชิ้นที่ 2 -->
+            <div style="width: 100%; height: 1px; background-color: #f0f0f0; margin: 15px 0;"></div>
+
+            <!-- โซนล่างสุด: กล่องพิมพ์ค้นหาค่าขนส่งประจำกล่องบล็อกทางเท้า (ล็อกระบบ ID แยกเป็นระเบียบ) -->
+            <div class="search-box-container">
+                <svg style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; z-index: 5;" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="blockTransportInput" class="search-input" placeholder="ค่าขนส่ง" oninput="handleBlockTransportSearch()" onfocus="showPopularBlockTransport()" disabled>
+                <div id="blockTransportSuggest" class="suggestions-list"></div>
+            </div>
+
+            <!-- ตารางแสดงราคาค่ารถส่งด่วนแยก 3 ประเภท ของกล่องที่ 2 (กางตัวเฉพาะในเขตของมันเอง) -->
+            <div id="blockTransportResult" class="price-result-card">
+                <div class="truck-price-row">
+                     <div class="truck-name-box">
+                         <svg width="20" height="20" viewBox="0 0 24 24" fill="#e65100" style="flex-shrink: 0;"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm2.5-6.5H17V9.5h1.9l1.6 2z"/></svg>
+                         รถ 6 ล้อ
+                     </div>
+                     <div class="price-value" id="bPrice6">-</div>
+                </div>
+                <div class="truck-price-row">
+                    <div class="truck-name-box">🚚 รถ 10-12 ล้อ</div>
+                    <div class="price-value" id="bPrice10">-</div>
+                </div>
+                <div class="truck-price-row">
+                    <div class="truck-name-box">🚚 รถ พ่วง/เทเลอร์</div>
+                    <div class="price-value" id="bPriceTr">-</div>
+                </div>
+                <div id="bPriceNote" style="display: none; font-size: 12px; color: #d32f2f; font-weight: 600; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><span id="bPriceNoteText">-</span></div>
+            </div>
+
+        </div>
+
+        <!-- หน้าต่างป๊อปอัปขาว (Modal) ชิ้นที่ 2 สำหรับเลือกชนิดบล็อกทางเท้าทั้ง 12 รายการพร้อมช่องค้นหา -->
+        <div id="blockModal" class="modal-overlay" onclick="closeBlockModalOutside(event)">
+            <div class="modal-content">
+                <div class="modal-header-title">Select Item</div>
+                <div class="modal-search-box">
+                    <svg style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="blockModalSearchInput" class="modal-search-input" placeholder="ค้นหารายชื่อบล็อก/แผ่นทางเท้า..." oninput="filterBlockModalItems()">
+                </div>
+                <!-- รายชื่อบล็อกทั้ง 12 ตัวจะถูกสคริปต์ดึงมาวาดลงในนี้โดยอัตโนมัติครับ -->
+                <div id="blockModalItemsList" class="modal-list"></div>
+                <button class="modal-close-btn" onclick="closeBlockModal()">CLOSE</button>
+            </div>
+        </div>
+
+        
+
     <!-- แถบปุ่มติดต่อด่วน ลอยล็อกติดขอบล่างสุด -->
         <div class="fixed-bottom-bar">
             <a href="https://line.me/R/ti/p/~@191a" target="_blank" class="btn-fixed btn-fixed-line">
@@ -318,8 +408,153 @@
         document.addEventListener('click', function(e) {
             if (e.target.id !== 'transportInput') {
                 if(document.getElementById('transportSuggest')) document.getElementById('transportSuggest').style.display = 'none';
+            }  
+        });
+
+
+        // --- 1. คลังฐานข้อมูลสินค้า 12 ชนิดย่อย ประจำกล่องที่ 2 (บล็อกปูนถนน) ---
+        const blockCatalog = [
+            { id: "worm", name: "ตัวหนอน", colors: ["สีปูน/เทา ก้อนละ 6.4 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 7.6 บ.", "สีส้ม/เหลือง ก้อนละ 7.9 บ.", "สีเขียว/ฟ้า ก้อนละ 10.2 บ."], size: "11.25 x 22.50 x 6 ซม.", weight: "3-3.3 kg/ก้อน (40 ก้อน/ตร.ม.)" },
+            { id: "octagon", name: "แปดเหลี่ยม", colors: ["สีเทา ก้อนละ - บ.", "สีอื่น ๆ ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน" },
+            { id: "hexagon_s", name: "หกเหลี่ยม (เล็ก)", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน" },
+            { id: "hexagon_l", name: "หกเหลี่ยม (ใหญ่)", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน" },
+            { id: "dice", name: "ลูกเต๋า (ใช้คู่แปดเหลี่ยม)", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน" },
+            { id: "i_block", name: "ตัวไอ", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน" },
+            { id: "sila", name: "ศิลาเหลี่ยม 10 x 20 cm", colors: ["ก้อนละ - บ."], size: "10 x 20 ซม.", weight: "- kg/ก้อน" },
+            { id: "magic", name: "คทา", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน" },
+            { id: "grass", name: "บล็อกปูสนามหญ้า", colors: ["ก้อนละ - บ."], size: "- ซม.", weight: "- kg/ก้อน" },
+            { id: "walk_20", name: "แผ่นทางเท้า 20 x 20 cm", colors: ["แผ่นละ - บ."], size: "20 x 20 ซม.", weight: "- kg/แผ่น" },
+            { id: "walk_30", name: "แผ่นทางเท้า 30 x 30 cm", colors: ["แผ่นละ - บ."], size: "30 x 30 ซม.", weight: "- kg/แผ่น" },
+            { id: "walk_40", name: "แผ่นทางเท้า 40 x 40 cm", colors: ["แผ่นละ - บ."], size: "40 x 40 ซม.", weight: "- kg/แผ่น" }
+        ];
+
+        // --- 2. ฐานข้อมูลอัตราค่าขนส่งรายภูมิภาค แยกเฉพาะสำหรับแผงบล็อกปูนถนนกล่องที่ 2 ---
+        const blockTransportDatabase = [
+            { name: "กรุงเทพมหานคร", price6: "6,500 บ.", price10: "7,500 บ.", priceTr: "11,000 บ.", note: "" },
+            { name: "กาญจนบุรี อ.เมือง", price6: "6,000 บ.", price10: "7,000 บ.", priceTr: "10,000 บ.", note: "" },
+            { name: "นนทบุรี", price6: "6,500 บ.", price10: "7,500 บ.", priceTr: "11,000 บ.", note: "" },
+            { name: "ปทุมธานี", price6: "6,500 บ.", price10: "7,500 บ.", priceTr: "11,000 บ.", note: "" }
+        ];
+
+        const blockPopularCities = ["กรุงเทพมหานคร", "กาญจนบุรี อ.เมือง", "นนทบุรี", "ปทุมธานี"];
+        let currentSelectedBlock = null;
+
+        // --- 3. ฟังก์ชันเปิด-ปิด หน้าต่างค้นหาวัสดุกล่องสอง (Modal ฟังก์ชัน) ---
+        function openBlockModal() {
+            document.getElementById('blockModal').style.display = 'flex';
+            document.getElementById('blockModalSearchInput').value = '';
+            renderBlockModalItems(blockCatalog);
+        }
+        function closeBlockModal() { document.getElementById('blockModal').style.display = 'none'; }
+        function closeBlockModalOutside(e) { if(e.target.id === 'blockModal') closeBlockModal(); }
+
+        function renderBlockModalItems(items) {
+            const listDiv = document.getElementById('blockModalItemsList');
+            listDiv.innerHTML = '';
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'modal-item';
+                div.innerText = item.name;
+                div.onclick = () => selectBlockItem(item);
+                listDiv.appendChild(div);
+            });
+        }
+
+        function filterBlockModalItems() {
+            const text = document.getElementById('blockModalSearchInput').value.trim().toLowerCase();
+            const filtered = blockCatalog.filter(item => item.name.toLowerCase().includes(text));
+            renderBlockModalItems(filtered);
+        }
+
+        // --- 4. ฟังก์ชันยิงเปลี่ยนหน้าตาสลับสีสเปกขนาดบล็อกปูนจริงบนหน้าจอ ---
+        function selectBlockItem(item) {
+            currentSelectedBlock = item;
+            closeBlockModal();
+            document.getElementById('selectedBlockLabel').innerText = item.name;
+            document.getElementById('displayBlockTitle').innerText = item.name;
+            document.getElementById('displayBlockSize').innerHTML = `<svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M160 48c0-8.8-7.2-16-16-16H16C7.2 32 0 39.2 0 48v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16V48zm0 160c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-96zm336 96H224v32h48c8.8 0 16 7.2 16 16v48h32v-48c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v32zm-144 96h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16h-48v32h192v-64zm144-192H224v32h48c8.8 0 16 7.2 16 16v48h32V208c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48v32c0 8.8 7.2 16 16 16v16zm0 128h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16H224v32h272v-64z"/></svg>ขนาด: ${item.size}`;
+            document.getElementById('displayBlockWeight').innerHTML = `<svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M12.4 170.7c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 209.7c16.5-7.8 16.5-31.2 0-39L273.9 64.1c-11.5-5.5-24.9-5.5-36.4 0L12.4 170.7zm0 128c-16.5 7.8-16.5 31.2 0 39l225.1 106.6c11.5 5.5 24.9 5.5 36.4 0L499.6 337.7c16.5-7.8 16.5-31.2 0-39l-43.1-20.4-177.1 83.8c-14.4 6.8-31.4 6.8-45.8 0L55.5 278.3l-43.1 20.4z"/></svg>น้ำหนัก: ${item.weight}`;
+            
+            const colorsContainer = document.getElementById('displayBlockColors');
+            colorsContainer.innerHTML = '';
+            item.colors.forEach(colorLine => {
+                const colorDiv = document.createElement('div');
+                colorDiv.innerText = colorLine;
+                colorsContainer.appendChild(colorDiv);
+            });
+
+            document.getElementById('blockDefaultText').style.display = 'none';
+            document.getElementById('blockSpecSection').style.display = 'flex';
+            document.getElementById('blockTransportInput').removeAttribute('disabled');
+            document.getElementById('blockTransportInput').placeholder = "พิมพ์ชื่อจังหวัด เพื่อเช็กราคาจัดส่งวัสดุนี้...";
+            document.getElementById('blockTransportInput').value = '';
+            document.getElementById('blockTransportResult').style.display = 'none';
+        }
+
+        // --- 5. ฟังก์ชันระบบการพิมพ์ค้นหาจังหวัดค่ารถจัดส่งประจำกล่องบล็อกปูนถนน ---
+        function handleBlockTransportSearch() {
+            const query = document.getElementById('blockTransportInput').value.trim();
+            const suggestDiv = document.getElementById('blockTransportSuggest');
+            suggestDiv.innerHTML = '';
+            if (query === '') { suggestDiv.style.display = 'none'; return; }
+
+            const filtered = blockTransportDatabase.filter(item => item.name.includes(query));
+            if (filtered.length > 0) {
+                filtered.forEach(item => {
+                    const div = document.createElement('div');
+                    div.style.padding = '12px 15px'; div.style.cursor = 'pointer'; div.style.fontSize = '14px'; div.style.borderBottom = '1px solid #f5f5f5';
+                    div.innerText = item.name;
+                    div.onclick = () => selectBlockTransportLocation(item);
+                    suggestDiv.appendChild(div);
+                });
+                suggestDiv.style.display = 'block';
+            } else { suggestDiv.style.display = 'none'; }
+        }
+
+        // ระบบสั่งเด้ง 10 จังหวัดแนะนำยอดนิยมทันทีเวลานิ้วสัมผัสกล่องค้นหาชิ้นสอง
+        function showPopularBlockTransport() {
+            const query = document.getElementById('blockTransportInput').value.trim();
+            if (query !== '') return;
+            const suggestDiv = document.getElementById('blockTransportSuggest');
+            suggestDiv.innerHTML = '';
+            blockPopularCities.forEach(cityName => {
+                const item = blockTransportDatabase.find(loc => loc.name === cityName);
+                if (item) {
+                    const div = document.createElement('div');
+                    div.style.padding = '12px 15px'; div.style.cursor = 'pointer'; div.style.fontSize = '14px'; div.style.borderBottom = '1px solid #f5f5f5';
+                    div.innerText = item.name;
+                    div.onclick = () => selectBlockTransportLocation(item);
+                    suggestDiv.appendChild(div);
+                }
+            });
+            suggestDiv.style.display = 'block';
+        }
+
+        // หยอดค่าตัวเลขราคาลงในแผงตารางรถก้นกล่องที่ 2
+        function selectBlockTransportLocation(item) {
+            document.getElementById('blockTransportInput').value = item.name;
+            document.getElementById('blockTransportSuggest').style.display = 'none';
+            document.getElementById('bPrice6').innerText = "เที่ยวละ " + item.price6;
+            document.getElementById('bPrice10').innerText = "เที่ยวละ " + item.price10;
+            document.getElementById('bPriceTr').innerText = "เที่ยวละ " + item.priceTr;
+            
+            const noteBox = document.getElementById('bPriceNote');
+            if (item.note) {
+                document.getElementById('bPriceNoteText').innerText = item.note;
+                noteBox.style.display = 'flex';
+            } else { noteBox.style.display = 'none'; }
+            
+            document.getElementById('blockTransportResult').style.display = 'block';
+        }
+
+        // เอานิ้วคลิกพื้นที่ว่างเปล่าส่วนอื่น ให้แถบเสนอแนะรายชื่อจังหวัดหุบปิดลงไป
+        document.addEventListener('click', function(e) {
+            if (e.target.id !== 'blockTransportInput') {
+                if(document.getElementById('blockTransportSuggest')) document.getElementById('blockTransportSuggest').style.display = 'none';
             }
         });
+  
+        
     </script>
 
     
