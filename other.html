@@ -20,7 +20,7 @@
         /* สไตล์กล่องสินค้าใหญ่ครอบทั้งหมด */
         .product-brick-outer { background-color: #fffbf7; padding: 15px; width: 100%; position: relative; margin-top: -30px; border-top-left-radius: 24px; border-top-right-radius: 24px; border: none; }
         .product-brick-inner-card { background-color: #ffffff; padding: 15px; border-radius: 16px; display: flex; flex-direction: column; gap: 0; box-shadow: 0 10px 25px rgba(230,81,0,0.12); width: 100%; position: relative; z-index: 10; margin-top: 10px; border: 1px solid #ffe0b2; }
-        .product-top-row { display: flex; gap: 15px; align-items: center; justify-content: space-around; width: 100%; }
+        .product-top-row { display: flex; gap: 15px; align-items: center; justify-content: space-around; width: 100%; margin-top: 15px;}
         .product-img { width: 125px; height: 125px; object-fit: cover; border-radius: 8px; border: 1px solid #f5f5f5; flex-shrink: 0; }
         .product-info-box { display: flex; flex-direction: column; gap: 6px; text-align: left; align-items: flex-start; justify-content: center; margin: 0; padding: 0; }
         .product-title-header { font-size: 16px; font-weight: 600; color: #333; width: 100%; text-align: left; }
@@ -100,7 +100,7 @@
                             <!-- โซนตรงกลาง: รูปภาพซ้าย สเปกและกำลังบรรจุขวา (จะโชว์หลังจากเลือกขนาดแล้ว) -->
                                 <div id="productSpecSection" class="product-top-row" style="display: none;">
                                     <div class="product-info-box">
-                                        <div class="product-title" id="displayTitle">ความหนา - cm</div>
+                                      <!--  <div class="product-title" id="displayTitle">ความหนา - cm</div>-->
                                         <div class="product-factory-price" id="displayPrice">ราคา - บ./ตร.ม.</div>
                                         <div class="product-spec-row" id="displayWeight" style="margin-top:4px;">น้ำหนัก - kg/ตร.ม.</div>
                                         <div class="product-spec-row" id="displayTruckQty" style="color:#e65100; font-weight:500;">-</div>
@@ -239,7 +239,7 @@
             
             // นำสเปกและราคาไปหยอดลงหน้าหลักของกล่องที่ 1
             document.getElementById('selectedItemLabel').innerText = item.name;
-            document.getElementById('displayTitle').innerText = item.name;
+           // document.getElementById('displayTitle').innerText = item.name;
             document.getElementById('displayPrice').innerText = item.price;
             document.getElementById('displayWeight').innerText = item.weight;
             document.getElementById('displayTruckQty').innerText = item.qtyNote;
@@ -247,7 +247,7 @@
             // เปิดแผงรูปภาพข้อมูลสเปก และปลดล็อกช่องค้นหาจังหวัดค่าขนส่งให้เปิดทำงานได้
             document.getElementById('productSpecSection').style.display = 'flex';
             document.getElementById('transportInput').removeAttribute('disabled');
-            document.getElementById('transportInput').placeholder = "พิมพ์ชื่อจังหวัด เพื่อเช็กราคาจัดส่ง...";
+            document.getElementById('transportInput').placeholder = "ค้นหา พิมพ์ชื่อจังหวัด เช็กราคารวมส่ง...";
             
             // ล้างค่าข้อมูลการค้นหาจังหวัดเดิมออกเพื่อรอการค้นหาค่ารถรอบใหม่
             document.getElementById('transportInput').value = '';
