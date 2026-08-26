@@ -162,11 +162,6 @@
         <div class="product-brick-inner-card" style="margin-top: 20px; position: relative; z-index: 11 !important;">
             <div class="product-title-header">บล็อกปูนถนน / แผ่นทางเท้า</div>
             
-            <!-- ปุ่มดรอปดาวน์เลือกสินค้าประจำกล่องที่ 2 (Combobox) -->
-            <div class="combobox-trigger" onclick="openBlockModal()">
-                <span id="selectedBlockLabel">เลือกสินค้า</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </div>
 
             <!-- โซนตรงกลาง: รูปภาพซ้ายติดกรอบส้ม และรายละเอียดราคาแยกตามสีฝั่งขวา (จะถูกเปลี่ยนคำและเปิดแสดงหลังจากกดเลือกสินค้า) -->
             <div id="blockSpecSection" class="product-top-row" style="display: none;">
@@ -175,7 +170,14 @@
                     <img id="blockProductImg" class="product-img" src="https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/itmon-normal-3hole.jpg" alt="บล็อกปูนถนน" style="border: none; border-radius: 6px;">
                 </div>
                 <!-- ฝั่งขวา: รายละเอียดเฉดราคาแยกตามสี ขนาด และน้ำหนักก้อน -->
-                <div class="product-info-box" id="blockInfoText" style="line-height: 1.6;">
+                <div class="product-info-box">
+                    
+                    <!-- ปุ่มดรอปดาวน์เลือกสินค้าประจำกล่องที่ 2 (Combobox) -->
+                    <div class="combobox-trigger" onclick="openBlockModal()">
+                        <span id="selectedBlockLabel">เลือกสินค้า</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    
                     <div class="product-title" id="displayBlockTitle" style="margin-bottom: 2px;">-</div>
                     <div class="product-factory-price" id="displayBlockColors">-</div>
                     <div class="product-spec-row" id="displayBlockSize" style="margin-top: 6px;">
@@ -194,6 +196,13 @@
                     <img class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="บล็อกปูนถนน" style="border: none; border-radius: 6px;">
                 </div>
                 <div class="product-info-box" style="font-size: 15px; color: #555; font-weight: 500; justify-content: center; gap: 4px;">
+                    
+                    <!-- ปุ่มดรอปดาวน์เลือกสินค้าประจำกล่องที่ 2 (Combobox) -->
+                    <div class="combobox-trigger" onclick="openBlockModal()">
+                        <span id="selectedBlockLabel">เลือกสินค้า</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    
                     <div>สินค้ามีหลายสี</div>
                     <div>มีหลายขนาด</div>
                 </div>
@@ -238,12 +247,6 @@
         <!-- 📦 กล่องสินค้าใหญ่ชิ้นที่ 3: ขอบฟุตบาท (สไตล์คมชัด กรอบส้ม และระบบแยก ID ค้นหาเฉพาะรุ่น) -->
         <div class="product-brick-inner-card" style="margin-top: 20px;">
             <div class="product-title-header">ขอบฟุตบาท</div>
-            
-            <!-- ปุ่มดรอปดาวน์เลือกสินค้าประจำกล่องที่ 3 (Combobox) -->
-            <div class="combobox-trigger" onclick="openCurbModal()">
-                <span id="selectedCurbLabel">เลือกสินค้า</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </div>
 
             <!-- โซนตรงกลาง: รูปภาพซ้ายติดกรอบส้ม และรายละเอียดสเปกราคาฝั่งขวา (จะเปิดแสดงอัตโนมัติหลังจากลูกค้ากดเลือกสินค้า) -->
             <div id="curbSpecSection" class="product-top-row" style="display: none;">
@@ -252,7 +255,14 @@
                     <img id="curbProductImg" class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="ขอบฟุตบาท" style="border: none; border-radius: 6px;">
                 </div>
                 <!-- ฝั่งขวา: รายละเอียดราคา ขนาด น้ำหนัก และการแพ็คพาเลทแยกตามรุ่น -->
-                <div class="product-info-box" style="line-height: 1.6;">
+                <div class="product-info-box">
+                    
+                    <!-- ปุ่มดรอปดาวน์เลือกสินค้าประจำกล่องที่ 3 (Combobox) -->
+                    <div class="combobox-trigger" onclick="openCurbModal()">
+                        <span id="selectedCurbLabel">เลือกสินค้า</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    
                     <div class="product-title" id="displayCurbTitle" style="margin-bottom: 2px;">-</div>
                     <div class="product-factory-price" id="displayCurbPrice">-</div>
                     <div class="product-spec-row" id="displayCurbSize" style="margin-top: 4px;"><svg class="product-spec-svg" viewBox="0 0 512 512" fill="#e65100"><path d="M160 48c0-8.8-7.2-16-16-16H16C7.2 32 0 39.2 0 48v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16V48zm0 160c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-96zm336 96H224v32h48c8.8 0 16 7.2 16 16v48h32v-48c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v32zm-144 96h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16h-48v32h192v-64zm144-192H224v32h48c8.8 0 16 7.2 16 16v48h32V208c0-8.8 7.2-16 16-16h48v-32c0-8.8 7.2-16 16-16h48v32c0 8.8 7.2 16 16 16v16zm0 128h-32v32h-48c-8.8 0-16-7.2-16-16v-32h-32v32c0 8.8-7.2 16-16 16H224v32h272v-64z"/></svg>ขนาด: -</div>
@@ -267,6 +277,13 @@
                     <img class="product-img" src="https://xn--12cxbj1c5b5dkcc5ezjpci.com" alt="ขอบฟุตบาท" style="border: none; border-radius: 6px;">
                 </div>
                 <div class="product-info-box" style="font-size: 14.5px; color: #555; font-weight: 500; justify-content: center; gap: 4px; line-height: 1.5;">
+                    
+                    <!-- ปุ่มดรอปดาวน์เลือกสินค้าประจำกล่องที่ 3 (Combobox) -->
+                    <div class="combobox-trigger" onclick="openCurbModal()">
+                        <span id="selectedCurbLabel">เลือกสินค้า</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    
                     <div>ความยาว 50 *เฉพาะ 11 x 21 cm</div>
                     <div>นอกนั้นความยาว 100 cm</div>
                 </div>
