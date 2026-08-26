@@ -54,11 +54,14 @@
         .truck-name-box { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #444; }
         .price-value { font-size: 16px; font-weight: 600; color: #2e7d32; }
 
-        /* แถบปุ่มติดต่อด่วนล็อกขอบล่างสุด */
-        .fixed-bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; display: flex; gap: 10px; padding: 12px 15px 25px 15px; background-color: rgba(255,255,255,0.96); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); z-index: 999; border-top: 1px solid #ffe0b2; }
-        .btn-fixed { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; color: #fff; }
+        /* แถบปุ่มติดต่อล็อกขอบล่างสุด */
+        .fixed-bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; display: flex; gap: 10px; padding: 12px 15px 25px 15px; background-color: rgba(255,255,255,0.96); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); box-shadow: 0 -8px 25px rgba(230,81,0,0.1); z-index: 999; border-top: 1px solid #ffe0b2; }
+        .btn-fixed { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; color: #fff; transition: transform 0.1s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .btn-fixed:active { transform: scale(0.98); }
         .btn-fixed-line { background-color: #06c755; }
+        .btn-fixed-line:active { background-color: #05b04b; }
         .btn-fixed-phone { background-color: #e65100; }
+        .btn-fixed-phone:active { background-color: #d84315; }
     </style>
 </head>
 <body>
