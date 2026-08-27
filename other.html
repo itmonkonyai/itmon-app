@@ -55,7 +55,7 @@
         .truck-price-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid #f9f9f9; }
         .truck-name-box { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #444; }
         .price-value { font-size: 16px; font-weight: 600; color: #2e7d32; }
-
+        .note-box { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #ddd; font-size: 13px; color: #d32f2f; font-weight: 600; display: flex; align-items: flex-start; gap: 6px; }
         /* แถบปุ่มติดต่อล็อกขอบล่างสุด */
         .fixed-bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; display: flex; gap: 10px; padding: 12px 15px 25px 15px; background-color: rgba(255,255,255,0.96); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); box-shadow: 0 -8px 25px rgba(230,81,0,0.1); z-index: 999; border-top: 1px solid #ffe0b2; }
         .btn-fixed { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none; color: #fff; transition: transform 0.1s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
@@ -166,7 +166,7 @@
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                         *ราคาก่อน vat7%
                     </div>
-                <div id="tPriceNote" style="display: none; font-size: 12px; color: #d32f2f; font-weight: 600; align-items: center; gap: 6px;">
+                <div class="note-box" id="tPriceNote" style="display: none; font-size: 12px; color: #d32f2f; font-weight: 600; align-items: center; gap: 6px;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                     <span id="tPriceNoteText">-</span></div>
             </div>
@@ -263,7 +263,7 @@
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                         *ราคาก่อน vat7%
                     </div>
-                <div id="bPriceNote" style="display: none; font-size: 12px; color: #d32f2f; font-weight: 600; align-items: center; gap: 6px;">
+                <div class="note-box" id="bPriceNote" style="display: none; font-size: 12px; color: #d32f2f; font-weight: 600; align-items: center; gap: 6px;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                     <span id="bPriceNoteText">-</span></div>
             </div>
@@ -358,7 +358,7 @@
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                         *ราคาก่อน vat7%
                     </div>
-                <div id="cPriceNote" style="display: none; font-size: 12px; color: #d32f2f; font-weight: 600; align-items: center; gap: 6px;">
+                <div class="note-box" id="cPriceNote" style="display: none; font-size: 12px; color: #d32f2f; font-weight: 600; align-items: center; gap: 6px;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                     <span id="cPriceNoteText">-</span></div>
             </div>
