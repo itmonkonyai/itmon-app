@@ -86,7 +86,7 @@
                                     
                     <!-- ฝั่งซ้าย: รูปภาพตัวอย่างสินค้าแบบติดกรอบส้มหรูหรา -->
                     <div style="border: 2px solid #ff9100; border-radius: 10px; padding: 3px; background: #ffffff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                        <img class="product-img" src="https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-innowall.jpg" alt="ผนังสำเร็จรูป" style="border: none; border-radius: 6px;">
+                        <img id="innowallProductImg" class="product-img" src="https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-innowall.jpg" alt="ผนังสำเร็จรูป" style="border: none; border-radius: 6px;">
                     </div>  
                     
                     <div class="product-info-box">
@@ -515,6 +515,9 @@
             selectedProduct = item;
             closeItemModal();
             
+            // พิมพ์บรรทัดนี้เติมเข้าไป ระบบจะสั่งเปลี่ยนรูปบนหน้าจอให้ทันทีทันตาเห็นครับพี่
+            document.getElementById('innowallProductImg').src = item.img;
+        
             // นำสเปกและราคาไปหยอดลงหน้าหลักของกล่องที่ 1
             document.getElementById('selectedItemLabel').innerText = item.name;
            // document.getElementById('displayTitle').innerText = item.name;
