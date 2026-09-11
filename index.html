@@ -184,9 +184,6 @@
         
     <script>
       
-        const CURRENT_OIL_PRICE = 45.00;  //น้ำมัน
-        const FACTORY_BRICK_PRICE = 3.10; 
-
         const locationDatabase = [
 
             { name: "กรุงเทพมหานคร", km: 150, days: 0.7, toll6: 210, toll10: 230, tollTr: 320, note: "" },
@@ -367,6 +364,10 @@
         }
 
         function selectLocation(item) {
+
+            const CURRENT_OIL_PRICE = 45.00;  //น้ำมัน
+            const FACTORY_BRICK_PRICE = 3.10; 
+            
             document.getElementById('searchInput').value = item.name;
             document.getElementById('suggestions').style.display = 'none';
             const km = item.km; const days = item.days;
