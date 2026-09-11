@@ -377,7 +377,7 @@
             let totalCost10 = (((km * 2) / 4.3) * CURRENT_OIL_PRICE) + f10_1 + f10_2 + item.toll10 + (days * 3000);
             let totalCostTr = (((km * 2) / 3.0) * CURRENT_OIL_PRICE) + fTr_1 + fTr_2 + item.tollTr + (days * 4000);
 
-            // ระบบคิดราคาแบบปัดเศษตำแหน่งที่ 2 เป็นศูนย์ ตามเงื่อนไข 5 ขึ้น 4 ลง เป๊ะ ๆ ครับ
+            // ระบบคิดราคาแบบปัดเศษตำแหน่งที่ 2 เป็นศูนย์ 
             let rawPrice6  = (totalCost6 / 3600) + FACTORY_BRICK_PRICE;
             let finalPrice6 = Math.round(rawPrice6 * 10) / 10;
             let rawPrice10 = (totalCost10 / 7200) + FACTORY_BRICK_PRICE;
@@ -399,9 +399,6 @@
             if (e.target.id !== 'searchInput') { if(document.getElementById('suggestions')) document.getElementById('suggestions').style.display = 'none'; }
         });
 
-        // ====================================================================
-        // 🔒 กำแพงชั้นที่ 1: บล็อกการคลิกขวา + บล็อก F12 และปุ่มคีย์ลัดแอบดูโค้ดทั้งหมด
-        // ====================================================================
         document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
         document.addEventListener('keydown', function(e) {
             if (e.keyCode === 123) { e.preventDefault(); return false; } // F12
