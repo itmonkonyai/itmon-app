@@ -390,7 +390,7 @@
             document.getElementById('priceTrailer').innerText = "ก้อนละ " + finalPriceTr.toFixed(2) + " บ.";
 
             const noteContainer = document.getElementById('noteContainer');
-            if (item.note) { document.getElementById('note-3hole').innerText = item.note; noteContainer.style.display = 'block'; } 
+            if (item.note) { document.getElementById('textNote').innerText = item.note; noteContainer.style.display = 'block'; } 
             else { noteContainer.style.display = 'none'; }
             document.getElementById('priceResult').style.display = 'block';
         }
