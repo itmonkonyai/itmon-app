@@ -180,16 +180,22 @@
         </div>
 
     </div>
-    
+
+        
     <script>
+      
+        const CURRENT_OIL_PRICE = 45.00;  //น้ำมัน
+        const FACTORY_BRICK_PRICE = 3.10; 
+
         const locationDatabase = [
-            { name: "กรุงเทพมหานคร", price6: "ก้อนละ 4.40 บ.", price10: "ก้อนละ 4.00 บ.", priceTrailer: "ก้อนละ 3.60 บ.", note: "" },
-            { name: "กระบี่", price6: "ก้อนละ 7.00 บ.", price10: "ก้อนละ 5.80 บ.", priceTrailer: "ก้อนละ 4.80 บ.", note: "" },
-            { name: "กาญจนบุรี อ.เมือง", price6: "ก้อนละ 4.00 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ท่าม่วง", price6: "ก้อนละ 4.00 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "กาญจนบุรี อ.พนมทวน", price6: "ก้อนละ 4.00 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ท่ามะกา", price6: "ก้อนละ 4.00 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ด่านมะขามเตี้ย", price6: "ก้อนละ 4.00 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
+
+            { name: "กรุงเทพมหานคร", km: 150, days: 0.7, toll6: 210, toll10: 230, tollTr: 320, note: "" },
+            { name: "กระบี่", km: 691, days: 1.97, toll6: 0, toll10: 0, tollTr: 0, note: "" },
+            { name: "กาญจนบุรี อ.เมือง", km: 125, days: 0.5, toll6: 0, toll10: 0, tollTr: 0, note: "" },
+            { name: "กาญจนบุรี อ.ท่าม่วง", km: 125, days: 0.5, toll6: 0, toll10: 0, tollTr: 0, note: "" },
+            { name: "กาญจนบุรี อ.พนมทวน", km: 125, days: 0.5, toll6: 0, toll10: 0, tollTr: 0, note: "" },
+            { name: "กาญจนบุรี อ.ท่ามะกา", km: 125, days: 0.5, toll6: 0, toll10: 0, tollTr: 0, note: "" },
+            { name: "กาญจนบุรี อ.ด่านมะขามเตี้ย", km: 125, days: 0.5, toll6: 0, toll10: 0, tollTr: 0, note: "" },
             { name: "กาญจนบุรี อ.บ่อพลอย", price6: "ก้อนละ 4.50 บ.", price10: "ก้อนละ 4.10 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
             { name: "กาญจนบุรี อ.ไทรโยค", price6: "ก้อนละ 4.50 บ.", price10: "ก้อนละ 4.10 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
             { name: "กาญจนบุรี อ.ห้วยกระเจา", price6: "ก้อนละ 4.50 บ.", price10: "ก้อนละ 4.10 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
@@ -333,6 +339,17 @@
             { name: "แม่ฮ่องสอน", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" }
         ];
 
+        function showPopularLocations() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (query !== '') return; 
+            const suggestionsDiv = document.getElementById('suggestions');
+            suggestionsDiv.innerHTML = '';
+            locationDatabase.forEach(item => {
+                const div = document.createElement('div'); div.className = 'suggestion-item'; div.innerText = item.name;
+                div.onclick = () => selectLocation(item); suggestionsDiv.appendChild(div);
+            });
+            suggestionsDiv.style.display = 'block';
+        }
 
         function handleSearch() {
             const query = document.getElementById('searchInput').value.trim();
@@ -342,11 +359,8 @@
             const filtered = locationDatabase.filter(item => item.name.includes(query));
             if (filtered.length > 0) {
                 filtered.forEach(item => {
-                    const div = document.createElement('div');
-                    div.className = 'suggestion-item';
-                    div.innerText = item.name;
-                    div.onclick = () => selectLocation(item);
-                    suggestionsDiv.appendChild(div);
+                    const div = document.createElement('div'); div.className = 'suggestion-item'; div.innerText = item.name;
+                    div.onclick = () => selectLocation(item); suggestionsDiv.appendChild(div);
                 });
                 suggestionsDiv.style.display = 'block';
             } else { suggestionsDiv.style.display = 'none'; }
@@ -355,48 +369,46 @@
         function selectLocation(item) {
             document.getElementById('searchInput').value = item.name;
             document.getElementById('suggestions').style.display = 'none';
-           // document.getElementById('resLocation').innerHTML = `<i class="fa-solid fa-location-dot"></i> ส่งที่: ${item.name}`;
-            document.getElementById('price6wheel').innerText = item.price6;
-            document.getElementById('price10wheel').innerText = item.price10;
-            document.getElementById('priceTrailer').innerText = item.priceTrailer;
+            const km = item.km; const days = item.days;
+            let f6_1 = 400, f6_2 = 300, f10_1 = 600, f10_2 = 550, fTr_1 = 800, fTr_2 = 700;
+            if (km > 400) { f6_1 = 700; f10_1 = 900; fTr_1 = 1300; }
+
+            let totalCost6  = (((km * 2) / 6.0) * CURRENT_OIL_PRICE) + f6_1 + f6_2 + item.toll6 + (days * 2000);
+            let totalCost10 = (((km * 2) / 4.3) * CURRENT_OIL_PRICE) + f10_1 + f10_2 + item.toll10 + (days * 3000);
+            let totalCostTr = (((km * 2) / 3.0) * CURRENT_OIL_PRICE) + fTr_1 + fTr_2 + item.tollTr + (days * 4000);
+
+            // ระบบคิดราคาแบบปัดเศษตำแหน่งที่ 2 เป็นศูนย์ ตามเงื่อนไข 5 ขึ้น 4 ลง เป๊ะ ๆ ครับ
+            let rawPrice6  = (totalCost6 / 3600) + FACTORY_BRICK_PRICE;
+            let finalPrice6 = Math.round(rawPrice6 * 10) / 10;
+            let rawPrice10 = (totalCost10 / 7200) + FACTORY_BRICK_PRICE;
+            let finalPrice10 = Math.round(rawPrice10 * 10) / 10;
+            let rawPriceTr = (totalCostTr / 15300) + FACTORY_BRICK_PRICE;
+            let finalPriceTr = Math.round(rawPriceTr * 10) / 10;
+
+            document.getElementById('price6wheel').innerText = "ก้อนละ " + finalPrice6.toFixed(2) + " บ.";
+            document.getElementById('price10wheel').innerText = "ก้อนละ " + finalPrice10.toFixed(2) + " บ.";
+            document.getElementById('priceTrailer').innerText = "ก้อนละ " + finalPriceTr.toFixed(2) + " บ.";
+
             const noteContainer = document.getElementById('noteContainer');
-            if (item.note) {
-                document.getElementById('textNote').innerText = item.note;
-                noteContainer.style.display = 'flex';
-            } else { noteContainer.style.display = 'none'; }
+            if (item.note) { document.getElementById('note-3hole').innerText = item.note; noteContainer.style.display = 'block'; } 
+            else { noteContainer.style.display = 'none'; }
             document.getElementById('priceResult').style.display = 'block';
         }
 
         document.addEventListener('click', function(e) {
-            if (e.target.id !== 'searchInput') { document.getElementById('suggestions').style.display = 'none'; }
+            if (e.target.id !== 'searchInput') { if(document.getElementById('suggestions')) document.getElementById('suggestions').style.display = 'none'; }
         });
 
-                // ฟังก์ชันสั่งเด้ง 10 จังหวัดฮิตทันทีเมื่อลูกค้าเอานิ้วจิ้มช่องค้นหา
-        function showPopularLocations() {
-            const query = document.getElementById('searchInput').value.trim();
-            // ถ้าลูกค้าพิมพ์ตัวอักษรค้างไว้แล้ว ให้ระบบค้นหาปกติทำงานแทน ไม่ต้องเด้งจังหวัดฮิตทับครับ
-            if (query !== '') return; 
-            
-            // รายชื่อ 10 จังหวัดฮิตส่งบ่อยของโรงงานพี่ (พี่ปรับเปลี่ยนชื่อในเครื่องหมายคำพูดได้ตามใจชอบเลยครับ)
-            const populars = ["กรุงเทพมหานคร", "นนทบุรี", "ปทุมธานี", "สมุทรปราการ", "สมุทรสาคร", "นครปฐม", "ราชบุรี", "จันทบุรี", "ชลบุรี อ.เมือง", "ชลบุรี อ.บางละมุง(พัทยา)"];
-            
-            const suggestionsDiv = document.getElementById('suggestions');
-            suggestionsDiv.innerHTML = '';
-            
-            // วนลูปดึงรายชื่อ 10 จังหวัดฮิตมาวาดสไลด์ลงมาโชว์
-            populars.forEach(cityName => {
-                const item = locationDatabase.find(loc => loc.name === cityName);
-                if (item) {
-                    const div = document.createElement('div');
-                    div.className = 'suggestion-item';
-                    div.innerText = item.name;
-                    div.onclick = () => selectLocation(item);
-                    suggestionsDiv.appendChild(div);
-                }
-            });
-            suggestionsDiv.style.display = 'block';
-        }
-
+        // ====================================================================
+        // 🔒 กำแพงชั้นที่ 1: บล็อกการคลิกขวา + บล็อก F12 และปุ่มคีย์ลัดแอบดูโค้ดทั้งหมด
+        // ====================================================================
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode === 123) { e.preventDefault(); return false; } // F12
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) { e.preventDefault(); return false; } // Ctrl+Shift+I
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 74) { e.preventDefault(); return false; } // Ctrl+Shift+J
+            if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; } // Ctrl+U
+        });
     </script>
 </body>
 </html>
