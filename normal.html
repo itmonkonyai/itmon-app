@@ -144,9 +144,9 @@
                             *ราคาก่อน vat7%
                         </div>
                         
-                        <div class="note-box" id="note-3hole" style="display: none;">
+                        <div class="note-box" id="noteContainer3Hole" style="display: none;">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                            <span id="textNote-3hole">-</span>
+                            <span id="textNote3Hole">-</span>
                         </div>
                     </div>
                 </div>
@@ -221,9 +221,9 @@
                             *ราคาก่อน vat7%
                         </div>
                         
-                        <div class="note-box" id="note-2big" style="display: none;">
+                        <div class="note-box" id="noteContainer2Big" style="display: none;">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                            <span id="textNote-2big">-</span>
+                            <span id="textNote2Big">-</span>
                         </div>
                     </div>
                 </div>
@@ -298,9 +298,9 @@
                             *ราคาก่อน vat7%
                         </div>
                         
-                        <div class="note-box" id="note-2small" style="display: none;">
+                        <div class="note-box" id="noteContainer2Small" style="display: none;">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                            <span id="textNote-2small">-</span>
+                            <span id="textNote2Small">-</span>
                         </div>
                     </div>
                 </div>
@@ -325,565 +325,144 @@
     
         <!--  ค้นหาราคาจัดส่งแยกอิสระทั้ง 3 กล่องสินค้า -->
     <script>
-        // --- 1. คลังฐานข้อมูลราคาแยกตามประเภทคันรถของแต่ละรุ่น ---
-        const db3Hole = [
-            { name: "กรุงเทพมหานคร", price6: "ก้อนละ 4.10 บ.", price10: "ก้อนละ 3.50 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "กระบี่", price6: "ก้อนละ 8.20 บ.", price10: "ก้อนละ 6.10 บ.", priceTrailer: "ก้อนละ 4.50 บ.", note: "" },
-            { name: "กาญจนบุรี อ.เมือง", price6: "ก้อนละ 4.20 บ.", price10: "ก้อนละ 3.60 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ท่าม่วง", price6: "ก้อนละ 4.20 บ.", price10: "ก้อนละ 3.60 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "กาญจนบุรี อ.พนมทวน", price6: "ก้อนละ 4.20 บ.", price10: "ก้อนละ 3.60 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ท่ามะกา", price6: "ก้อนละ 4.20 บ.", price10: "ก้อนละ 3.60 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ด่านมะขามเตี้ย", price6: "ก้อนละ 4.20 บ.", price10: "ก้อนละ 3.60 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "กาญจนบุรี อ.บ่อพลอย", price6: "ก้อนละ 4.40 บ.", price10: "ก้อนละ 3.70 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ไทรโยค", price6: "ก้อนละ 4.40 บ.", price10: "ก้อนละ 3.70 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ห้วยกระเจา", price6: "ก้อนละ 4.40 บ.", price10: "ก้อนละ 3.70 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "กาญจนบุรี อ.หนองปรือ", price6: "ก้อนละ 4.40 บ.", price10: "ก้อนละ 3.70 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "กาญจนบุรี อ.เลาขวัญ", price6: "ก้อนละ 4.40 บ.", price10: "ก้อนละ 3.70 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ทองผาภูมิ", price6: "ก้อนละ 5.00 บ.", price10: "ก้อนละ 4.10 บ.", priceTrailer: "ก้อนละ 3.30 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ศรีสวัสดิ์", price6: "ก้อนละ 5.00 บ.", price10: "ก้อนละ 4.10 บ.", priceTrailer: "ก้อนละ 3.30 บ.", note: "" },
-            { name: "กาญจนบุรี อ.สังขละบุรี", price6: "ก้อนละ 5.40 บ.", price10: "ก้อนละ 4.40 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "กาฬสินธุ์", price6: "ก้อนละ 6.90 บ.", price10: "ก้อนละ 5.30 บ.", priceTrailer: "ก้อนละ 4.00 บ.", note: "" },
-            { name: "กำแพงเพชร", price6: "ก้อนละ 5.70 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.60 บ.", note: "" },
-            { name: "ขอนแก่น", price6: "ก้อนละ 6.40 บ.", price10: "ก้อนละ 5.00 บ.", priceTrailer: "ก้อนละ 3.80 บ.", note: "" },
-            { name: "จันทบุรี", price6: "ก้อนละ 5.50 บ.", price10: "ก้อนละ 4.40 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "ฉะเชิงเทรา", price6: "ก้อนละ 4.40 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "ฉะเชิงเทรา อ.สนามชัยเขต", price6: "ก้อนละ 4.90 บ.", price10: "ก้อนละ 4.00 บ.", priceTrailer: "ก้อนละ 3.30 บ.", note: "" },
-            { name: "ชลบุรี อ.เมือง", price6: "ก้อนละ 4.50 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "ชลบุรี อ.พนัสนิคม", price6: "ก้อนละ 4.50 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "ชลบุรี อ.พานทอง", price6: "ก้อนละ 4.50 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "ชลบุรี อ.บ้านบึง", price6: "ก้อนละ 4.50 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "ชลบุรี อ.ศรีราชา", price6: "ก้อนละ 4.50 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "ชลบุรี อ.เกาะจันทร์", price6: "ก้อนละ 4.50 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "ชลบุรี อ.บางละมุง(พัทยา)", price6: "ก้อนละ 4.80 บ.", price10: "ก้อนละ 4.00 บ.", priceTrailer: "ก้อนละ 3.30 บ.", note: "" },
-            { name: "ชลบุรี อ.สัตหีบ", price6: "ก้อนละ 4.80 บ.", price10: "ก้อนละ 4.00 บ.", priceTrailer: "ก้อนละ 3.30 บ.", note: "" },
-            { name: "ชลบุรี อ.บ่อทอง", price6: "ก้อนละ 4.80 บ.", price10: "ก้อนละ 4.00 บ.", priceTrailer: "ก้อนละ 3.30 บ.", note: "" },
-            { name: "ชลบุรี อ.หนองใหญ่", price6: "ก้อนละ 4.80 บ.", price10: "ก้อนละ 4.00 บ.", priceTrailer: "ก้อนละ 3.30 บ.", note: "" },
-            { name: "ชลบุรี อ.เกาะสีชัง", price6: "ก้อนละ 4.80 บ.", price10: "ก้อนละ 4.00 บ.", priceTrailer: "ก้อนละ 3.30 บ.", note: "" },
-            { name: "ชัยนาท", price6: "ก้อนละ 3.70 บ.", price10: "ก้อนละ 3.90 บ.", priceTrailer: "ก้อนละ 3.20 บ.", note: "" },
-            { name: "ชัยภูมิ", price6: "ก้อนละ 5.70 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.60 บ.", note: "" },
-            { name: "ชุมพร อ.เมือง", price6: "ก้อนละ 6.30 บ.", price10: "ก้อนละ 4.90 บ.", priceTrailer: "ก้อนละ 3.80 บ.", note: "" },
-            { name: "ชุมพร อ.สวี", price6: "ก้อนละ 6.30 บ.", price10: "ก้อนละ 4.90 บ.", priceTrailer: "ก้อนละ 3.80 บ.", note: "" },
-            { name: "ชุมพร อ.ทุ่งตะโก", price6: "ก้อนละ 6.30 บ.", price10: "ก้อนละ 4.90 บ.", priceTrailer: "ก้อนละ 3.80 บ.", note: "" },
-            { name: "ชุมพร อ.ท่าแซะ", price6: "ก้อนละ 6.10 บ.", price10: "ก้อนละ 4.80 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
-            { name: "ชุมพร อ.ปะทิว", price6: "ก้อนละ 6.10 บ.", price10: "ก้อนละ 4.80 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
-            { name: "ชุมพร อ.หลังสวน", price6: "ก้อนละ 6.70 บ.", price10: "ก้อนละ 5.10 บ.", priceTrailer: "ก้อนละ 3.90 บ.", note: "" },
-            { name: "ชุมพร อ.พะโต๊ะ", price6: "ก้อนละ 6.70 บ.", price10: "ก้อนละ 5.10 บ.", priceTrailer: "ก้อนละ 3.90 บ.", note: "" },
-            { name: "ชุมพร อ.ละแม", price6: "ก้อนละ 6.70 บ.", price10: "ก้อนละ 5.10 บ.", priceTrailer: "ก้อนละ 3.90 บ.", note: "" },
-            { name: "ตรัง", price6: "ก้อนละ 8.60 บ.", price10: "ก้อนละ 6.30 บ.", priceTrailer: "ก้อนละ 4.60 บ.", note: "" },
-            { name: "ตราด", price6: "ก้อนละ 6.10 บ.", price10: "ก้อนละ 4.70 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
-            { name: "ตราด อ.คลองใหญ่", price6: "ก้อนละ 6.40 บ.", price10: "ก้อนละ 5.00 บ.", priceTrailer: "ก้อนละ 3.80 บ.", note: "" },
-            { name: "ตาก", price6: "ก้อนละ 6.10 บ.", price10: "ก้อนละ 4.80 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
-            { name: "ตาก อ.แม่สอด", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ก้อนละ 3.90 บ.", note: "" },
-            { name: "นครนายก", price6: "ก้อนละ 4.40 บ.", price10: "ก้อนละ 3.70 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "นครปฐม", price6: "ก้อนละ 4.00 บ.", price10: "ก้อนละ 3.50 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "นครพนม", price6: "ก้อนละ 8.30 บ.", price10: "ก้อนละ 6.10 บ.", priceTrailer: "ก้อนละ 4.50 บ.", note: "" },
-            { name: "นครราชสีมา อ.เมือง", price6: "ก้อนละ 5.30 บ.", price10: "ก้อนละ 4.30 บ.", priceTrailer: "ก้อนละ 3.40 บ.", note: "" },
-            { name: "นครราชสีมา อ.ด่านขุนทด", price6: "ก้อนละ 5.30 บ.", price10: "ก้อนละ 4.30 บ.", priceTrailer: "ก้อนละ 3.40 บ.", note: "" },
-            { name: "นครราชสีมา อ.ปักธงชัย", price6: "ก้อนละ 5.30 บ.", price10: "ก้อนละ 4.30 บ.", priceTrailer: "ก้อนละ 3.40 บ.", note: "" },
-            { name: "นครราชสีมา อ.วังน้ำเขียว", price6: "ก้อนละ 5.30 บ.", price10: "ก้อนละ 4.30 บ.", priceTrailer: "ก้อนละ 3.40 บ.", note: "" },
-            { name: "นครราชสีมา อ.เทพารักษ์", price6: "ก้อนละ 5.30 บ.", price10: "ก้อนละ 4.30 บ.", priceTrailer: "ก้อนละ 3.40 บ.", note: "" },
-            { name: "นครราชสีมา อ.โชคชัย", price6: "ก้อนละ 5.30 บ.", price10: "ก้อนละ 4.30 บ.", priceTrailer: "ก้อนละ 3.40 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนไทย", price6: "ก้อนละ 5.30 บ.", price10: "ก้อนละ 4.30 บ.", priceTrailer: "ก้อนละ 3.40 บ.", note: "" },
-            { name: "นครราชสีมา อ.ขามทะเลสอ", price6: "ก้อนละ 5.30 บ.", price10: "ก้อนละ 4.30 บ.", priceTrailer: "ก้อนละ 3.40 บ.", note: "" },
-            { name: "นครราชสีมา อ.เฉลิมพระเกียรติ", price6: "ก้อนละ 5.30 บ.", price10: "ก้อนละ 4.30 บ.", priceTrailer: "ก้อนละ 3.40 บ.", note: "" },
-            { name: "นครราชสีมา อ.ปากช่อง", price6: "ก้อนละ 4.70 บ.", price10: "ก้อนละ 3.90 บ.", priceTrailer: "ก้อนละ 3.20 บ.", note: "" },
-            { name: "นครราชสีมา อ.จักราช", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "นครราชสีมา อ.ครบุรี", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "นครราชสีมา อ.เสิงสาง", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนสูง", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "นครราชสีมา อ.หนองบุญมาก", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "นครราชสีมา อ.พระทองคำ", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "นครราชสีมา อ.คง", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "นครราชสีมา อ.บ้านเหลื่อม", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "นครราชสีมา อ.ขามสะแกแสง", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "นครราชสีมา อ.พิมาย", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "นครราชสีมา อ.ห้วยแถลง", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "นครราชสีมา อ.แก้งสนามนาง", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนแดง", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "นครราชสีมา อ.สูงเนิน", price6: "ก้อนละ 5.00 บ.", price10: "ก้อนละ 4.10 บ.", priceTrailer: "ก้อนละ 3.30 บ.", note: "" },
-            { name: "นครราชสีมา อ.สีคิ้ว", price6: "ก้อนละ 5.00 บ.", price10: "ก้อนละ 4.10 บ.", priceTrailer: "ก้อนละ 3.30 บ.", note: "" },
-            { name: "นครราชสีมา อ.ประทาย", price6: "ก้อนละ 6.00 บ.", price10: "ก้อนละ 4.70 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
-            { name: "นครราชสีมา อ.บัวใหญ่", price6: "ก้อนละ 6.00 บ.", price10: "ก้อนละ 4.70 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
-            { name: "นครราชสีมา อ.ชุมพวง", price6: "ก้อนละ 6.00 บ.", price10: "ก้อนละ 4.70 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
-            { name: "นครราชสีมา อ.เมืองยาง", price6: "ก้อนละ 6.00 บ.", price10: "ก้อนละ 4.70 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
-            { name: "นครราชสีมา อ.ลำทะเมนชัย", price6: "ก้อนละ 6.00 บ.", price10: "ก้อนละ 4.70 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
-            { name: "นครราชสีมา อ.บัวลาย", price6: "ก้อนละ 6.00 บ.", price10: "ก้อนละ 4.70 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
-            { name: "นครราชสีมา อ.สีดา", price6: "ก้อนละ 6.00 บ.", price10: "ก้อนละ 4.70 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
-            { name: "นครศรีธรรมราช", price6: "ก้อนละ 8.20 บ.", price10: "ก้อนละ 6.10 บ.", priceTrailer: "ก้อนละ 4.50 บ.", note: "" },
-            { name: "นครสวรรค์", price6: "ก้อนละ 5.00 บ.", price10: "ก้อนละ 4.10 บ.", priceTrailer: "ก้อนละ 3.30 บ.", note: "" },
-            { name: "นนทบุรี", price6: "ก้อนละ 4.00 บ.", price10: "ก้อนละ 3.50 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "น่าน", price6: "ก้อนละ 7.70 บ.", price10: "ก้อนละ 5.80 บ.", priceTrailer: "ก้อนละ 4.30 บ.", note: "" },
-            { name: "บึงกาฬ", price6: "ก้อนละ 8.30 บ.", price10: "ก้อนละ 6.20 บ.", priceTrailer: "ก้อนละ 4.50 บ.", note: "" },
-            { name: "บุรีรัมย์", price6: "ก้อนละ 6.10 บ.", price10: "ก้อนละ 4.80 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
-            { name: "ปทุมธานี", price6: "ก้อนละ 4.00 บ.", price10: "ก้อนละ 3.50 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.เมือง", price6: "ก้อนละ 5.10 บ.", price10: "ก้อนละ 4.20 บ.", priceTrailer: "ก้อนละ 3.40 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.กุยบุรี", price6: "ก้อนละ 5.10 บ.", price10: "ก้อนละ 4.20 บ.", priceTrailer: "ก้อนละ 3.40 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.ทับสะแก", price6: "ก้อนละ 5.10 บ.", price10: "ก้อนละ 4.20 บ.", priceTrailer: "ก้อนละ 3.40 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.หัวหิน", price6: "ก้อนละ 4.50 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.ปราณบุรี", price6: "ก้อนละ 4.50 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.สามร้อยยอด", price6: "ก้อนละ 4.50 บ.", price10: "ก้อนละ 3.80 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.บางสะพาน", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "ปราจีนบุรี", price6: "ก้อนละ 4.70 บ.", price10: "ก้อนละ 3.90 บ.", priceTrailer: "ก้อนละ 3.20 บ.", note: "" },
-            { name: "ปัตตานี", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" },
-            { name: "พระนครศรีอยุธยา", price6: "ก้อนละ 4.00 บ.", price10: "ก้อนละ 3.50 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "พะเยา", price6: "ก้อนละ 8.20 บ.", price10: "ก้อนละ 6.00 บ.", priceTrailer: "ก้อนละ 4.40 บ.", note: "" },
-            { name: "พังงา", price6: "ก้อนละ 8.20 บ.", price10: "ก้อนละ 6.00 บ.", priceTrailer: "ก้อนละ 4.40 บ.", note: "" },
-            { name: "พัทลุง", price6: "ก้อนละ 8.70 บ.", price10: "ก้อนละ 6.40 บ.", priceTrailer: "ก้อนละ 4.60 บ.", note: "" },
-            { name: "พิจิตร", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.50 บ.", note: "" },
-            { name: "พิษณุโลก", price6: "ก้อนละ 6.00 บ.", price10: "ก้อนละ 4.70 บ.", priceTrailer: "ก้อนละ 3.70 บ.", note: "" },
-            { name: "ภูเก็ต", price6: "ก้อนละ 8.60 บ.", price10: "ก้อนละ 6.30 บ.", priceTrailer: "ก้อนละ 4.60 บ.", note: "" },
-            { name: "มหาสารคาม", price6: "ก้อนละ 6.40 บ.", price10: "ก้อนละ 5.00 บ.", priceTrailer: "ก้อนละ 3.80 บ.", note: "" },
-            { name: "มุกดาหาร", price6: "ก้อนละ 7.60 บ.", price10: "ก้อนละ 5.70 บ.", priceTrailer: "ก้อนละ 4.30 บ.", note: "" },
-            { name: "ยะลา", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" },
-            { name: "ยโสธร", price6: "ก้อนละ 7.00 บ.", price10: "ก้อนละ 5.30 บ.", priceTrailer: "ก้อนละ 4.00 บ.", note: "" },
-            { name: "ระนอง", price6: "ก้อนละ 7.00 บ.", price10: "ก้อนละ 5.30 บ.", priceTrailer: "ก้อนละ 4.00 บ.", note: "" },
-            { name: "ระยอง", price6: "ก้อนละ 5.10 บ.", price10: "ก้อนละ 4.20 บ.", priceTrailer: "ก้อนละ 3.30 บ.", note: "" },
-            { name: "ราชบุรี", price6: "ก้อนละ 4.00 บ.", price10: "ก้อนละ 3.50 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "ร้อยเอ็ด", price6: "ก้อนละ 6.70 บ.", price10: "ก้อนละ 5.20 บ.", priceTrailer: "ก้อนละ 3.90 บ.", note: "" },
-            { name: "ลพบุรี", price6: "ก้อนละ 4.40 บ.", price10: "ก้อนละ 3.70 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "ลำปาง", price6: "ก้อนละ 7.30 บ.", price10: "ก้อนละ 5.50 บ.", priceTrailer: "ก้อนละ 4.10 บ.", note: "" },
-            { name: "ลำพูน", price6: "ก้อนละ 7.70 บ.", price10: "ก้อนละ 5.80 บ.", priceTrailer: "ก้อนละ 4.30 บ.", note: "" },
-            { name: "ศรีสะเกษ", price6: "ก้อนละ 7.00 บ.", price10: "ก้อนละ 5.40 บ.", priceTrailer: "ก้อนละ 4.10 บ.", note: "" },
-            { name: "สกลนคร", price6: "ก้อนละ 7.70 บ.", price10: "ก้อนละ 5.80 บ.", priceTrailer: "ก้อนละ 4.30 บ.", note: "" },
-            { name: "สงขลา", price6: "ก้อนละ 9.20 บ.", price10: "ก้อนละ 6.70 บ.", priceTrailer: "ก้อนละ 4.90 บ.", note: "" },
-            { name: "สตูล", price6: "ก้อนละ 9.30 บ.", price10: "ก้อนละ 6.80 บ.", priceTrailer: "ก้อนละ 4.90 บ.", note: "" },
-            { name: "สมุทรปราการ", price6: "ก้อนละ 4.10 บ.", price10: "ก้อนละ 3.60 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "สมุทรสงคราม", price6: "ก้อนละ 4.00 บ.", price10: "ก้อนละ 3.50 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "สมุทรสาคร", price6: "ก้อนละ 4.00 บ.", price10: "ก้อนละ 3.50 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "สระบุรี", price6: "ก้อนละ 4.30 บ.", price10: "ก้อนละ 3.70 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "สระแก้ว", price6: "ก้อนละ 5.10 บ.", price10: "ก้อนละ 4.10 บ.", priceTrailer: "ก้อนละ 3.30 บ.", note: "" },
-            { name: "สิงห์บุรี", price6: "ก้อนละ 4.40 บ.", price10: "ก้อนละ 3.70 บ.", priceTrailer: "ก้อนละ 3.10 บ.", note: "" },
-            { name: "สุพรรณบุรี", price6: "ก้อนละ 4.10 บ.", price10: "ก้อนละ 3.50 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "สุราษฎร์ธานี", price6: "ก้อนละ 7.30 บ.", price10: "ก้อนละ 5.50 บ.", priceTrailer: "ก้อนละ 4.20 บ.", note: "" },
-            { name: "สุราษฎร์ธานี เกาะสมุย", price6: "ก้อนละ 7.80 บ.", price10: "ก้อนละ 5.90 บ.", priceTrailer: "ก้อนละ 4.30 บ.", note: "*ราคานี้ยังไม่รวมค่าตั๋วเรือ" },
-            { name: "สุราษฎร์ธานี เกาะพะงัน", price6: "ก้อนละ 7.90 บ.", price10: "ก้อนละ 6.00 บ.", priceTrailer: "ก้อนละ 4.30 บ.", note: "*ราคานี้ยังไม่รวมค่าตั๋วเรือ" },
-            { name: "สุรินทร์", price6: "ก้อนละ 6.40 บ.", price10: "ก้อนละ 4.90 บ.", priceTrailer: "ก้อนละ 3.80 บ.", note: "" },
-            { name: "สุโขทัย", price6: "ก้อนละ 6.30 บ.", price10: "ก้อนละ 4.90 บ.", priceTrailer: "ก้อนละ 3.80 บ.", note: "" },
-            { name: "หนองคาย", price6: "ก้อนละ 7.60 บ.", price10: "ก้อนละ 5.70 บ.", priceTrailer: "ก้อนละ 4.20 บ.", note: "" },
-            { name: "หนองบัวลำภู", price6: "ก้อนละ 7.00 บ.", price10: "ก้อนละ 5.30 บ.", priceTrailer: "ก้อนละ 4.00 บ.", note: "" },
-            { name: "อำนาจเจริญ", price6: "ก้อนละ 7.30 บ.", price10: "ก้อนละ 5.50 บ.", priceTrailer: "ก้อนละ 4.20 บ.", note: "" },
-            { name: "อุดรธานี", price6: "ก้อนละ 7.20 บ.", price10: "ก้อนละ 5.50 บ.", priceTrailer: "ก้อนละ 4.10 บ.", note: "" },
-            { name: "อุตรดิตถ์", price6: "ก้อนละ 6.60 บ.", price10: "ก้อนละ 5.10 บ.", priceTrailer: "ก้อนละ 3.90 บ.", note: "" },
-            { name: "อุทัยธานี", price6: "ก้อนละ 4.80 บ.", price10: "ก้อนละ 4.00 บ.", priceTrailer: "ก้อนละ 3.30 บ.", note: "" },
-            { name: "อุบลราชธานี", price6: "ก้อนละ 7.50 บ.", price10: "ก้อนละ 5.70 บ.", priceTrailer: "ก้อนละ 4.20 บ.", note: "" },
-            { name: "อ่างทอง", price6: "ก้อนละ 4.10 บ.", price10: "ก้อนละ 3.60 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "เชียงใหม่", price6: "ก้อนละ 7.90 บ.", price10: "ก้อนละ 5.90 บ.", priceTrailer: "ก้อนละ 4.40 บ.", note: "" },
-            { name: "เชียงราย", price6: "ก้อนละ 8.60 บ.", price10: "ก้อนละ 6.30 บ.", priceTrailer: "ก้อนละ 4.60 บ.", note: "" },
-            { name: "เพชรบุรี", price6: "ก้อนละ 4.20 บ.", price10: "ก้อนละ 3.60 บ.", priceTrailer: "ก้อนละ 3.00 บ.", note: "" },
-            { name: "เพชรบูรณ์", price6: "ก้อนละ 5.60 บ.", price10: "ก้อนละ 4.50 บ.", priceTrailer: "ก้อนละ 3.60 บ.", note: "" },
-            { name: "เลย", price6: "ก้อนละ 7.00 บ.", price10: "ก้อนละ 5.30 บ.", priceTrailer: "ก้อนละ 4.00 บ.", note: "" },
-            { name: "เลย อ.ด่านซ้าย", price6: "ก้อนละ 7.20 บ.", price10: "ก้อนละ 5.50 บ.", priceTrailer: "ก้อนละ 4.10 บ.", note: "" },
-            { name: "แพร่", price6: "ก้อนละ 7.00 บ.", price10: "ก้อนละ 5.30 บ.", priceTrailer: "ก้อนละ 4.00 บ.", note: "" },
-            { name: "แม่ฮ่องสอน", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" }
+
+        const CURRENT_OIL_PRICE = 45.00; //น้ำมัน
+        const PRICE_3_HOLE = { price6: 2.70, price10: 2.65, priceTr: 2.60 };
+        const PRICE_2_BIG = { price6: 1, price10: 0.95, priceTr: 0.9 };
+        const PRICE_2_SMALL = { price6: 0.87, price10: 0.84, priceTr: 0.81 };
+
+        const locationDatabase = [
+            { name: "กรุงเทพมหานคร (เขตราษฎร์บูรณะ)", km: 120, days: 1, toll6: 120, toll10: 240, tollTr: 350, note: "ส่งได้เฉพาะโซนรถไม่ติดเวลา" },
+            { name: "นนทบุรี อ.เมือง", km: 140, days: 1, toll6: 120, toll10: 240, tollTr: 350, note: "" },
+            { name: "ปทุมธานี อ.คลองหลวง", km: 95, days: 0.50, toll6: 0, toll10: 0, tollTr: 0, note: "" },
+            { name: "สมุทรปราการ อ.บางพลี", km: 150, days: 1, toll6: 180, toll10: 300, tollTr: 450, note: "" },
+            { name: "ชลบุรี อ.เมือง", km: 210, days: 1.15, toll6: 240, toll10: 450, tollTr: 600, note: "" },
+            { name: "กาญจนบุรี อ.เมือง", km: 45, days: 0.50, toll6: 0, toll10: 0, tollTr: 0, note: "" }
         ];
 
-        const db2HoleBig = [
-            { name: "กรุงเทพมหานคร", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.25 บ.", priceTrailer: "ก้อนละ 1.05 บ.", note: "" },
-            { name: "กระบี่", price6: "ก้อนละ 2.79 บ.", price10: "ก้อนละ 2.10 บ.", priceTrailer: "ก้อนละ 1.55 บ.", note: "" },
-            { name: "กาญจนบุรี อ.เมือง", price6: "ก้อนละ 1.44 บ.", price10: "ก้อนละ 1.26 บ.", priceTrailer: "ก้อนละ 1.06 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ท่าม่วง", price6: "ก้อนละ 1.44 บ.", price10: "ก้อนละ 1.26 บ.", priceTrailer: "ก้อนละ 1.06 บ.", note: "" },
-            { name: "กาญจนบุรี อ.พนมทวน", price6: "ก้อนละ 1.44 บ.", price10: "ก้อนละ 1.26 บ.", priceTrailer: "ก้อนละ 1.06 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ท่ามะกา", price6: "ก้อนละ 1.44 บ.", price10: "ก้อนละ 1.26 บ.", priceTrailer: "ก้อนละ 1.06 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ด่านมะขามเตี้ย", price6: "ก้อนละ 1.44 บ.", price10: "ก้อนละ 1.26 บ.", priceTrailer: "ก้อนละ 1.06 บ.", note: "" },
-            { name: "กาญจนบุรี อ.บ่อพลอย", price6: "ก้อนละ 1.52 บ.", price10: "ก้อนละ 1.31 บ.", priceTrailer: "ก้อนละ 1.00 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ไทรโยค", price6: "ก้อนละ 1.52 บ.", price10: "ก้อนละ 1.31 บ.", priceTrailer: "ก้อนละ 1.00 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ห้วยกระเจา", price6: "ก้อนละ 1.52 บ.", price10: "ก้อนละ 1.31 บ.", priceTrailer: "ก้อนละ 1.00 บ.", note: "" },
-            { name: "กาญจนบุรี อ.หนองปรือ", price6: "ก้อนละ 1.52 บ.", price10: "ก้อนละ 1.31 บ.", priceTrailer: "ก้อนละ 1.00 บ.", note: "" },
-            { name: "กาญจนบุรี อ.เลาขวัญ", price6: "ก้อนละ 1.52 บ.", price10: "ก้อนละ 1.31 บ.", priceTrailer: "ก้อนละ 1.00 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ทองผาภูมิ", price6: "ก้อนละ 1.72 บ.", price10: "ก้อนละ 1.44 บ.", priceTrailer: "ก้อนละ 1.16 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ศรีสวัสดิ์", price6: "ก้อนละ 1.72 บ.", price10: "ก้อนละ 1.44 บ.", priceTrailer: "ก้อนละ 1.16 บ.", note: "" },
-            { name: "กาญจนบุรี อ.สังขละบุรี", price6: "ก้อนละ 1.85 บ.", price10: "ก้อนละ 1.52 บ.", priceTrailer: "ก้อนละ 1.21 บ.", note: "" },
-            { name: "กาฬสินธุ์", price6: "ก้อนละ 2.36 บ.", price10: "ก้อนละ 1.83 บ.", priceTrailer: "ก้อนละ 1.39 บ.", note: "" },
-            { name: "กำแพงเพชร", price6: "ก้อนละ 1.95 บ.", price10: "ก้อนละ 1.58 บ.", priceTrailer: "ก้อนละ 1.24 บ.", note: "" },
-            { name: "ขอนแก่น", price6: "ก้อนละ 2.19 บ.", price10: "ก้อนละ 1.73 บ.", priceTrailer: "ก้อนละ 1.33 บ.", note: "" },
-            { name: "จันทบุรี", price6: "ก้อนละ 1.87 บ.", price10: "ก้อนละ 1.53 บ.", priceTrailer: "ก้อนละ 1.22 บ.", note: "" },
-            { name: "ฉะเชิงเทรา", price6: "ก้อนละ 1.53 บ.", price10: "ก้อนละ 1.32 บ.", priceTrailer: "ก้อนละ 1.09 บ.", note: "" },
-            { name: "ฉะเชิงเทรา อ.สนามชัยเขต", price6: "ก้อนละ 1.67 บ.", price10: "ก้อนละ 1.41 บ.", priceTrailer: "ก้อนละ 1.14 บ.", note: "" },
-            { name: "ชลบุรี อ.เมือง", price6: "ก้อนละ 1.55 บ.", price10: "ก้อนละ 1.33 บ.", priceTrailer: "ก้อนละ 1.10 บ.", note: "" },
-            { name: "ชลบุรี อ.พนัสนิคม", price6: "ก้อนละ 1.55 บ.", price10: "ก้อนละ 1.33 บ.", priceTrailer: "ก้อนละ 1.10 บ.", note: "" },
-            { name: "ชลบุรี อ.พานทอง", price6: "ก้อนละ 1.55 บ.", price10: "ก้อนละ 1.33 บ.", priceTrailer: "ก้อนละ 1.10 บ.", note: "" },
-            { name: "ชลบุรี อ.บ้านบึง", price6: "ก้อนละ 1.55 บ.", price10: "ก้อนละ 1.33 บ.", priceTrailer: "ก้อนละ 1.10 บ.", note: "" },
-            { name: "ชลบุรี อ.ศรีราชา", price6: "ก้อนละ 1.55 บ.", price10: "ก้อนละ 1.33 บ.", priceTrailer: "ก้อนละ 1.10 บ.", note: "" },
-            { name: "ชลบุรี อ.เกาะจันทร์", price6: "ก้อนละ 1.55 บ.", price10: "ก้อนละ 1.33 บ.", priceTrailer: "ก้อนละ 1.10 บ.", note: "" },
-            { name: "ชลบุรี อ.บางละมุง(พัทยา)", price6: "ก้อนละ 1.66 บ.", price10: "ก้อนละ 1.40 บ.", priceTrailer: "ก้อนละ 1.14 บ.", note: "" },
-            { name: "ชลบุรี อ.สัตหีบ", price6: "ก้อนละ 1.66 บ.", price10: "ก้อนละ 1.40 บ.", priceTrailer: "ก้อนละ 1.14 บ.", note: "" },
-            { name: "ชลบุรี อ.บ่อทอง", price6: "ก้อนละ 1.66 บ.", price10: "ก้อนละ 1.40 บ.", priceTrailer: "ก้อนละ 1.14 บ.", note: "" },
-            { name: "ชลบุรี อ.หนองใหญ่", price6: "ก้อนละ 1.66 บ.", price10: "ก้อนละ 1.40 บ.", priceTrailer: "ก้อนละ 1.14 บ.", note: "" },
-            { name: "ชลบุรี อ.เกาะสีชัง", price6: "ก้อนละ 1.66 บ.", price10: "ก้อนละ 1.40 บ.", priceTrailer: "ก้อนละ 1.14 บ.", note: "" },
-            { name: "ชัยนาท", price6: "ก้อนละ 1.62 บ.", price10: "ก้อนละ 1.38 บ.", priceTrailer: "ก้อนละ 1.13 บ.", note: "" },
-            { name: "ชัยภูมิ", price6: "ก้อนละ 1.94 บ.", price10: "ก้อนละ 1.57 บ.", priceTrailer: "ก้อนละ 1.24 บ.", note: "" },
-            { name: "ชุมพร อ.เมือง", price6: "ก้อนละ 2.15 บ.", price10: "ก้อนละ 1.70 บ.", priceTrailer: "ก้อนละ 1.31 บ.", note: "" },
-            { name: "ชุมพร อ.สวี", price6: "ก้อนละ 2.15 บ.", price10: "ก้อนละ 1.70 บ.", priceTrailer: "ก้อนละ 1.31 บ.", note: "" },
-            { name: "ชุมพร อ.ทุ่งตะโก", price6: "ก้อนละ 2.15 บ.", price10: "ก้อนละ 1.70 บ.", priceTrailer: "ก้อนละ 1.31 บ.", note: "" },
-            { name: "ชุมพร อ.ท่าแซะ", price6: "ก้อนละ 2.09 บ.", price10: "ก้อนละ 1.66 บ.", priceTrailer: "ก้อนละ 1.29 บ.", note: "" },
-            { name: "ชุมพร อ.ปะทิว", price6: "ก้อนละ 2.09 บ.", price10: "ก้อนละ 1.66 บ.", priceTrailer: "ก้อนละ 1.29 บ.", note: "" },
-            { name: "ชุมพร อ.หลังสวน", price6: "ก้อนละ 2.28 บ.", price10: "ก้อนละ 1.78 บ.", priceTrailer: "ก้อนละ 1.36 บ.", note: "" },
-            { name: "ชุมพร อ.พะโต๊ะ", price6: "ก้อนละ 2.28 บ.", price10: "ก้อนละ 1.78 บ.", priceTrailer: "ก้อนละ 1.36 บ.", note: "" },
-            { name: "ชุมพร อ.ละแม", price6: "ก้อนละ 2.28 บ.", price10: "ก้อนละ 1.78 บ.", priceTrailer: "ก้อนละ 1.36 บ.", note: "" },
-            { name: "ตรัง", price6: "ก้อนละ 2.92 บ.", price10: "ก้อนละ 2.18 บ.", priceTrailer: "ก้อนละ 1.59 บ.", note: "" },
-            { name: "ตราด", price6: "ก้อนละ 2.07 บ.", price10: "ก้อนละ 1.65 บ.", priceTrailer: "ก้อนละ 1.28 บ.", note: "" },
-            { name: "ตราด อ.คลองใหญ่", price6: "ก้อนละ 2.19 บ.", price10: "ก้อนละ 1.72 บ.", priceTrailer: "ก้อนละ 1.32 บ.", note: "" },
-            { name: "ตาก", price6: "ก้อนละ 2.09 บ.", price10: "ก้อนละ 1.67 บ.", priceTrailer: "ก้อนละ 1.30 บ.", note: "" },
-            { name: "ตาก อ.แม่สอด", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ก้อนละ 1.35 บ.", note: "" },
-            { name: "นครนายก", price6: "ก้อนละ 1.51 บ.", price10: "ก้อนละ 1.31 บ.", priceTrailer: "ก้อนละ 1.09 บ.", note: "" },
-            { name: "นครปฐม", price6: "ก้อนละ 1.39 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.04 บ.", note: "" },
-            { name: "นครพนม", price6: "ก้อนละ 2.80 บ.", price10: "ก้อนละ 2.11 บ.", priceTrailer: "ก้อนละ 1.55 บ.", note: "" },
-            { name: "นครราชสีมา อ.เมือง", price6: "ก้อนละ 1.80 บ.", price10: "ก้อนละ 1.49 บ.", priceTrailer: "ก้อนละ 1.19 บ.", note: "" },
-            { name: "นครราชสีมา อ.ด่านขุนทด", price6: "ก้อนละ 1.80 บ.", price10: "ก้อนละ 1.49 บ.", priceTrailer: "ก้อนละ 1.19 บ.", note: "" },
-            { name: "นครราชสีมา อ.ปักธงชัย", price6: "ก้อนละ 1.80 บ.", price10: "ก้อนละ 1.49 บ.", priceTrailer: "ก้อนละ 1.19 บ.", note: "" },
-            { name: "นครราชสีมา อ.วังน้ำเขียว", price6: "ก้อนละ 1.80 บ.", price10: "ก้อนละ 1.49 บ.", priceTrailer: "ก้อนละ 1.19 บ.", note: "" },
-            { name: "นครราชสีมา อ.เทพารักษ์", price6: "ก้อนละ 1.80 บ.", price10: "ก้อนละ 1.49 บ.", priceTrailer: "ก้อนละ 1.19 บ.", note: "" },
-            { name: "นครราชสีมา อ.โชคชัย", price6: "ก้อนละ 1.80 บ.", price10: "ก้อนละ 1.49 บ.", priceTrailer: "ก้อนละ 1.19 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนไทย", price6: "ก้อนละ 1.80 บ.", price10: "ก้อนละ 1.49 บ.", priceTrailer: "ก้อนละ 1.19 บ.", note: "" },
-            { name: "นครราชสีมา อ.ขามทะเลสอ", price6: "ก้อนละ 1.80 บ.", price10: "ก้อนละ 1.49 บ.", priceTrailer: "ก้อนละ 1.19 บ.", note: "" },
-            { name: "นครราชสีมา อ.เฉลิมพระเกียรติ", price6: "ก้อนละ 1.80 บ.", price10: "ก้อนละ 1.49 บ.", priceTrailer: "ก้อนละ 1.19 บ.", note: "" },
-            { name: "นครราชสีมา อ.ปากช่อง", price6: "ก้อนละ 1.62 บ.", price10: "ก้อนละ 1.37 บ.", priceTrailer: "ก้อนละ 1.12 บ.", note: "" },
-            { name: "นครราชสีมา อ.จักราช", price6: "ก้อนละ 1.92 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.23 บ.", note: "" },
-            { name: "นครราชสีมา อ.ครบุรี", price6: "ก้อนละ 1.92 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.23 บ.", note: "" },
-            { name: "นครราชสีมา อ.เสิงสาง", price6: "ก้อนละ 1.92 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.23 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนสูง", price6: "ก้อนละ 1.92 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.23 บ.", note: "" },
-            { name: "นครราชสีมา อ.หนองบุญมาก", price6: "ก้อนละ 1.92 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.23 บ.", note: "" },
-            { name: "นครราชสีมา อ.พระทองคำ", price6: "ก้อนละ 1.92 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.23 บ.", note: "" },
-            { name: "นครราชสีมา อ.คง", price6: "ก้อนละ 1.92 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.23 บ.", note: "" },
-            { name: "นครราชสีมา อ.บ้านเหลื่อม", price6: "ก้อนละ 1.92 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.23 บ.", note: "" },
-            { name: "นครราชสีมา อ.ขามสะแกแสง", price6: "ก้อนละ 1.92 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.23 บ.", note: "" },
-            { name: "นครราชสีมา อ.พิมาย", price6: "ก้อนละ 1.92 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.23 บ.", note: "" },
-            { name: "นครราชสีมา อ.ห้วยแถลง", price6: "ก้อนละ 1.92 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.23 บ.", note: "" },
-            { name: "นครราชสีมา อ.แก้งสนามนาง", price6: "ก้อนละ 1.92 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.23 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนแดง", price6: "ก้อนละ 1.92 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.23 บ.", note: "" },
-            { name: "นครราชสีมา อ.สูงเนิน", price6: "ก้อนละ 1.72 บ.", price10: "ก้อนละ 1.44 บ.", priceTrailer: "ก้อนละ 1.16 บ.", note: "" },
-            { name: "นครราชสีมา อ.สีคิ้ว", price6: "ก้อนละ 1.72 บ.", price10: "ก้อนละ 1.44 บ.", priceTrailer: "ก้อนละ 1.16 บ.", note: "" },
-            { name: "นครราชสีมา อ.ประทาย", price6: "ก้อนละ 2.04 บ.", price10: "ก้อนละ 1.63 บ.", priceTrailer: "ก้อนละ 1.27 บ.", note: "" },
-            { name: "นครราชสีมา อ.บัวใหญ่", price6: "ก้อนละ 2.04 บ.", price10: "ก้อนละ 1.63 บ.", priceTrailer: "ก้อนละ 1.27 บ.", note: "" },
-            { name: "นครราชสีมา อ.ชุมพวง", price6: "ก้อนละ 2.04 บ.", price10: "ก้อนละ 1.63 บ.", priceTrailer: "ก้อนละ 1.27 บ.", note: "" },
-            { name: "นครราชสีมา อ.เมืองยาง", price6: "ก้อนละ 2.04 บ.", price10: "ก้อนละ 1.63 บ.", priceTrailer: "ก้อนละ 1.27 บ.", note: "" },
-            { name: "นครราชสีมา อ.ลำทะเมนชัย", price6: "ก้อนละ 2.04 บ.", price10: "ก้อนละ 1.63 บ.", priceTrailer: "ก้อนละ 1.27 บ.", note: "" },
-            { name: "นครราชสีมา อ.บัวลาย", price6: "ก้อนละ 2.04 บ.", price10: "ก้อนละ 1.63 บ.", priceTrailer: "ก้อนละ 1.27 บ.", note: "" },
-            { name: "นครราชสีมา อ.สีดา", price6: "ก้อนละ 2.04 บ.", price10: "ก้อนละ 1.63 บ.", priceTrailer: "ก้อนละ 1.27 บ.", note: "" },
-            { name: "นครศรีธรรมราช", price6: "ก้อนละ 2.79 บ.", price10: "ก้อนละ 2.10 บ.", priceTrailer: "ก้อนละ 1.54 บ.", note: "" },
-            { name: "นครสวรรค์", price6: "ก้อนละ 1.72 บ.", price10: "ก้อนละ 1.44 บ.", priceTrailer: "ก้อนละ 1.16 บ.", note: "" },
-            { name: "นนทบุรี", price6: "ก้อนละ 1.39 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.04 บ.", note: "" },
-            { name: "น่าน", price6: "ก้อนละ 2.62 บ.", price10: "ก้อนละ 1.99 บ.", priceTrailer: "ก้อนละ 1.48 บ.", note: "" },
-            { name: "บึงกาฬ", price6: "ก้อนละ 2.82 บ.", price10: "ก้อนละ 2.12 บ.", priceTrailer: "ก้อนละ 1.56 บ.", note: "" },
-            { name: "บุรีรัมย์", price6: "ก้อนละ 2.08 บ.", price10: "ก้อนละ 1.66 บ.", priceTrailer: "ก้อนละ 1.29 บ.", note: "" },
-            { name: "ปทุมธานี", price6: "ก้อนละ 1.39 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.04 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.เมือง", price6: "ก้อนละ 1.74 บ.", price10: "ก้อนละ 1.45 บ.", priceTrailer: "ก้อนละ 1.17 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.กุยบุรี", price6: "ก้อนละ 1.74 บ.", price10: "ก้อนละ 1.45 บ.", priceTrailer: "ก้อนละ 1.17 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.ทับสะแก", price6: "ก้อนละ 1.74 บ.", price10: "ก้อนละ 1.45 บ.", priceTrailer: "ก้อนละ 1.17 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.หัวหิน", price6: "ก้อนละ 1.54 บ.", price10: "ก้อนละ 1.33 บ.", priceTrailer: "ก้อนละ 1.10 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.ปราณบุรี", price6: "ก้อนละ 1.54 บ.", price10: "ก้อนละ 1.33 บ.", priceTrailer: "ก้อนละ 1.10 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.สามร้อยยอด", price6: "ก้อนละ 1.54 บ.", price10: "ก้อนละ 1.33 บ.", priceTrailer: "ก้อนละ 1.10 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.บางสะพาน", price6: "ก้อนละ 1.93 บ.", price10: "ก้อนละ 1.57 บ.", priceTrailer: "ก้อนละ 1.24 บ.", note: "" },
-            { name: "ปราจีนบุรี", price6: "ก้อนละ 1.62 บ.", price10: "ก้อนละ 1.38 บ.", priceTrailer: "ก้อนละ 1.13 บ.", note: "" },
-            { name: "ปัตตานี", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" },
-            { name: "พระนครศรีอยุธยา", price6: "ก้อนละ 1.39 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.04 บ.", note: "" },
-            { name: "พะเยา", price6: "ก้อนละ 2.77 บ.", price10: "ก้อนละ 2.08 บ.", priceTrailer: "ก้อนละ 1.53 บ.", note: "" },
-            { name: "พังงา", price6: "ก้อนละ 2.77 บ.", price10: "ก้อนละ 2.08 บ.", priceTrailer: "ก้อนละ 1.53 บ.", note: "" },
-            { name: "พัทลุง", price6: "ก้อนละ 2.94 บ.", price10: "ก้อนละ 2.19 บ.", priceTrailer: "ก้อนละ 1.60 บ.", note: "" },
-            { name: "พิจิตร", price6: "ก้อนละ 1.92 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.23 บ.", note: "" },
-            { name: "พิษณุโลก", price6: "ก้อนละ 2.04 บ.", price10: "ก้อนละ 1.63 บ.", priceTrailer: "ก้อนละ 1.28 บ.", note: "" },
-            { name: "ภูเก็ต", price6: "ก้อนละ 2.93 บ.", price10: "ก้อนละ 2.18 บ.", priceTrailer: "ก้อนละ 1.59 บ.", note: "" },
-            { name: "มหาสารคาม", price6: "ก้อนละ 2.20 บ.", price10: "ก้อนละ 1.73 บ.", priceTrailer: "ก้อนละ 1.34 บ.", note: "" },
-            { name: "มุกดาหาร", price6: "ก้อนละ 2.60 บ.", price10: "ก้อนละ 1.98 บ.", priceTrailer: "ก้อนละ 1.48 บ.", note: "" },
-            { name: "ยะลา", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" },
-            { name: "ยโสธร", price6: "ก้อนละ 2.38 บ.", price10: "ก้อนละ 1.84 บ.", priceTrailer: "ก้อนละ 1.40 บ.", note: "" },
-            { name: "ระนอง", price6: "ก้อนละ 2.37 บ.", price10: "ก้อนละ 1.84 บ.", priceTrailer: "ก้อนละ 1.39 บ.", note: "" },
-            { name: "ระยอง", price6: "ก้อนละ 1.75 บ.", price10: "ก้อนละ 1.45 บ.", priceTrailer: "ก้อนละ 1.17 บ.", note: "" },
-            { name: "ราชบุรี", price6: "ก้อนละ 1.39 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.04 บ.", note: "" },
-            { name: "ร้อยเอ็ด", price6: "ก้อนละ 2.29 บ.", price10: "ก้อนละ 1.79 บ.", priceTrailer: "ก้อนละ 1.37 บ.", note: "" },
-            { name: "ลพบุรี", price6: "ก้อนละ 1.51 บ.", price10: "ก้อนละ 1.31 บ.", priceTrailer: "ก้อนละ 1.09 บ.", note: "" },
-            { name: "ลำปาง", price6: "ก้อนละ 2.49 บ.", price10: "ก้อนละ 1.91 บ.", priceTrailer: "ก้อนละ 1.44 บ.", note: "" },
-            { name: "ลำพูน", price6: "ก้อนละ 2.61 บ.", price10: "ก้อนละ 1.99 บ.", priceTrailer: "ก้อนละ 1.48 บ.", note: "" },
-            { name: "ศรีสะเกษ", price6: "ก้อนละ 2.40 บ.", price10: "ก้อนละ 1.85 บ.", priceTrailer: "ก้อนละ 1.40 บ.", note: "" },
-            { name: "สกลนคร", price6: "ก้อนละ 2.61 บ.", price10: "ก้อนละ 1.98 บ.", priceTrailer: "ก้อนละ 1.48 บ.", note: "" },
-            { name: "สงขลา", price6: "ก้อนละ 3.13 บ.", price10: "ก้อนละ 2.31 บ.", priceTrailer: "ก้อนละ 1.67 บ.", note: "" },
-            { name: "สตูล", price6: "ก้อนละ 3.14 บ.", price10: "ก้อนละ 2.32 บ.", priceTrailer: "ก้อนละ 1.68 บ.", note: "" },
-            { name: "สมุทรปราการ", price6: "ก้อนละ 1.43 บ.", price10: "ก้อนละ 1.26 บ.", priceTrailer: "ก้อนละ 1.06 บ.", note: "" },
-            { name: "สมุทรสงคราม", price6: "ก้อนละ 1.39 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.04 บ.", note: "" },
-            { name: "สมุทรสาคร", price6: "ก้อนละ 1.39 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.04 บ.", note: "" },
-            { name: "สระบุรี", price6: "ก้อนละ 1.49 บ.", price10: "ก้อนละ 1.30 บ.", priceTrailer: "ก้อนละ 1.08 บ.", note: "" },
-            { name: "สระแก้ว", price6: "ก้อนละ 1.73 บ.", price10: "ก้อนละ 1.44 บ.", priceTrailer: "ก้อนละ 1.16 บ.", note: "" },
-            { name: "สิงห์บุรี", price6: "ก้อนละ 1.53 บ.", price10: "ก้อนละ 1.31 บ.", priceTrailer: "ก้อนละ 1.09 บ.", note: "" },
-            { name: "สุพรรณบุรี", price6: "ก้อนละ 1.40 บ.", price10: "ก้อนละ 1.24 บ.", priceTrailer: "ก้อนละ 1.05 บ.", note: "" },
-            { name: "สุราษฎร์ธานี", price6: "ก้อนละ 2.49 บ.", price10: "ก้อนละ 1.91 บ.", priceTrailer: "ก้อนละ 1.44 บ.", note: "" },
-            { name: "สุราษฎร์ธานี เกาะสมุย", price6: "ก้อนละ 2.66 บ.", price10: "ก้อนละ 2.04 บ.", priceTrailer: "ก้อนละ 1.49 บ.", note: "*ราคานี้ยังไม่รวมค่าตั๋วเรือ" },
-            { name: "สุราษฎร์ธานี เกาะพะงัน", price6: "ก้อนละ 2.70 บ.", price10: "ก้อนละ 2.06 บ.", priceTrailer: "ก้อนละ 1.50 บ.", note: "*ราคานี้ยังไม่รวมค่าตั๋วเรือ" },
-            { name: "สุรินทร์", price6: "ก้อนละ 2.17 บ.", price10: "ก้อนละ 1.72 บ.", priceTrailer: "ก้อนละ 1.32 บ.", note: "" },
-            { name: "สุโขทัย", price6: "ก้อนละ 2.15 บ.", price10: "ก้อนละ 1.70 บ.", priceTrailer: "ก้อนละ 1.31 บ.", note: "" },
-            { name: "หนองคาย", price6: "ก้อนละ 2.57 บ.", price10: "ก้อนละ 1.96 บ.", priceTrailer: "ก้อนละ 1.47 บ.", note: "" },
-            { name: "หนองบัวลำภู", price6: "ก้อนละ 2.37 บ.", price10: "ก้อนละ 1.84 บ.", priceTrailer: "ก้อนละ 1.40 บ.", note: "" },
-            { name: "อำนาจเจริญ", price6: "ก้อนละ 2.49 บ.", price10: "ก้อนละ 1.91 บ.", priceTrailer: "ก้อนละ 1.44 บ.", note: "" },
-            { name: "อุดรธานี", price6: "ก้อนละ 2.46 บ.", price10: "ก้อนละ 1.90 บ.", priceTrailer: "ก้อนละ 1.43 บ.", note: "" },
-            { name: "อุตรดิตถ์", price6: "ก้อนละ 2.26 บ.", price10: "ก้อนละ 1.77 บ.", priceTrailer: "ก้อนละ 1.35 บ.", note: "" },
-            { name: "อุทัยธานี", price6: "ก้อนละ 1.66 บ.", price10: "ก้อนละ 1.40 บ.", priceTrailer: "ก้อนละ 1.14 บ.", note: "" },
-            { name: "อุบลราชธานี", price6: "ก้อนละ 2.56 บ.", price10: "ก้อนละ 1.95 บ.", priceTrailer: "ก้อนละ 1.46 บ.", note: "" },
-            { name: "อ่างทอง", price6: "ก้อนละ 1.43 บ.", price10: "ก้อนละ 1.26 บ.", priceTrailer: "ก้อนละ 1.06 บ.", note: "" },
-            { name: "เชียงใหม่", price6: "ก้อนละ 2.69 บ.", price10: "ก้อนละ 2.03 บ.", priceTrailer: "ก้อนละ 1.51 บ.", note: "" },
-            { name: "เชียงราย", price6: "ก้อนละ 2.91 บ.", price10: "ก้อนละ 2.17 บ.", priceTrailer: "ก้อนละ 1.58 บ.", note: "" },
-            { name: "เพชรบุรี", price6: "ก้อนละ 1.45 บ.", price10: "ก้อนละ 1.27 บ.", priceTrailer: "ก้อนละ 1.07 บ.", note: "" },
-            { name: "เพชรบูรณ์", price6: "ก้อนละ 1.93 บ.", price10: "ก้อนละ 1.57 บ.", priceTrailer: "ก้อนละ 1.24 บ.", note: "" },
-            { name: "เลย", price6: "ก้อนละ 2.38 บ.", price10: "ก้อนละ 1.84 บ.", priceTrailer: "ก้อนละ 1.40 บ.", note: "" },
-            { name: "เลย อ.ด่านซ้าย", price6: "ก้อนละ 2.42 บ.", price10: "ก้อนละ 1.90 บ.", priceTrailer: "ก้อนละ 1.44 บ.", note: "" },
-            { name: "แพร่", price6: "ก้อนละ 2.39 บ.", price10: "ก้อนละ 1.85 บ.", priceTrailer: "ก้อนละ 1.40 บ.", note: "" },
-            { name: "แม่ฮ่องสอน", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" }
-        ];
-
-        const db2HoleSmall = [
-            { name: "กรุงเทพมหานคร", price6: "ก้อนละ 1.12 บ.", price10: "ก้อนละ 0.99 บ.", priceTrailer: "ก้อนละ 0.92 บ.", note: "" },
-            { name: "กระบี่", price6: "ก้อนละ 1.95 บ.", price10: "ก้อนละ 1.51 บ.", priceTrailer: "ก้อนละ 1.22 บ.", note: "" },
-            { name: "กาญจนบุรี อ.เมือง", price6: "ก้อนละ 1.13 บ.", price10: "ก้อนละ 1.01 บ.", priceTrailer: "ก้อนละ 0.93 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ท่าม่วง", price6: "ก้อนละ 1.13 บ.", price10: "ก้อนละ 1.01 บ.", priceTrailer: "ก้อนละ 0.93 บ.", note: "" },
-            { name: "กาญจนบุรี อ.พนมทวน", price6: "ก้อนละ 1.13 บ.", price10: "ก้อนละ 1.01 บ.", priceTrailer: "ก้อนละ 0.93 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ท่ามะกา", price6: "ก้อนละ 1.13 บ.", price10: "ก้อนละ 1.01 บ.", priceTrailer: "ก้อนละ 0.93 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ด่านมะขามเตี้ย", price6: "ก้อนละ 1.13 บ.", price10: "ก้อนละ 1.01 บ.", priceTrailer: "ก้อนละ 0.93 บ.", note: "" },
-            { name: "กาญจนบุรี อ.บ่อพลอย", price6: "ก้อนละ 1.18 บ.", price10: "ก้อนละ 1.04 บ.", priceTrailer: "ก้อนละ 0.94 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ไทรโยค", price6: "ก้อนละ 1.18 บ.", price10: "ก้อนละ 1.04 บ.", priceTrailer: "ก้อนละ 0.94 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ห้วยกระเจา", price6: "ก้อนละ 1.18 บ.", price10: "ก้อนละ 1.04 บ.", priceTrailer: "ก้อนละ 0.94 บ.", note: "" },
-            { name: "กาญจนบุรี อ.หนองปรือ", price6: "ก้อนละ 1.18 บ.", price10: "ก้อนละ 1.04 บ.", priceTrailer: "ก้อนละ 0.94 บ.", note: "" },
-            { name: "กาญจนบุรี อ.เลาขวัญ", price6: "ก้อนละ 1.18 บ.", price10: "ก้อนละ 1.04 บ.", priceTrailer: "ก้อนละ 0.94 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ทองผาภูมิ", price6: "ก้อนละ 1.30 บ.", price10: "ก้อนละ 1.11 บ.", priceTrailer: "ก้อนละ 0.98 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ศรีสวัสดิ์", price6: "ก้อนละ 1.30 บ.", price10: "ก้อนละ 1.11 บ.", priceTrailer: "ก้อนละ 0.98 บ.", note: "" },
-            { name: "กาญจนบุรี อ.สังขละบุรี", price6: "ก้อนละ 1.38 บ.", price10: "ก้อนละ 1.16 บ.", priceTrailer: "ก้อนละ 1.01 บ.", note: "" },
-            { name: "กาฬสินธุ์", price6: "ก้อนละ 1.69 บ.", price10: "ก้อนละ 1.35 บ.", priceTrailer: "ก้อนละ 1.12 บ.", note: "" },
-            { name: "กำแพงเพชร", price6: "ก้อนละ 1.44 บ.", price10: "ก้อนละ 1.20 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "ขอนแก่น", price6: "ก้อนละ 1.58 บ.", price10: "ก้อนละ 1.29 บ.", priceTrailer: "ก้อนละ 1.09 บ.", note: "" },
-            { name: "จันทบุรี", price6: "ก้อนละ 1.39 บ.", price10: "ก้อนละ 1.17 บ.", priceTrailer: "ก้อนละ 1.02 บ.", note: "" },
-            { name: "ฉะเชิงเทรา", price6: "ก้อนละ 1.19 บ.", price10: "ก้อนละ 1.04 บ.", priceTrailer: "ก้อนละ 0.94 บ.", note: "" },
-            { name: "ฉะเชิงเทรา อ.สนามชัยเขต", price6: "ก้อนละ 1.27 บ.", price10: "ก้อนละ 1.09 บ.", priceTrailer: "ก้อนละ 0.97 บ.", note: "" },
-            { name: "ชลบุรี อ.เมือง", price6: "ก้อนละ 1.20 บ.", price10: "ก้อนละ 1.05 บ.", priceTrailer: "ก้อนละ 0.95 บ.", note: "" },
-            { name: "ชลบุรี อ.พนัสนิคม", price6: "ก้อนละ 1.20 บ.", price10: "ก้อนละ 1.05 บ.", priceTrailer: "ก้อนละ 0.95 บ.", note: "" },
-            { name: "ชลบุรี อ.พานทอง", price6: "ก้อนละ 1.20 บ.", price10: "ก้อนละ 1.05 บ.", priceTrailer: "ก้อนละ 0.95 บ.", note: "" },
-            { name: "ชลบุรี อ.บ้านบึง", price6: "ก้อนละ 1.20 บ.", price10: "ก้อนละ 1.05 บ.", priceTrailer: "ก้อนละ 0.95 บ.", note: "" },
-            { name: "ชลบุรี อ.ศรีราชา", price6: "ก้อนละ 1.20 บ.", price10: "ก้อนละ 1.05 บ.", priceTrailer: "ก้อนละ 0.95 บ.", note: "" },
-            { name: "ชลบุรี อ.เกาะจันทร์", price6: "ก้อนละ 1.20 บ.", price10: "ก้อนละ 1.05 บ.", priceTrailer: "ก้อนละ 0.95 บ.", note: "" },
-            { name: "ชลบุรี อ.บางละมุง(พัทยา)", price6: "ก้อนละ 1.27 บ.", price10: "ก้อนละ 1.09 บ.", priceTrailer: "ก้อนละ 0.97 บ.", note: "" },
-            { name: "ชลบุรี อ.สัตหีบ", price6: "ก้อนละ 1.27 บ.", price10: "ก้อนละ 1.09 บ.", priceTrailer: "ก้อนละ 0.97 บ.", note: "" },
-            { name: "ชลบุรี อ.บ่อทอง", price6: "ก้อนละ 1.27 บ.", price10: "ก้อนละ 1.09 บ.", priceTrailer: "ก้อนละ 0.97 บ.", note: "" },
-            { name: "ชลบุรี อ.หนองใหญ่", price6: "ก้อนละ 1.27 บ.", price10: "ก้อนละ 1.09 บ.", priceTrailer: "ก้อนละ 0.97 บ.", note: "" },
-            { name: "ชลบุรี อ.เกาะสีชัง", price6: "ก้อนละ 1.27 บ.", price10: "ก้อนละ 1.09 บ.", priceTrailer: "ก้อนละ 0.97 บ.", note: "" },
-            { name: "ชัยนาท", price6: "ก้อนละ 1.24 บ.", price10: "ก้อนละ 1.08 บ.", priceTrailer: "ก้อนละ 0.96 บ.", note: "" },
-            { name: "ชัยภูมิ", price6: "ก้อนละ 1.43 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "ชุมพร อ.เมือง", price6: "ก้อนละ 1.56 บ.", price10: "ก้อนละ 1.27 บ.", priceTrailer: "ก้อนละ 1.08 บ.", note: "" },
-            { name: "ชุมพร อ.สวี", price6: "ก้อนละ 1.56 บ.", price10: "ก้อนละ 1.27 บ.", priceTrailer: "ก้อนละ 1.08 บ.", note: "" },
-            { name: "ชุมพร อ.ทุ่งตะโก", price6: "ก้อนละ 1.56 บ.", price10: "ก้อนละ 1.27 บ.", priceTrailer: "ก้อนละ 1.08 บ.", note: "" },
-            { name: "ชุมพร อ.ท่าแซะ", price6: "ก้อนละ 1.52 บ.", price10: "ก้อนละ 1.25 บ.", priceTrailer: "ก้อนละ 1.06 บ.", note: "" },
-            { name: "ชุมพร อ.ปะทิว", price6: "ก้อนละ 1.52 บ.", price10: "ก้อนละ 1.25 บ.", priceTrailer: "ก้อนละ 1.06 บ.", note: "" },
-            { name: "ชุมพร อ.หลังสวน", price6: "ก้อนละ 1.64 บ.", price10: "ก้อนละ 1.32 บ.", priceTrailer: "ก้อนละ 1.11 บ.", note: "" },
-            { name: "ชุมพร อ.พะโต๊ะ", price6: "ก้อนละ 1.64 บ.", price10: "ก้อนละ 1.32 บ.", priceTrailer: "ก้อนละ 1.11 บ.", note: "" },
-            { name: "ชุมพร อ.ละแม", price6: "ก้อนละ 1.64 บ.", price10: "ก้อนละ 1.32 บ.", priceTrailer: "ก้อนละ 1.11 บ.", note: "" },
-            { name: "ตรัง", price6: "ก้อนละ 2.02 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.24 บ.", note: "" },
-            { name: "ตราด", price6: "ก้อนละ 1.51 บ.", price10: "ก้อนละ 1.24 บ.", priceTrailer: "ก้อนละ 1.06 บ.", note: "" },
-            { name: "ตราด อ.คลองใหญ่", price6: "ก้อนละ 1.58 บ.", price10: "ก้อนละ 1.28 บ.", priceTrailer: "ก้อนละ 1.08 บ.", note: "" },
-            { name: "ตาก", price6: "ก้อนละ 1.53 บ.", price10: "ก้อนละ 1.25 บ.", priceTrailer: "ก้อนละ 1.07 บ.", note: "" },
-            { name: "ตาก อ.แม่สอด", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ก้อนละ 1.10 บ.", note: "" },
-            { name: "นครนายก", price6: "ก้อนละ 1.18 บ.", price10: "ก้อนละ 1.04 บ.", priceTrailer: "ก้อนละ 0.94 บ.", note: "" },
-            { name: "นครปฐม", price6: "ก้อนละ 1.11 บ.", price10: "ก้อนละ 0.99 บ.", priceTrailer: "ก้อนละ 0.91 บ.", note: "" },
-            { name: "นครพนม", price6: "ก้อนละ 1.95 บ.", price10: "ก้อนละ 1.51 บ.", priceTrailer: "ก้อนละ 1.22 บ.", note: "" },
-            { name: "นครราชสีมา อ.เมือง", price6: "ก้อนละ 1.35 บ.", price10: "ก้อนละ 1.14 บ.", priceTrailer: "ก้อนละ 1.00 บ.", note: "" },
-            { name: "นครราชสีมา อ.ด่านขุนทด", price6: "ก้อนละ 1.35 บ.", price10: "ก้อนละ 1.14 บ.", priceTrailer: "ก้อนละ 1.00 บ.", note: "" },
-            { name: "นครราชสีมา อ.ปักธงชัย", price6: "ก้อนละ 1.35 บ.", price10: "ก้อนละ 1.14 บ.", priceTrailer: "ก้อนละ 1.00 บ.", note: "" },
-            { name: "นครราชสีมา อ.วังน้ำเขียว", price6: "ก้อนละ 1.35 บ.", price10: "ก้อนละ 1.14 บ.", priceTrailer: "ก้อนละ 1.00 บ.", note: "" },
-            { name: "นครราชสีมา อ.เทพารักษ์", price6: "ก้อนละ 1.35 บ.", price10: "ก้อนละ 1.14 บ.", priceTrailer: "ก้อนละ 1.00 บ.", note: "" },
-            { name: "นครราชสีมา อ.โชคชัย", price6: "ก้อนละ 1.35 บ.", price10: "ก้อนละ 1.14 บ.", priceTrailer: "ก้อนละ 1.00 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนไทย", price6: "ก้อนละ 1.35 บ.", price10: "ก้อนละ 1.14 บ.", priceTrailer: "ก้อนละ 1.00 บ.", note: "" },
-            { name: "นครราชสีมา อ.ขามทะเลสอ", price6: "ก้อนละ 1.35 บ.", price10: "ก้อนละ 1.14 บ.", priceTrailer: "ก้อนละ 1.00 บ.", note: "" },
-            { name: "นครราชสีมา อ.เฉลิมพระเกียรติ", price6: "ก้อนละ 1.35 บ.", price10: "ก้อนละ 1.14 บ.", priceTrailer: "ก้อนละ 1.00 บ.", note: "" },
-            { name: "นครราชสีมา อ.ปากช่อง", price6: "ก้อนละ 1.24 บ.", price10: "ก้อนละ 1.07 บ.", priceTrailer: "ก้อนละ 0.96 บ.", note: "" },
-            { name: "นครราชสีมา อ.จักราช", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "นครราชสีมา อ.ครบุรี", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "นครราชสีมา อ.เสิงสาง", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนสูง", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "นครราชสีมา อ.หนองบุญมาก", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "นครราชสีมา อ.พระทองคำ", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "นครราชสีมา อ.คง", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "นครราชสีมา อ.บ้านเหลื่อม", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "นครราชสีมา อ.ขามสะแกแสง", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "นครราชสีมา อ.พิมาย", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "นครราชสีมา อ.ห้วยแถลง", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "นครราชสีมา อ.แก้งสนามนาง", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนแดง", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "นครราชสีมา อ.สูงเนิน", price6: "ก้อนละ 1.30 บ.", price10: "ก้อนละ 1.11 บ.", priceTrailer: "ก้อนละ 0.99 บ.", note: "" },
-            { name: "นครราชสีมา อ.สีคิ้ว", price6: "ก้อนละ 1.30 บ.", price10: "ก้อนละ 1.11 บ.", priceTrailer: "ก้อนละ 0.99 บ.", note: "" },
-            { name: "นครราชสีมา อ.ประทาย", price6: "ก้อนละ 1.49 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.05 บ.", note: "" },
-            { name: "นครราชสีมา อ.บัวใหญ่", price6: "ก้อนละ 1.49 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.05 บ.", note: "" },
-            { name: "นครราชสีมา อ.ชุมพวง", price6: "ก้อนละ 1.49 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.05 บ.", note: "" },
-            { name: "นครราชสีมา อ.เมืองยาง", price6: "ก้อนละ 1.49 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.05 บ.", note: "" },
-            { name: "นครราชสีมา อ.ลำทะเมนชัย", price6: "ก้อนละ 1.49 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.05 บ.", note: "" },
-            { name: "นครราชสีมา อ.บัวลาย", price6: "ก้อนละ 1.49 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.05 บ.", note: "" },
-            { name: "นครราชสีมา อ.สีดา", price6: "ก้อนละ 1.49 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.05 บ.", note: "" },
-            { name: "นครศรีธรรมราช", price6: "ก้อนละ 1.95 บ.", price10: "ก้อนละ 1.51 บ.", priceTrailer: "ก้อนละ 1.21 บ.", note: "" },
-            { name: "นครสวรรค์", price6: "ก้อนละ 1.30 บ.", price10: "ก้อนละ 1.11 บ.", priceTrailer: "ก้อนละ 0.98 บ.", note: "" },
-            { name: "นนทบุรี", price6: "ก้อนละ 1.11 บ.", price10: "ก้อนละ 0.99 บ.", priceTrailer: "ก้อนละ 0.91 บ.", note: "" },
-            { name: "น่าน", price6: "ก้อนละ 1.84 บ.", price10: "ก้อนละ 1.45 บ.", priceTrailer: "ก้อนละ 1.18 บ.", note: "" },
-            { name: "บึงกาฬ", price6: "ก้อนละ 1.96 บ.", price10: "ก้อนละ 1.52 บ.", priceTrailer: "ก้อนละ 1.22 บ.", note: "" },
-            { name: "บุรีรัมย์", price6: "ก้อนละ 1.52 บ.", price10: "ก้อนละ 1.24 บ.", priceTrailer: "ก้อนละ 1.06 บ.", note: "" },
-            { name: "ปทุมธานี", price6: "ก้อนละ 1.10 บ.", price10: "ก้อนละ 0.99 บ.", priceTrailer: "ก้อนละ 0.91 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.เมือง", price6: "ก้อนละ 1.31 บ.", price10: "ก้อนละ 1.12 บ.", priceTrailer: "ก้อนละ 0.99 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.กุยบุรี", price6: "ก้อนละ 1.31 บ.", price10: "ก้อนละ 1.12 บ.", priceTrailer: "ก้อนละ 0.99 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.ทับสะแก", price6: "ก้อนละ 1.31 บ.", price10: "ก้อนละ 1.12 บ.", priceTrailer: "ก้อนละ 0.99 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.หัวหิน", price6: "ก้อนละ 1.19 บ.", price10: "ก้อนละ 1.05 บ.", priceTrailer: "ก้อนละ 0.95 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.ปราณบุรี", price6: "ก้อนละ 1.19 บ.", price10: "ก้อนละ 1.05 บ.", priceTrailer: "ก้อนละ 0.95 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.สามร้อยยอด", price6: "ก้อนละ 1.19 บ.", price10: "ก้อนละ 1.05 บ.", priceTrailer: "ก้อนละ 0.95 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.บางสะพาน", price6: "ก้อนละ 1.43 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "ปราจีนบุรี", price6: "ก้อนละ 1.24 บ.", price10: "ก้อนละ 1.08 บ.", priceTrailer: "ก้อนละ 0.97 บ.", note: "" },
-            { name: "ปัตตานี", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" },
-            { name: "พระนครศรีอยุธยา", price6: "ก้อนละ 1.11 บ.", price10: "ก้อนละ 0.99 บ.", priceTrailer: "ก้อนละ 0.91 บ.", note: "" },
-            { name: "พะเยา", price6: "ก้อนละ 1.93 บ.", price10: "ก้อนละ 1.50 บ.", priceTrailer: "ก้อนละ 1.21 บ.", note: "" },
-            { name: "พังงา", price6: "ก้อนละ 1.93 บ.", price10: "ก้อนละ 1.50 บ.", priceTrailer: "ก้อนละ 1.21 บ.", note: "" },
-            { name: "พัทลุง", price6: "ก้อนละ 2.03 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.25 บ.", note: "" },
-            { name: "พิจิตร", price6: "ก้อนละ 1.42 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "พิษณุโลก", price6: "ก้อนละ 1.50 บ.", price10: "ก้อนละ 1.23 บ.", priceTrailer: "ก้อนละ 1.05 บ.", note: "" },
-            { name: "ภูเก็ต", price6: "ก้อนละ 2.03 บ.", price10: "ก้อนละ 1.56 บ.", priceTrailer: "ก้อนละ 1.24 บ.", note: "" },
-            { name: "มหาสารคาม", price6: "ก้อนละ 1.59 บ.", price10: "ก้อนละ 1.29 บ.", priceTrailer: "ก้อนละ 1.09 บ.", note: "" },
-            { name: "มุกดาหาร", price6: "ก้อนละ 1.83 บ.", price10: "ก้อนละ 1.44 บ.", priceTrailer: "ก้อนละ 1.17 บ.", note: "" },
-            { name: "ยะลา", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" },
-            { name: "ยโสธร", price6: "ก้อนละ 1.70 บ.", price10: "ก้อนละ 1.36 บ.", priceTrailer: "ก้อนละ 1.13 บ.", note: "" },
-            { name: "ระนอง", price6: "ก้อนละ 1.69 บ.", price10: "ก้อนละ 1.35 บ.", priceTrailer: "ก้อนละ 1.12 บ.", note: "" },
-            { name: "ระยอง", price6: "ก้อนละ 1.32 บ.", price10: "ก้อนละ 1.12 บ.", priceTrailer: "ก้อนละ 0.99 บ.", note: "" },
-            { name: "ราชบุรี", price6: "ก้อนละ 1.11 บ.", price10: "ก้อนละ 0.99 บ.", priceTrailer: "ก้อนละ 0.91 บ.", note: "" },
-            { name: "ร้อยเอ็ด", price6: "ก้อนละ 1.64 บ.", price10: "ก้อนละ 1.32 บ.", priceTrailer: "ก้อนละ 1.11 บ.", note: "" },
-            { name: "ลพบุรี", price6: "ก้อนละ 1.18 บ.", price10: "ก้อนละ 1.04 บ.", priceTrailer: "ก้อนละ 0.94 บ.", note: "" },
-            { name: "ลำปาง", price6: "ก้อนละ 1.76 บ.", price10: "ก้อนละ 1.40 บ.", priceTrailer: "ก้อนละ 1.15 บ.", note: "" },
-            { name: "ลำพูน", price6: "ก้อนละ 1.83 บ.", price10: "ก้อนละ 1.44 บ.", priceTrailer: "ก้อนละ 1.18 บ.", note: "" },
-            { name: "ศรีสะเกษ", price6: "ก้อนละ 1.71 บ.", price10: "ก้อนละ 1.36 บ.", priceTrailer: "ก้อนละ 1.13 บ.", note: "" },
-            { name: "สกลนคร", price6: "ก้อนละ 1.83 บ.", price10: "ก้อนละ 1.44 บ.", priceTrailer: "ก้อนละ 1.18 บ.", note: "" },
-            { name: "สงขลา", price6: "ก้อนละ 2.15 บ.", price10: "ก้อนละ 1.64 บ.", priceTrailer: "ก้อนละ 1.29 บ.", note: "" },
-            { name: "สตูล", price6: "ก้อนละ 2.15 บ.", price10: "ก้อนละ 1.64 บ.", priceTrailer: "ก้อนละ 1.29 บ.", note: "" },
-            { name: "สมุทรปราการ", price6: "ก้อนละ 1.13 บ.", price10: "ก้อนละ 1.00 บ.", priceTrailer: "ก้อนละ 0.92 บ.", note: "" },
-            { name: "สมุทรสงคราม", price6: "ก้อนละ 1.10 บ.", price10: "ก้อนละ 0.99 บ.", priceTrailer: "ก้อนละ 0.91 บ.", note: "" },
-            { name: "สมุทรสาคร", price6: "ก้อนละ 1.10 บ.", price10: "ก้อนละ 0.99 บ.", priceTrailer: "ก้อนละ 0.91 บ.", note: "" },
-            { name: "สระบุรี", price6: "ก้อนละ 1.17 บ.", price10: "ก้อนละ 1.03 บ.", priceTrailer: "ก้อนละ 0.94 บ.", note: "" },
-            { name: "สระแก้ว", price6: "ก้อนละ 1.31 บ.", price10: "ก้อนละ 1.12 บ.", priceTrailer: "ก้อนละ 0.99 บ.", note: "" },
-            { name: "สิงห์บุรี", price6: "ก้อนละ 1.18 บ.", price10: "ก้อนละ 1.04 บ.", priceTrailer: "ก้อนละ 0.94 บ.", note: "" },
-            { name: "สุพรรณบุรี", price6: "ก้อนละ 1.11 บ.", price10: "ก้อนละ 0.99 บ.", priceTrailer: "ก้อนละ 0.92 บ.", note: "" },
-            { name: "สุราษฎร์ธานี", price6: "ก้อนละ 1.77 บ.", price10: "ก้อนละ 1.40 บ.", priceTrailer: "ก้อนละ 1.15 บ.", note: "" },
-            { name: "สุราษฎร์ธานี เกาะสมุย", price6: "ก้อนละ 1.87 บ.", price10: "ก้อนละ 1.47 บ.", priceTrailer: "ก้อนละ 1.18 บ.", note: "*ราคานี้ยังไม่รวมค่าตั๋วเรือ" },
-            { name: "สุราษฎร์ธานี เกาะพะงัน", price6: "ก้อนละ 1.90 บ.", price10: "ก้อนละ 1.49 บ.", priceTrailer: "ก้อนละ 1.19 บ.", note: "*ราคานี้ยังไม่รวมค่าตั๋วเรือ" },
-            { name: "สุรินทร์", price6: "ก้อนละ 1.57 บ.", price10: "ก้อนละ 1.28 บ.", priceTrailer: "ก้อนละ 1.08 บ.", note: "" },
-            { name: "สุโขทัย", price6: "ก้อนละ 1.56 บ.", price10: "ก้อนละ 1.27 บ.", priceTrailer: "ก้อนละ 1.08 บ.", note: "" },
-            { name: "หนองคาย", price6: "ก้อนละ 1.81 บ.", price10: "ก้อนละ 1.43 บ.", priceTrailer: "ก้อนละ 1.17 บ.", note: "" },
-            { name: "หนองบัวลำภู", price6: "ก้อนละ 1.69 บ.", price10: "ก้อนละ 1.35 บ.", priceTrailer: "ก้อนละ 1.13 บ.", note: "" },
-            { name: "อำนาจเจริญ", price6: "ก้อนละ 1.76 บ.", price10: "ก้อนละ 1.40 บ.", priceTrailer: "ก้อนละ 1.15 บ.", note: "" },
-            { name: "อุดรธานี", price6: "ก้อนละ 1.75 บ.", price10: "ก้อนละ 1.39 บ.", priceTrailer: "ก้อนละ 1.15 บ.", note: "" },
-            { name: "อุตรดิตถ์", price6: "ก้อนละ 1.63 บ.", price10: "ก้อนละ 1.31 บ.", priceTrailer: "ก้อนละ 1.10 บ.", note: "" },
-            { name: "อุทัยธานี", price6: "ก้อนละ 1.26 บ.", price10: "ก้อนละ 1.09 บ.", priceTrailer: "ก้อนละ 0.97 บ.", note: "" },
-            { name: "อุบลราชธานี", price6: "ก้อนละ 1.81 บ.", price10: "ก้อนละ 1.42 บ.", priceTrailer: "ก้อนละ 1.16 บ.", note: "" },
-            { name: "อ่างทอง", price6: "ก้อนละ 1.13 บ.", price10: "ก้อนละ 1.01 บ.", priceTrailer: "ก้อนละ 0.92 บ.", note: "" },
-            { name: "เชียงใหม่", price6: "ก้อนละ 1.88 บ.", price10: "ก้อนละ 1.47 บ.", priceTrailer: "ก้อนละ 1.19 บ.", note: "" },
-            { name: "เชียงราย", price6: "ก้อนละ 2.02 บ.", price10: "ก้อนละ 1.55 บ.", priceTrailer: "ก้อนละ 1.24 บ.", note: "" },
-            { name: "เพชรบุรี", price6: "ก้อนละ 1.14 บ.", price10: "ก้อนละ 1.01 บ.", priceTrailer: "ก้อนละ 0.93 บ.", note: "" },
-            { name: "เพชรบูรณ์", price6: "ก้อนละ 1.43 บ.", price10: "ก้อนละ 1.19 บ.", priceTrailer: "ก้อนละ 1.03 บ.", note: "" },
-            { name: "เลย", price6: "ก้อนละ 1.70 บ.", price10: "ก้อนละ 1.36 บ.", priceTrailer: "ก้อนละ 1.13 บ.", note: "" },
-            { name: "เลย อ.ด่านซ้าย", price6: "ก้อนละ 1.80 บ.", price10: "ก้อนละ 1.44 บ.", priceTrailer: "ก้อนละ 1.15 บ.", note: "" },
-            { name: "แพร่", price6: "ก้อนละ 1.70 บ.", price10: "ก้อนละ 1.36 บ.", priceTrailer: "ก้อนละ 1.13 บ.", note: "" },
-            { name: "แม่ฮ่องสอน", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" }
-        ];
-
-        // --- 2. ฟังก์ชันระบบค้นหาอัจฉริยะ (คีย์เวิร์ดตรวจเช็กคลาสและ ID แยกกันเด็ดขาด) ---
-        function searchBrick(model) {
-            let inputId, suggestId, database;
+        // --- ฟังก์ชันเด้ง 10 จังหวัดฮิตแนะนำอัตโนมัติประจำหน้าสองเมื่อเอานิ้วสัมผัสกล่องค้นหา ---
+        function showPopularLocations(model) {
+            const inputId = model === '3hole' ? 'input3Hole' : (model === '2big' ? 'input2Big' : 'input2Small');
+            const suggestId = model === '3hole' ? 'suggestions3Hole' : (model === '2big' ? 'suggestions2Big' : 'suggestions2Small');
             
-            // ล็อกเป้าหมาย ID และฐานข้อมูลตามรุ่นที่ลูกค้ากำลังพิมพ์
-            if (model === '3hole') { inputId = 'input3Hole'; suggestId = 'suggest3Hole'; database = db3Hole; }
-            else if (model === '2big') { inputId = 'input2Big'; suggestId = 'suggest2Big'; database = db2HoleBig; }
-            else if (model === '2small') { inputId = 'input2Small'; suggestId = 'suggest2Small'; database = db2HoleSmall; }
+            const query = document.getElementById(inputId).value.trim();
+            if (query !== '') return; 
 
+            const suggestionsDiv = document.getElementById(suggestId);
+            suggestionsDiv.innerHTML = '';
+            
+            locationDatabase.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'suggestion-item';
+                div.innerText = item.name;
+                div.onclick = () => selectLocation(model, item);
+                suggestionsDiv.appendChild(div);
+            });
+            suggestionsDiv.style.display = 'block';
+        }
+
+        // --- ฟังก์ชันคัดกรองรายชื่ออำเภอ/จังหวัด ระหว่างที่ลูกค้ากำลังคีย์พิมพ์ตัวหนังสือลงแอป ---
+        function handleSearch(model) {
+            const inputId = model === '3hole' ? 'input3Hole' : (model === '2big' ? 'input2Big' : 'input2Small');
+            const suggestId = model === '3hole' ? 'suggestions3Hole' : (model === '2big' ? 'suggestions2Big' : 'suggestions2Small');
+            
             const query = document.getElementById(inputId).value.trim();
             const suggestionsDiv = document.getElementById(suggestId);
             suggestionsDiv.innerHTML = '';
 
             if (query === '') { suggestionsDiv.style.display = 'none'; return; }
 
-            const filtered = database.filter(item => item.name.includes(query));
+            const filtered = locationDatabase.filter(item => item.name.includes(query));
             if (filtered.length > 0) {
                 filtered.forEach(item => {
                     const div = document.createElement('div');
-                    div.style.padding = '12px 15px';
-                    div.style.cursor = 'pointer';
-                    div.style.fontSize = '14px';
-                    div.style.borderBottom = '1px solid #f5f5f5';
+                    div.className = 'suggestion-item';
                     div.innerText = item.name;
-                    div.onclick = () => selectBrickLocation(model, item);
+                    div.onclick = () => selectLocation(model, item);
                     suggestionsDiv.appendChild(div);
                 });
                 suggestionsDiv.style.display = 'block';
             } else { suggestionsDiv.style.display = 'none'; }
         }
 
-        // --- 3. ฟังก์ชันกางตารางและหยอดตัวเลขราคาลงบล็อกขาวแม่นยำ ---
-        function selectBrickLocation(model, item) {
-            let inputId, suggestId, resultId, p6Id, p10Id, pTrId, noteId, textNoteId;
-
-            if (model === '3hole') {
-                inputId = 'input3Hole'; suggestId = 'suggest3Hole'; resultId = 'result3Hole';
-                p6Id = 'p6-3hole'; p10Id = 'p10-3hole'; pTrId = 'pTr-3hole'; noteId = 'note-3hole'; textNoteId = 'textNote-3hole';
-            } else if (model === '2big') {
-                inputId = 'input2Big'; suggestId = 'suggest2Big'; resultId = 'result2Big';
-                p6Id = 'p6-2big'; p10Id = 'p10-2big'; pTrId = 'pTr-2big'; noteId = 'note-2big'; textNoteId = 'textNote-2big';
-            } else if (model === '2small') {
-                inputId = 'input2Small'; suggestId = 'suggest2Small'; resultId = 'result2Small';
-                p6Id = 'p6-2small'; p10Id = 'p10-2small'; pTrId = 'pTr-2small'; noteId = 'note-2small'; textNoteId = 'textNote-2small';
-            }
+        function selectLocation(model, item) {
+            
+            const inputId = model === '3hole' ? 'input3Hole' : (model === '2big' ? 'input2Big' : 'input2Small');
+            const suggestId = model === '3hole' ? 'suggestions3Hole' : (model === '2big' ? 'suggestions2Big' : 'suggestions2Small');
+            const resultId = model === '3hole' ? 'result3Hole' : (model === '2big' ? 'result2Big' : 'result2Small');
+            
+            const p6Id = model === '3hole' ? 'price6_3hole' : (model === '2big' ? 'price6_2big' : 'price6_2small');
+            const p10Id = model === '3hole' ? 'price10_3hole' : (model === '2big' ? 'price10_2big' : 'price10_2small');
+            const pTrId = model === '3hole' ? 'priceTr_3hole' : (model === '2big' ? 'priceTr_2big' : 'priceTr_2small');
+            const textNoteId = model === '3hole' ? 'textNote3Hole' : (model === '2big' ? 'textNote2Big' : 'textNote2Small');
+            const noteContainerId = model === '3hole' ? 'noteContainer3Hole' : (model === '2big' ? 'noteContainer2Big' : 'noteContainer2Small');
 
             document.getElementById(inputId).value = item.name;
             document.getElementById(suggestId).style.display = 'none';
-            document.getElementById(p6Id).innerText = item.price6;
-            document.getElementById(p10Id).innerText = item.price10;
-            document.getElementById(pTrId).innerText = item.priceTrailer;
 
-            const noteContainer = document.getElementById(noteId);
+            const km = item.km;
+            const days = item.days;
+
+            let f6_1 = 400, f6_2 = 300, f10_1 = 600, f10_2 = 550, fTr_1 = 800, fTr_2 = 700;
+            if (km > 400) { f6_1 = 700; f10_1 = 900; fTr_1 = 1300; }
+
+            let totalCost6  = (((km * 2) / 6.0) * CURRENT_OIL_PRICE) + f6_1 + f6_2 + item.toll6 + (days * 5000);
+            let totalCost10 = (((km * 2) / 4.3) * CURRENT_OIL_PRICE) + f10_1 + f10_2 + item.toll10 + (days * 6000);
+            let totalCostTr = (((km * 2) / 3.0) * CURRENT_OIL_PRICE) + fTr_1 + fTr_2 + item.tollTr + (days * 7000);
+
+            let pack6 = 4000, pack10 = 8000, packTr = 18000;
+            let currentBrickPrice = PRICE_3_HOLE;
+
+            if (model === '2big') {
+                pack6 = 12000; pack10 = 24000; packTr = 54000;
+                currentBrickPrice = PRICE_2_BIG;
+            } else if (model === '2small') {
+                pack6 = 20000; pack10 = 40000; packTr = 90000;
+                currentBrickPrice = PRICE_2_SMALL;
+            }
+
+            // 4. ดีดสูตรคิดราคารวมส่งขายสุทธิต่อก้อน ปัดเศษทศนิยมตำแหน่งที่ 2 เป็นเลข 0 (5 ขึ้น 4 ลง)
+            let rawPrice6  = (totalCost6 / pack6) + currentBrickPrice.price6;
+            let finalPrice6 = Math.round(rawPrice6 * 10) / 10;
+
+            let rawPrice10 = (totalCost10 / pack10) + currentBrickPrice.price10;
+            let finalPrice10 = Math.round(rawPrice10 * 10) / 10;
+
+            let rawPriceTr = (totalCostTr / packTr) + currentBrickPrice.priceTr;
+            let finalPriceTr = Math.round(rawPriceTr * 10) / 10;
+
+            // 5. ดีดตัวเลขส่งขึ้นแสดงผลบนตารางก้นกล่องของสินค้าแต่ละรุ่นแยกขาดจากกัน
+            document.getElementById(p6Id).innerText = "ก้อนละ " + finalPrice6.toFixed(2) + " บ.";
+            document.getElementById(p10Id).innerText = "ก้อนละ " + finalPrice10.toFixed(2) + " บ.";
+            document.getElementById(pTrId).innerText = "ก้อนละ " + finalPriceTr.toFixed(2) + " บ.";
+
+            // สั่งเด้งป้ายหมายเหตุคำเตือนสีแดง (ถ้าจังหวัดนั้นมีข้อความกำกับไว้)
+            const noteContainer = document.getElementById(noteContainerId);
             if (item.note) {
                 document.getElementById(textNoteId).innerText = item.note;
-                noteContainer.style.display = 'flex';
+                noteContainer.style.display = 'block';
             } else { noteContainer.style.display = 'none'; }
 
             document.getElementById(resultId).style.display = 'block';
         }
 
-        // คลิกพื้นที่โล่งด้านนอกให้กล่องแนะนำจังหวัดหุบตัวลง
+        // เอานิ้วจิ้มพื้นที่ว่างนอกช่องพิมพ์ค้นหา ให้แถบเสนอแนะรายชื่อจังหวัดหุบเก็บตัวลงไปอัตโนมัติ
         document.addEventListener('click', function(e) {
             if (!e.target.id.startsWith('input')) {
-                document.getElementById('suggest3Hole').style.display = 'none';
-                document.getElementById('suggest2Big').style.display = 'none';
-                document.getElementById('suggest2Small').style.display = 'none';
+                if(document.getElementById('suggestions3Hole')) document.getElementById('suggestions3Hole').style.display = 'none';
+                if(document.getElementById('suggestions2Big')) document.getElementById('suggestions2Big').style.display = 'none';
+                if(document.getElementById('suggestions2Small')) document.getElementById('suggestions2Small').style.display = 'none';
             }
         });
 
-                // ฟังก์ชันสั่งเด้ง 10 จังหวัดฮิต ประจำหน้าสอง (แยกตามกล่องสินค้า 3 รุ่นอัตโนมัติ)
-        function showPopularBrick(model) {
-            let inputId, suggestId, database;
-            
-            // ล็อกเป้าหมาย ID และฐานข้อมูลตามรุ่นที่ลูกค้ากำลังเอานิ้วจิ้มช่องค้นหา
-            if (model === '3hole') { inputId = 'input3Hole'; suggestId = 'suggest3Hole'; database = db3Hole; }
-            else if (model === '2big') { inputId = 'input2Big'; suggestId = 'suggest2Big'; database = db2HoleBig; }
-            else if (model === '2small') { inputId = 'input2Small'; suggestId = 'suggest2Small'; database = db2HoleSmall; }
-
-            const query = document.getElementById(inputId).value.trim();
-            // ถ้าลูกค้าพิมพ์ตัวหนังสือค้างไว้แล้ว ให้หยุดฟังก์ชันนี้ทันทีเพื่อให้ระบบค้นหาปกติทำงานแทน
-            if (query !== '') return; 
-
-            // รายชื่อ 10 จังหวัดฮิตจัดส่งบ่อย 
-            const populars = ["กรุงเทพมหานคร", "นนทบุรี", "ปทุมธานี", "สมุทรปราการ", "สมุทรสาคร", "นครปฐม", "ราชบุรี", "จันทบุรี", "ชลบุรี อ.เมือง", "ชลบุรี อ.บางละมุง(พัทยา)"];
-            
-            const suggestionsDiv = document.getElementById(suggestId);
-            suggestionsDiv.innerHTML = '';
-            
-            populars.forEach(cityName => {
-                const item = database.find(loc => loc.name === cityName);
-                if (item) {
-                    const div = document.createElement('div');
-                    div.style.padding = '12px 15px';
-                    div.style.cursor = 'pointer';
-                    div.style.fontSize = '14px';
-                    div.style.borderBottom = '1px solid #f5f5f5';
-                    div.innerText = item.name;
-                    div.onclick = () => selectBrickLocation(model, item);
-                    suggestionsDiv.appendChild(div);
-                }
-            });
-            suggestionsDiv.style.display = 'block';
-        }
-
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode === 123) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 74) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; }
+        });
+      
     </script>
 
     
