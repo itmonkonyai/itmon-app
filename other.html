@@ -436,9 +436,9 @@
         
     </div>
 
-    <!-- 🧠 สมองควบคุมระบบสลับสเปกสินค้าและคำนวณค่ารถจัดส่งรายจังหวัด (ตัวเต็มร้อยเปอร์เซ็นต์) -->
     <script>
-        // --- 1. คลังสเปกสินค้าและความจุรถแยกตามขนาดความหนา (พี่แก้ไขตัวเลขตรงนี้ได้เลยครับ) ---
+        
+        // --- คลังฐานข้อมูลสเปกสินค้ากล่องที่ 1 ---
         const productCatalog = [
             { id: "7.5", name: "ความหนา 7.5 ซม.", price: "ราคา 505 บ./ตร.ม.", weight: "60-65 กก./ตร.ม.", qtyNote: "6 ล้อ 115, 10 ล้อ 216, รถพ่วง 432 (ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-innowall-75.jpg" },
             { id: "9", name: "ความหนา 9 ซม.", price: "ราคา 535 บ./ตร.ม.", weight: "65-70 กก./ตร.ม.", qtyNote: "6 ล้อ 92, 10 ล้อ 184, รถพ่วง 369 (ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-innowall-90.jpg" },
@@ -448,162 +448,90 @@
             { id: "20", name: "ความหนา 20 ซม.", price: "ราคา 955 บ./ตร.ม.", weight: "140-160 กก./ตร.ม.", qtyNote: "6 ล้อ 46, 10 ล้อ 92, รถพ่วง 184 (ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-innowall-200.jpg" },
             { id: "cline", name: "ผนังเสริม c-line (สั่งผลิต)", price: "ราคา +250 บ./ตร.ม.(จากราคาปกติ)", weight: "-", qtyNote: "-", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-innowall-cline.jpg"}
         ];
-
-        // --- 2. คลังฐานข้อมูลราคาค่าจัดส่งแยกตามขนาดรถ (พี่พิมพ์เพิ่มจังหวัดยาวลงมาตรงนี้ได้เลยครับ) ---
-        const transportDatabase = [
-            { name: "กรุงเทพมหานคร", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "กระบี่", price6: "20,000 บ.", price10: "24,000 บ.", priceTr: "32,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.เมือง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ท่าม่วง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.พนมทวน", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ท่ามะกา", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ด่านมะขามเตี้ย", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.บ่อพลอย", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ไทรโยค", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ห้วยกระเจา", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.หนองปรือ", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.เลาขวัญ", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ทองผาภูมิ", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "14,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ศรีสวัสดิ์", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "14,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.สังขละบุรี", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "กาฬสินธุ์", price6: "15,000 บ.", price10: "19,000 บ.", priceTr: "24,000 บ.", note: "" },
-            { name: "กำแพงเพชร", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "ขอนแก่น", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "จันทบุรี", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "ฉะเชิงเทรา", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ฉะเชิงเทรา อ.สนามชัยเขต", price6: "6,000 บ.", price10: "8,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.เมือง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.พนัสนิคม", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.พานทอง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.บ้านบึง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.ศรีราชา", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.เกาะจันทร์", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.บางละมุง(พัทยา)", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.สัตหีบ", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.บ่อทอง", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.หนองใหญ่", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.เกาะสีชัง", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชัยนาท", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "12,000 บ.", note: "" },
-            { name: "ชัยภูมิ", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "ชุมพร อ.เมือง", price6: "12,000 บ.", price10: "16,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.สวี", price6: "12,000 บ.", price10: "16,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.ทุ่งตะโก", price6: "12,000 บ.", price10: "16,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.ท่าแซะ", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.ปะทิว", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.หลังสวน", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ชุมพร อ.พะโต๊ะ", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ชุมพร อ.ละแม", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ตรัง", price6: "21,000 บ.", price10: "26,000 บ.", priceTr: "34,000 บ.", note: "" },
-            { name: "ตราด", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "ตราด อ.คลองใหญ่", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ตาก", price6: "13,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ตาก อ.แม่สอด", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTr: "25,000 บ.", note: "" },
-            { name: "นครนายก", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "นครปฐม", price6: "4,000 บ.", price10: "6,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "นครพนม", price6: "20,000 บ.", price10: "25,000 บ.", priceTr: "33,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เมือง", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ด่านขุนทด", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ปักธงชัย", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.วังน้ำเขียว", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เทพารักษ์", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.โชคชัย", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนไทย", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ขามทะเลสอ", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เฉลิมพระเกียรติ", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ปากช่อง", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "12,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.จักราช", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ครบุรี", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เสิงสาง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนสูง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.หนองบุญมาก", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.พระทองคำ", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.คง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.บ้านเหลื่อม", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ขามสะแกแสง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.พิมาย", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ห้วยแถลง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.แก้งสนามนาง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนแดง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.สูงเนิน", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.สีคิ้ว", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ประทาย", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.บัวใหญ่", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ชุมพวง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เมืองยาง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ลำทะเมนชัย", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.บัวลาย", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.สีดา", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครศรีธรรมราช", price6: "20,000 บ.", price10: "24,000 บ.", priceTr: "32,000 บ.", note: "" },
-            { name: "นครสวรรค์", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "14,000 บ.", note: "" },
-            { name: "นนทบุรี", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "น่าน", price6: "19,000 บ.", price10: "24,000 บ.", priceTr: "31,000 บ.", note: "" },
-            { name: "บึงกาฬ", price6: "21,000 บ.", price10: "26,000 บ.", priceTr: "33,000 บ.", note: "" },
-            { name: "บุรีรัมย์", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ปทุมธานี", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.เมือง", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.กุยบุรี", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.ทับสะแก", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.หัวหิน", price6: "6,000 บ.", price10: "7,000 บ.", priceTr: "10,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.ปราณบุรี", price6: "6,000 บ.", price10: "7,000 บ.", priceTr: "10,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.สามร้อยยอด", price6: "6,000 บ.", price10: "7,000 บ.", priceTr: "10,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.บางสะพาน", price6: "10,000 บ.", price10: "13,000 บ.", priceTr: "16,000 บ.", note: "" },
-            { name: "ปราจีนบุรี", price6: "6,000 บ.", price10: "8,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ปัตตานี", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" },
-            { name: "พระนครศรีอยุธยา", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "พะเยา", price6: "20,000 บ.", price10: "25,000 บ.", priceTr: "33,000 บ.", note: "" },
-            { name: "พังงา", price6: "19,000 บ.", price10: "24,000 บ.", priceTr: "31,000 บ.", note: "" },
-            { name: "พัทลุง", price6: "22,000 บ.", price10: "27,000 บ.", priceTr: "34,000 บ.", note: "" },
-            { name: "พิจิตร", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "พิษณุโลก", price6: "13,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ภูเก็ต", price6: "21,000 บ.", price10: "26,000 บ.", priceTr: "34,000 บ.", note: "" },
-            { name: "มหาสารคาม", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "มุกดาหาร", price6: "18,000 บ.", price10: "23,000 บ.", priceTr: "29,000 บ.", note: "" },
-            { name: "ยะลา", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" },
-            { name: "ยโสธร", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "25,000 บ.", note: "" },
-            { name: "ระนอง", price6: "15,000 บ.", price10: "19,000 บ.", priceTr: "24,000 บ.", note: "" },
-            { name: "ระยอง", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "ราชบุรี", price6: "4,000 บ.", price10: "6,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "ร้อยเอ็ด", price6: "15,000 บ.", price10: "18,000 บ.", priceTr: "24,000 บ.", note: "" },
-            { name: "ลพบุรี", price6: "6,000 บ.", price10: "8,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ลำปาง", price6: "17,000 บ.", price10: "22,000 บ.", priceTr: "28,000 บ.", note: "" },
-            { name: "ลำพูน", price6: "19,000 บ.", price10: "24,000 บ.", priceTr: "31,000 บ.", note: "" },
-            { name: "ศรีสะเกษ", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "26,000 บ.", note: "" },
-            { name: "สกลนคร", price6: "18,000 บ.", price10: "23,000 บ.", priceTr: "29,000 บ.", note: "" },
-            { name: "สงขลา", price6: "24,000 บ.", price10: "30,000 บ.", priceTr: "39,000 บ.", note: "" },
-            { name: "สตูล", price6: "24,000 บ.", price10: "30,000 บ.", priceTr: "39,000 บ.", note: "" },
-            { name: "สมุทรปราการ", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "สมุทรสงคราม", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "สมุทรสาคร", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "สระบุรี", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "สระแก้ว", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "สิงห์บุรี", price6: "6,000 บ.", price10: "8,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "สุพรรณบุรี", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "สุราษฎร์ธานี", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "26,000 บ.", note: "" },
-            { name: "สุราษฎร์ธานี เกาะสมุย", price6: "17,000 บ.", price10: "22,000 บ.", priceTr: "29,000 บ.", note: "*ราคานี้ยังไม่รวมค่าตั๋วเรือ" },
-            { name: "สุราษฎร์ธานี เกาะพะงัน", price6: "18,000 บ.", price10: "23,000 บ.", priceTr: "31,000 บ.", note: "*ราคานี้ยังไม่รวมค่าตั๋วเรือ" },
-            { name: "สุรินทร์", price6: "13,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "สุโขทัย", price6: "13,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "หนองคาย", price6: "17,000 บ.", price10: "22,000 บ.", priceTr: "28,000 บ.", note: "" },
-            { name: "หนองบัวลำภู", price6: "16,000 บ.", price10: "19,000 บ.", priceTr: "25,000 บ.", note: "" },
-            { name: "อำนาจเจริญ", price6: "17,000 บ.", price10: "21,000 บ.", priceTr: "27,000 บ.", note: "" },
-            { name: "อุดรธานี", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "26,000 บ.", note: "" },
-            { name: "อุตรดิตถ์", price6: "15,000 บ.", price10: "18,000 บ.", priceTr: "24,000 บ.", note: "" },
-            { name: "อุทัยธานี", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "อุบลราชธานี", price6: "17,000 บ.", price10: "21,000 บ.", priceTr: "28,000 บ.", note: "" },
-            { name: "อ่างทอง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "เชียงใหม่", price6: "19,000 บ.", price10: "24,000 บ.", priceTr: "31,000 บ.", note: "" },
-            { name: "เชียงราย", price6: "22,000 บ.", price10: "27,000 บ.", priceTr: "35,000 บ.", note: "" },
-            { name: "เพชรบุรี", price6: "5,000 บ.", price10: "6,000 บ.", priceTr: "8,000 บ.", note: "" },
-            { name: "เพชรบูรณ์", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "เลย", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "25,000 บ.", note: "" },
-            { name: "เลย อ.ด่านซ้าย", price6: "17,000 บ.", price10: "22,000 บ.", priceTr: "28,000 บ.", note: "" },
-            { name: "แพร่", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "26,000 บ.", note: "" },
-            { name: "แม่ฮ่องสอน", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" }
+        
+        // --- คลังฐานข้อมูลสเปกสินค้ากล่องที่ 2 ---
+        const blockCatalog = [
+            { id: "worm", name: "ตัวหนอน", colors: ["สีปูน/เทา ก้อนละ 5.4 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 6.6 บ.", "สีส้ม/เหลือง ก้อนละ 6.9 บ.", "สีเขียว/ฟ้า ก้อนละ 9.2 บ."], size: "11.25 x 22.50 x 6 ซม.", weight: "3-3.3 กก./ก้อน (40 ก้อน/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-worm.jpg"},
+            { id: "octagon", name: "แปดเหลี่ยม", colors: ["สีปูน/เทา ก้อนละ 7.6 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 8.4 บ.", "สีส้ม/เหลือง ก้อนละ 8.8 บ.", "สีเขียว/ฟ้า ก้อนละ 10.6 บ."], size: "19.58 x 19.58 x 6 ซม.", weight: "4-4.3 กก./ก้อน (25 ชุด/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-octagon.jpg"},
+            { id: "dice", name: "ลูกเต๋า (ใช้คู่แปดเหลี่ยม)", colors: ["สีปูน/เทา ก้อนละ 3.2 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 3.6 บ.", "สีส้ม/เหลือง ก้อนละ 3.8 บ.", "สีเขียว/ฟ้า ก้อนละ 4.7 บ."], size: "8 x 8 x 6 ซม.", weight: "0.8 กก./ก้อน (25 ชุด/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-dice.jpg"},
+            { id: "hexagon_s", name: "หกเหลี่ยม (เล็ก)", colors: ["สีปูน/เทา ก้อนละ 5.7 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 6.9 บ.", "สีส้ม/เหลือง ก้อนละ 7.3 บ.", "สีเขียว/ฟ้า ก้อนละ 8.6 บ."], size: "11.50 x 19.50 x 6 ซม.", weight: "1.8-2 กก./ก้อน (60 ก้อน/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-hexagon-s.jpg"},
+            { id: "hexagon_l", name: "หกเหลี่ยม (ใหญ่)", colors: ["สีขาว ก้อนละ 18.2 บ.", "สีปูน/เทา ก้อนละ 11.2 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 12.5 บ.", "สีส้ม/เหลือง ก้อนละ 13.2 บ.", "สีเขียว/ฟ้า ก้อนละ 15.7 บ."], size: "19.50 x 19.50 x 6 ซม.", weight: "4-4.5 กก./ก้อน (29 ก้อน/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-hexagon-l.jpg"},
+            { id: "i_block", name: "ตัวไอ", colors: ["สีปูน/เทา ก้อนละ 7.8 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 8.5 บ.", "สีส้ม/เหลือง ก้อนละ 8.9 บ.", "สีเขียว/ฟ้า ก้อนละ 10.8 บ."], size: "16.50 x 20 x 6 ซม.", weight: "3.5-3.8 กก./ก้อน (35 ก้อน/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-i_block.jpg"},
+            { id: "magic", name: "คทา", colors: ["สีปูน/เทา ก้อนละ 5.8 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 7.1 บ.", "สีส้ม/เหลือง ก้อนละ 7.3 บ.", "สีเขียว/ฟ้า ก้อนละ 8.5 บ."], size: "13 x 19.50 x 6 ซม.", weight: "2.8-3 กก./ก้อน (45 ก้อน/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-magic.jpg"},
+            { id: "dice_10", name: "ลูกเต๋า 10 x 10 ซม.", colors: ["สีปูน/เทา ก้อนละ 5.8 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 6.5 บ.", "สีส้ม/เหลือง ก้อนละ 6.8 บ.", "สีเขียว/ฟ้า ก้อนละ 8.1 บ."], size: "10 x 10 x 6 ซม.", weight: "1 กก./ก้อน (100 ก้อน/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-dice-10.jpg"},
+            { id: "sila", name: "ศิลาเหลี่ยม 10 x 20 ซม.", colors: ["สีปูน/เทา ก้อนละ 6.7 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 8.6 บ.", "สีส้ม/เหลือง ก้อนละ 9 บ.", "สีเขียว/ฟ้า ก้อนละ 11.6 บ."], size: "10 x 20 x 6 ซม.", weight: "2.5 กก./ก้อน (50 ก้อน/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-sila.jpg"},
+            { id: "walk_20", name: "แผ่นทางเท้า 20 x 20 ซม.", colors: ["สีปูน/เทา แผ่นละ 16.1 บ.", "สีแดง/ดำ/น้ำตาล แผ่นละ 16.9 บ.", "สีส้ม/เหลือง แผ่นละ 17.4 บ.", "สีเขียว/ฟ้า แผ่นละ 22.2 บ."], size: "20 x 20 x 6 ซม.", weight: "4.3-4.5 กก./แผ่น (25 แผ่น/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-walk-20.jpg"},
+            { id: "walk_30", name: "แผ่นทางเท้า 30 x 30 ซม.", colors: ["หยาบ แผ่นละ 19.8 บ.", "สีปูน/เทา แผ่นละ 23.4 บ.", "สีแดง/ดำ/น้ำตาล แผ่นละ 32.8 บ.", "สีส้ม/เหลือง แผ่นละ 34 บ.", "สีเขียว/ฟ้า แผ่นละ 39.1 บ."], size: "30 x 30 x 6 ซม.", weight: "12 กก./แผ่น (12 แผ่น/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-walk-30.jpg"},
+            { id: "walk_40", name: "แผ่นทางเท้า 40 x 40 ซม.", colors: ["หยาบ แผ่นละ 20.4 บ.", "สีปูน/เทา แผ่นละ 27.6 บ.", "สีแดง/ดำ/น้ำตาล แผ่นละ 34 บ.", "สีส้ม/เหลือง แผ่นละ 36.5 บ.", "สีเขียว/ฟ้า แผ่นละ 41.6 บ."], size: "40 x 40 x 4 ซม.", weight: "14.5-15 กก./แผ่น (6.5 แผ่น/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-walk-40.jpg"},
+            { id: "grass", name: "บล็อกปูสนามหญ้า", colors: ["หยาบ แผ่นละ 20.4 บ.", "สีปูน/เทา แผ่นละ 27.6 บ."], size: "25 x 40 x 8 ซม.", weight: "15-16 กก./แผ่น (10 แผ่น/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-grass.jpg"}
+        ];
+        
+        // --- คลังฐานข้อมูลสเปกสินค้ากล่องที่ 3 ---
+        const curbCatalog = [
+            { id: "curb_11_21", name: "ขอบฟุตบาท 11 x 21 ซม.", price: "ท่อนละ 78 บ.", size: "11 x 21 x 50 ซม.", weight: "30 กก./ท่อน (60 ท่อน/พาเลท)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-curb-11-21.jpg" },
+            { id: "curb_15_15", name: "ขอบฟุตบาท 15 x 15 ซม.", price: "ท่อนละ 156 บ.", size: "15 x 15 x 100 ซม.", weight: "60 กก./ท่อน (25 ท่อน/พาเลท)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-curb-15-15.jpg"  },
+            { id: "curb_15_20", name: "ขอบฟุตบาท 15 x 20 ซม.", price: "ท่อนละ 168 บ.", size: "15 x 20 x 100 ซม.", weight: "80 กก./ท่อน (20 ท่อน/พาเลท)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-curb-15-20.jpg"  },
+            { id: "curb_15_30", name: "ขอบฟุตบาท 15 x 30 ซม.", price: "ท่อนละ 180 บ.", size: "15 x 30 x 100 ซม.", weight: "100 กก./ท่อน (15 ท่อน/พาเลท)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-curb-15-30.jpg"  },
+            { id: "angle_15_30", name: "เข้ามุมใหญ่ 15 x 30 ซม.", price: "ท่อนละ 48 บ.", size: "15 x 30 x 100 ซม.", weight: "30 กก./ท่อน", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-angle-15-30.jpg"  }
         ];
 
-        // รายชื่อ 10 จังหวัดฮิตจัดส่งบ่อยเมื่อเอานิ้วจิ้มช่องค้นหาค่าขนส่ง
-        const popularCities = ["กรุงเทพมหานคร", "นนทบุรี", "ปทุมธานี", "สมุทรปราการ", "สมุทรสาคร", "นครปฐม", "ราชบุรี", "จันทบุรี", "ชลบุรี อ.เมือง", "ชลบุรี อ.บางละมุง(พัทยา)"];
+        
+        const CURRENT_OIL_PRICE = 45.00; //น้ำมัน
+        
+        //  1. ฐานข้อมูลจัดส่งสำหรับกล่องที่ 1: ผนังสำเร็จรูป
+        const transportDatabase = [
+            { name: "กรุงเทพมหานคร", km: 120, days: 1, toll6: 120, toll10: 240, tollTr: 350, note: "" },
+            { name: "กาญจนบุรี อ.เมือง", km: 45, days: 0.50, toll6: 0, toll10: 0, tollTr: 0, note: "" }
+        ];
+           
+        //  2. ฐานข้อมูลจัดส่งสำหรับกล่องที่ 2: บล็อกปูนถนน
+        const blockTransportDatabase = [
+            { name: "กรุงเทพมหานคร", km: 120, days: 1, toll6: 120, toll10: 240, tollTr: 350, note: "" },
+            { name: "ชลบุรี อ.เมือง", km: 210, days: 1.15, toll6: 240, toll10: 450, tollTr: 600, note: "" }
+        ];
 
+        //  3. ฐานข้อมูลจัดส่งสำหรับกล่องที่ 3: ขอบฟุตบาท
+        const curbTransportDatabase = [
+            { name: "กรุงเทพมหานคร", km: 120, days: 1, toll6: 120, toll10: 240, tollTr: 350, note: "" },
+            { name: "นนทบุรี อ.เมือง", km: 140, days: 1, toll6: 120, toll10: 240, tollTr: 350, note: "" }
+        ];
+
+        function calculateTruckDeliveryPrice(km, days, toll6, toll10, tollTr) {
+            // 1. คำนวณค่าเสื่อมสภาพรถใหม่ตามเวลารับส่งจริงของพี่
+            let dep6  = days * 4000;
+            let dep10 = days * 5000;
+            let depTr = days * 6000;
+
+            // 2. แยกกลุ่มเบี้ยเลี้ยงค่าน้ำมันคงที่ (Fixed Fuel) ตัดเกณฑ์ระยะทางที่ 400 กิโลเมตร
+            let f6_1 = 400, f6_2 = 300;
+            let f10_1 = 600, f10_2 = 550;
+            let fTr_1 = 800, fTr_2 = 700;
+
+            if (km > 400) {
+                f6_1 = 700;
+                f10_1 = 900;
+                fTr_1 = 1300;
+            }
+
+            // 3. ดีดสูตรคำนวณต้นทุนรวมคันรถต่อเที่ยวตามระยะทางจริง
+            let cost6  = (((km * 2) / 6.0) * CURRENT_OIL_PRICE) + f6_1 + f6_2 + toll6 + dep6;
+            let cost10 = (((km * 2) / 4.3) * CURRENT_OIL_PRICE) + f10_1 + f10_2 + toll10 + dep10;
+            let costTr = (((km * 2) / 3.0) * CURRENT_OIL_PRICE) + fTr_1 + fTr_2 + tollTr + depTr;
+
+            // 4. ไฮไลต์ไม้ตาย: ดีดปัดเศษราคาค่าขนส่งต่อเที่ยวสุทธิให้ลงท้ายเลข 000 ถ้วนเสมอกลางหน้าแอป
+            let final6  = Math.round(cost6 / 1000) * 1000;
+            let final10 = Math.round(cost10 / 1000) * 1000;
+            let finalTr = Math.round(costTr / 1000) * 1000;
+
+            return {
+                price6: "เที่ยวละ " + final6.toLocaleString('th-TH') + " บ.",  // ผลลัพธ์ใส่คอมมาสวยๆ เช่น เที่ยวละ 4,000 บ.
+                price10: "เที่ยวละ " + final10.toLocaleString('th-TH') + " บ.",
+                priceTr: "เที่ยวละ " + finalTr.toLocaleString('th-TH') + " บ."
+            };
+        }
+
+
+        //โค้ดกล่อง 1 ==================================================================
         let selectedProduct = null;
 
         // --- 3. ฟังก์ชันควบคุมหน้าต่างป๊อปอัปเลือกสินค้า (Searchable Dropdown Modal) ---
@@ -667,13 +595,15 @@
             document.getElementById('transportResult').style.display = 'none';
         }
 
-        // --- 5. ฟังก์ชันระบบค้นหาจังหวัดค่ารถจัดส่งรายภูมิภาค ---
+      
+        // 🏢 [กล่องที่ 1: ผนังสำเร็จรูป] ฟังก์ชันค้นหาจังหวัดและหยอดราคาค่าจัดส่งต่อเที่ยว
         function handleTransportSearch() {
             const query = document.getElementById('transportInput').value.trim();
             const suggestDiv = document.getElementById('transportSuggest');
             suggestDiv.innerHTML = '';
             if (query === '') { suggestDiv.style.display = 'none'; return; }
 
+            // ดึงคลังจังหวัดเฉพาะของผนังสำเร็จรูป (transportDatabase)
             const filtered = transportDatabase.filter(item => item.name.includes(query));
             if (filtered.length > 0) {
                 filtered.forEach(item => {
@@ -687,7 +617,6 @@
             } else { suggestDiv.style.display = 'none'; }
         }
 
-        // ฟังก์ชันเด้งจังหวัดส่งบ่อยขึ้นมารอทันทีที่นิ้วสัมผัสช่องขนส่ง
         function showPopularTransport() {
             const query = document.getElementById('transportInput').value.trim();
             if (query !== '') return;
@@ -706,201 +635,29 @@
             suggestDiv.style.display = 'block';
         }
 
-        // ฟังก์ชันหยอดราคาค่ารถจัดส่งทั้ง 3 ประเภทแสดงแถวบนหน้าจอ
         function selectTransportLocation(item) {
             document.getElementById('transportInput').value = item.name;
             document.getElementById('transportSuggest').style.display = 'none';
-            document.getElementById('tPrice6').innerText = "เที่ยวละ " + item.price6;
-            document.getElementById('tPrice10').innerText = "เที่ยวละ " + item.price10;
-            document.getElementById('tPriceTr').innerText = "เที่ยวละ " + item.priceTr;
-            
+    
+            // ดีดสูตรคูณค่าน้ำมันและค่าเสื่อมใหม่ ปัดเศษเต็มหลักลงท้าย 000
+            let finalPrices = calculateTruckDeliveryPrice(item.km, item.days, item.toll6, item.toll10, item.tollTr);
+    
+            // หยอดราคารวมส่งต่อเที่ยวลงไอดีกล่องที่ 1
+            document.getElementById('tPrice6').innerText = finalPrices.price6;
+            document.getElementById('tPrice10').innerText = finalPrices.price10;
+            document.getElementById('tPriceTr').innerText = finalPrices.priceTr;
+    
             const noteBox = document.getElementById('tPriceNote');
             if (item.note) {
                 document.getElementById('tPriceNoteText').innerText = item.note;
                 noteBox.style.display = 'flex';
             } else { noteBox.style.display = 'none'; }
-            
+    
             document.getElementById('transportResult').style.display = 'block';
         }
 
-        // คลิกพื้นที่ส่วนอื่นที่ไม่ใช่ช่องค้นหา ให้แผ่นป๊อปอัปจังหวัดรายชื่อหุบเก็บลงไป
-        document.addEventListener('click', function(e) {
-            if (e.target.id !== 'transportInput') {
-                if(document.getElementById('transportSuggest')) document.getElementById('transportSuggest').style.display = 'none';
-            }  
-        });
 
-
-        // --- 1. คลังฐานข้อมูลสินค้า 12 ชนิดย่อย ประจำกล่องที่ 2 (บล็อกปูนถนน) ---
-        const blockCatalog = [
-            { id: "worm", name: "ตัวหนอน", colors: ["สีปูน/เทา ก้อนละ 5.4 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 6.6 บ.", "สีส้ม/เหลือง ก้อนละ 6.9 บ.", "สีเขียว/ฟ้า ก้อนละ 9.2 บ."], size: "11.25 x 22.50 x 6 ซม.", weight: "3-3.3 กก./ก้อน (40 ก้อน/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-worm.jpg"},
-            { id: "octagon", name: "แปดเหลี่ยม", colors: ["สีปูน/เทา ก้อนละ 7.6 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 8.4 บ.", "สีส้ม/เหลือง ก้อนละ 8.8 บ.", "สีเขียว/ฟ้า ก้อนละ 10.6 บ."], size: "19.58 x 19.58 x 6 ซม.", weight: "4-4.3 กก./ก้อน (25 ชุด/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-octagon.jpg"},
-            { id: "dice", name: "ลูกเต๋า (ใช้คู่แปดเหลี่ยม)", colors: ["สีปูน/เทา ก้อนละ 3.2 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 3.6 บ.", "สีส้ม/เหลือง ก้อนละ 3.8 บ.", "สีเขียว/ฟ้า ก้อนละ 4.7 บ."], size: "8 x 8 x 6 ซม.", weight: "0.8 กก./ก้อน (25 ชุด/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-dice.jpg"},
-            { id: "hexagon_s", name: "หกเหลี่ยม (เล็ก)", colors: ["สีปูน/เทา ก้อนละ 5.7 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 6.9 บ.", "สีส้ม/เหลือง ก้อนละ 7.3 บ.", "สีเขียว/ฟ้า ก้อนละ 8.6 บ."], size: "11.50 x 19.50 x 6 ซม.", weight: "1.8-2 กก./ก้อน (60 ก้อน/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-hexagon-s.jpg"},
-            { id: "hexagon_l", name: "หกเหลี่ยม (ใหญ่)", colors: ["สีขาว ก้อนละ 18.2 บ.", "สีปูน/เทา ก้อนละ 11.2 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 12.5 บ.", "สีส้ม/เหลือง ก้อนละ 13.2 บ.", "สีเขียว/ฟ้า ก้อนละ 15.7 บ."], size: "19.50 x 19.50 x 6 ซม.", weight: "4-4.5 กก./ก้อน (29 ก้อน/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-hexagon-l.jpg"},
-            { id: "i_block", name: "ตัวไอ", colors: ["สีปูน/เทา ก้อนละ 7.8 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 8.5 บ.", "สีส้ม/เหลือง ก้อนละ 8.9 บ.", "สีเขียว/ฟ้า ก้อนละ 10.8 บ."], size: "16.50 x 20 x 6 ซม.", weight: "3.5-3.8 กก./ก้อน (35 ก้อน/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-i_block.jpg"},
-            { id: "magic", name: "คทา", colors: ["สีปูน/เทา ก้อนละ 5.8 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 7.1 บ.", "สีส้ม/เหลือง ก้อนละ 7.3 บ.", "สีเขียว/ฟ้า ก้อนละ 8.5 บ."], size: "13 x 19.50 x 6 ซม.", weight: "2.8-3 กก./ก้อน (45 ก้อน/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-magic.jpg"},
-            { id: "dice_10", name: "ลูกเต๋า 10 x 10 ซม.", colors: ["สีปูน/เทา ก้อนละ 5.8 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 6.5 บ.", "สีส้ม/เหลือง ก้อนละ 6.8 บ.", "สีเขียว/ฟ้า ก้อนละ 8.1 บ."], size: "10 x 10 x 6 ซม.", weight: "1 กก./ก้อน (100 ก้อน/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-dice-10.jpg"},
-            { id: "sila", name: "ศิลาเหลี่ยม 10 x 20 ซม.", colors: ["สีปูน/เทา ก้อนละ 6.7 บ.", "สีแดง/ดำ/น้ำตาล ก้อนละ 8.6 บ.", "สีส้ม/เหลือง ก้อนละ 9 บ.", "สีเขียว/ฟ้า ก้อนละ 11.6 บ."], size: "10 x 20 x 6 ซม.", weight: "2.5 กก./ก้อน (50 ก้อน/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-sila.jpg"},
-            { id: "walk_20", name: "แผ่นทางเท้า 20 x 20 ซม.", colors: ["สีปูน/เทา แผ่นละ 16.1 บ.", "สีแดง/ดำ/น้ำตาล แผ่นละ 16.9 บ.", "สีส้ม/เหลือง แผ่นละ 17.4 บ.", "สีเขียว/ฟ้า แผ่นละ 22.2 บ."], size: "20 x 20 x 6 ซม.", weight: "4.3-4.5 กก./แผ่น (25 แผ่น/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-walk-20.jpg"},
-            { id: "walk_30", name: "แผ่นทางเท้า 30 x 30 ซม.", colors: ["หยาบ แผ่นละ 19.8 บ.", "สีปูน/เทา แผ่นละ 23.4 บ.", "สีแดง/ดำ/น้ำตาล แผ่นละ 32.8 บ.", "สีส้ม/เหลือง แผ่นละ 34 บ.", "สีเขียว/ฟ้า แผ่นละ 39.1 บ."], size: "30 x 30 x 6 ซม.", weight: "12 กก./แผ่น (12 แผ่น/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-walk-30.jpg"},
-            { id: "walk_40", name: "แผ่นทางเท้า 40 x 40 ซม.", colors: ["หยาบ แผ่นละ 20.4 บ.", "สีปูน/เทา แผ่นละ 27.6 บ.", "สีแดง/ดำ/น้ำตาล แผ่นละ 34 บ.", "สีส้ม/เหลือง แผ่นละ 36.5 บ.", "สีเขียว/ฟ้า แผ่นละ 41.6 บ."], size: "40 x 40 x 4 ซม.", weight: "14.5-15 กก./แผ่น (6.5 แผ่น/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-walk-40.jpg"},
-            { id: "grass", name: "บล็อกปูสนามหญ้า", colors: ["หยาบ แผ่นละ 20.4 บ.", "สีปูน/เทา แผ่นละ 27.6 บ."], size: "25 x 40 x 8 ซม.", weight: "15-16 กก./แผ่น (10 แผ่น/ตร.ม.)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-grass.jpg"}
-        ];
-
-        // --- 2. ฐานข้อมูลอัตราค่าขนส่งรายภูมิภาค แยกเฉพาะสำหรับแผงบล็อกปูนถนนกล่องที่ 2 ---
-        const blockTransportDatabase = [
-            { name: "กรุงเทพมหานคร", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "กระบี่", price6: "20,000 บ.", price10: "24,000 บ.", priceTr: "32,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.เมือง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ท่าม่วง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.พนมทวน", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ท่ามะกา", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ด่านมะขามเตี้ย", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.บ่อพลอย", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ไทรโยค", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ห้วยกระเจา", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.หนองปรือ", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.เลาขวัญ", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ทองผาภูมิ", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "14,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ศรีสวัสดิ์", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "14,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.สังขละบุรี", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "กาฬสินธุ์", price6: "15,000 บ.", price10: "19,000 บ.", priceTr: "24,000 บ.", note: "" },
-            { name: "กำแพงเพชร", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "ขอนแก่น", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "จันทบุรี", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "ฉะเชิงเทรา", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ฉะเชิงเทรา อ.สนามชัยเขต", price6: "6,000 บ.", price10: "8,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.เมือง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.พนัสนิคม", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.พานทอง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.บ้านบึง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.ศรีราชา", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.เกาะจันทร์", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.บางละมุง(พัทยา)", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.สัตหีบ", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.บ่อทอง", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.หนองใหญ่", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.เกาะสีชัง", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชัยนาท", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "12,000 บ.", note: "" },
-            { name: "ชัยภูมิ", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "ชุมพร อ.เมือง", price6: "12,000 บ.", price10: "16,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.สวี", price6: "12,000 บ.", price10: "16,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.ทุ่งตะโก", price6: "12,000 บ.", price10: "16,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.ท่าแซะ", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.ปะทิว", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.หลังสวน", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ชุมพร อ.พะโต๊ะ", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ชุมพร อ.ละแม", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ตรัง", price6: "21,000 บ.", price10: "26,000 บ.", priceTr: "34,000 บ.", note: "" },
-            { name: "ตราด", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "ตราด อ.คลองใหญ่", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ตาก", price6: "13,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ตาก อ.แม่สอด", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTr: "25,000 บ.", note: "" },
-            { name: "นครนายก", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "นครปฐม", price6: "4,000 บ.", price10: "6,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "นครพนม", price6: "20,000 บ.", price10: "25,000 บ.", priceTr: "33,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เมือง", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ด่านขุนทด", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ปักธงชัย", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.วังน้ำเขียว", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เทพารักษ์", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.โชคชัย", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนไทย", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ขามทะเลสอ", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เฉลิมพระเกียรติ", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ปากช่อง", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "12,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.จักราช", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ครบุรี", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เสิงสาง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนสูง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.หนองบุญมาก", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.พระทองคำ", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.คง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.บ้านเหลื่อม", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ขามสะแกแสง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.พิมาย", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ห้วยแถลง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.แก้งสนามนาง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนแดง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.สูงเนิน", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.สีคิ้ว", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ประทาย", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.บัวใหญ่", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ชุมพวง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เมืองยาง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ลำทะเมนชัย", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.บัวลาย", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.สีดา", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครศรีธรรมราช", price6: "20,000 บ.", price10: "24,000 บ.", priceTr: "32,000 บ.", note: "" },
-            { name: "นครสวรรค์", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "14,000 บ.", note: "" },
-            { name: "นนทบุรี", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "น่าน", price6: "19,000 บ.", price10: "24,000 บ.", priceTr: "31,000 บ.", note: "" },
-            { name: "บึงกาฬ", price6: "21,000 บ.", price10: "26,000 บ.", priceTr: "33,000 บ.", note: "" },
-            { name: "บุรีรัมย์", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ปทุมธานี", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.เมือง", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.กุยบุรี", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.ทับสะแก", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.หัวหิน", price6: "6,000 บ.", price10: "7,000 บ.", priceTr: "10,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.ปราณบุรี", price6: "6,000 บ.", price10: "7,000 บ.", priceTr: "10,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.สามร้อยยอด", price6: "6,000 บ.", price10: "7,000 บ.", priceTr: "10,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.บางสะพาน", price6: "10,000 บ.", price10: "13,000 บ.", priceTr: "16,000 บ.", note: "" },
-            { name: "ปราจีนบุรี", price6: "6,000 บ.", price10: "8,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ปัตตานี", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" },
-            { name: "พระนครศรีอยุธยา", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "พะเยา", price6: "20,000 บ.", price10: "25,000 บ.", priceTr: "33,000 บ.", note: "" },
-            { name: "พังงา", price6: "19,000 บ.", price10: "24,000 บ.", priceTr: "31,000 บ.", note: "" },
-            { name: "พัทลุง", price6: "22,000 บ.", price10: "27,000 บ.", priceTr: "34,000 บ.", note: "" },
-            { name: "พิจิตร", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "พิษณุโลก", price6: "13,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ภูเก็ต", price6: "21,000 บ.", price10: "26,000 บ.", priceTr: "34,000 บ.", note: "" },
-            { name: "มหาสารคาม", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "มุกดาหาร", price6: "18,000 บ.", price10: "23,000 บ.", priceTr: "29,000 บ.", note: "" },
-            { name: "ยะลา", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" },
-            { name: "ยโสธร", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "25,000 บ.", note: "" },
-            { name: "ระนอง", price6: "15,000 บ.", price10: "19,000 บ.", priceTr: "24,000 บ.", note: "" },
-            { name: "ระยอง", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "ราชบุรี", price6: "4,000 บ.", price10: "6,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "ร้อยเอ็ด", price6: "15,000 บ.", price10: "18,000 บ.", priceTr: "24,000 บ.", note: "" },
-            { name: "ลพบุรี", price6: "6,000 บ.", price10: "8,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ลำปาง", price6: "17,000 บ.", price10: "22,000 บ.", priceTr: "28,000 บ.", note: "" },
-            { name: "ลำพูน", price6: "19,000 บ.", price10: "24,000 บ.", priceTr: "31,000 บ.", note: "" },
-            { name: "ศรีสะเกษ", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "26,000 บ.", note: "" },
-            { name: "สกลนคร", price6: "18,000 บ.", price10: "23,000 บ.", priceTr: "29,000 บ.", note: "" },
-            { name: "สงขลา", price6: "24,000 บ.", price10: "30,000 บ.", priceTr: "39,000 บ.", note: "" },
-            { name: "สตูล", price6: "24,000 บ.", price10: "30,000 บ.", priceTr: "39,000 บ.", note: "" },
-            { name: "สมุทรปราการ", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "สมุทรสงคราม", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "สมุทรสาคร", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "สระบุรี", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "สระแก้ว", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "สิงห์บุรี", price6: "6,000 บ.", price10: "8,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "สุพรรณบุรี", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "สุราษฎร์ธานี", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "26,000 บ.", note: "" },
-            { name: "สุราษฎร์ธานี เกาะสมุย", price6: "17,000 บ.", price10: "22,000 บ.", priceTr: "29,000 บ.", note: "*ราคานี้ยังไม่รวมค่าตั๋วเรือ" },
-            { name: "สุราษฎร์ธานี เกาะพะงัน", price6: "18,000 บ.", price10: "23,000 บ.", priceTr: "31,000 บ.", note: "*ราคานี้ยังไม่รวมค่าตั๋วเรือ" },
-            { name: "สุรินทร์", price6: "13,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "สุโขทัย", price6: "13,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "หนองคาย", price6: "17,000 บ.", price10: "22,000 บ.", priceTr: "28,000 บ.", note: "" },
-            { name: "หนองบัวลำภู", price6: "16,000 บ.", price10: "19,000 บ.", priceTr: "25,000 บ.", note: "" },
-            { name: "อำนาจเจริญ", price6: "17,000 บ.", price10: "21,000 บ.", priceTr: "27,000 บ.", note: "" },
-            { name: "อุดรธานี", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "26,000 บ.", note: "" },
-            { name: "อุตรดิตถ์", price6: "15,000 บ.", price10: "18,000 บ.", priceTr: "24,000 บ.", note: "" },
-            { name: "อุทัยธานี", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "อุบลราชธานี", price6: "17,000 บ.", price10: "21,000 บ.", priceTr: "28,000 บ.", note: "" },
-            { name: "อ่างทอง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "เชียงใหม่", price6: "19,000 บ.", price10: "24,000 บ.", priceTr: "31,000 บ.", note: "" },
-            { name: "เชียงราย", price6: "22,000 บ.", price10: "27,000 บ.", priceTr: "35,000 บ.", note: "" },
-            { name: "เพชรบุรี", price6: "5,000 บ.", price10: "6,000 บ.", priceTr: "8,000 บ.", note: "" },
-            { name: "เพชรบูรณ์", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "เลย", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "25,000 บ.", note: "" },
-            { name: "เลย อ.ด่านซ้าย", price6: "17,000 บ.", price10: "22,000 บ.", priceTr: "28,000 บ.", note: "" },
-            { name: "แพร่", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "26,000 บ.", note: "" },
-            { name: "แม่ฮ่องสอน", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" }
-        ];
-
-        const blockPopularCities = ["กรุงเทพมหานคร", "นนทบุรี", "ปทุมธานี", "สมุทรปราการ", "สมุทรสาคร", "นครปฐม", "ราชบุรี", "จันทบุรี", "ชลบุรี อ.เมือง", "ชลบุรี อ.บางละมุง(พัทยา)"];
+        //โค้ดกล่อง 2 ==================================================================
         let currentSelectedBlock = null;
 
         // --- 3. ฟังก์ชันเปิด-ปิด หน้าต่างค้นหาวัสดุกล่องสอง (Modal ฟังก์ชัน) ---
@@ -959,13 +716,14 @@
             document.getElementById('blockTransportResult').style.display = 'none';
         }
 
-        // --- 5. ฟังก์ชันระบบการพิมพ์ค้นหาจังหวัดค่ารถจัดส่งประจำกล่องบล็อกปูนถนน ---
+        // 🧱 [กล่องที่ 2: บล็อกปูนถนน] ฟังก์ชันค้นหาจังหวัดและหยอดราคาค่าจัดส่งต่อเที่ยว
         function handleBlockTransportSearch() {
             const query = document.getElementById('blockTransportInput').value.trim();
             const suggestDiv = document.getElementById('blockTransportSuggest');
             suggestDiv.innerHTML = '';
             if (query === '') { suggestDiv.style.display = 'none'; return; }
 
+            // ดึงคลังจังหวัดเฉพาะของบล็อกปูนถนน (blockTransportDatabase)
             const filtered = blockTransportDatabase.filter(item => item.name.includes(query));
             if (filtered.length > 0) {
                 filtered.forEach(item => {
@@ -979,13 +737,12 @@
             } else { suggestDiv.style.display = 'none'; }
         }
 
-        // ระบบสั่งเด้ง 10 จังหวัดแนะนำยอดนิยมทันทีเวลานิ้วสัมผัสกล่องค้นหาชิ้นสอง
         function showPopularBlockTransport() {
             const query = document.getElementById('blockTransportInput').value.trim();
             if (query !== '') return;
             const suggestDiv = document.getElementById('blockTransportSuggest');
             suggestDiv.innerHTML = '';
-            blockPopularCities.forEach(cityName => {
+            popularCities.forEach(cityName => {
                 const item = blockTransportDatabase.find(loc => loc.name === cityName);
                 if (item) {
                     const div = document.createElement('div');
@@ -998,194 +755,29 @@
             suggestDiv.style.display = 'block';
         }
 
-        // หยอดค่าตัวเลขราคาลงในแผงตารางรถก้นกล่องที่ 2
         function selectBlockTransportLocation(item) {
             document.getElementById('blockTransportInput').value = item.name;
             document.getElementById('blockTransportSuggest').style.display = 'none';
-            document.getElementById('bPrice6').innerText = "เที่ยวละ " + item.price6;
-            document.getElementById('bPrice10').innerText = "เที่ยวละ " + item.price10;
-            document.getElementById('bPriceTr').innerText = "เที่ยวละ " + item.priceTr;
-            
+    
+            // ดีดสูตรคิดเงินต่อเที่ยว ปัดเศษเลขศูนย์สามตัว 000
+            let finalPrices = calculateTruckDeliveryPrice(item.km, item.days, item.toll6, item.toll10, item.tollTr);
+    
+            // หยอดราคารวมส่งต่อเที่ยวลงไอดีกล่องที่ 2
+            document.getElementById('bPrice6').innerText = finalPrices.price6;
+            document.getElementById('bPrice10').innerText = finalPrices.price10;
+            document.getElementById('bPriceTr').innerText = finalPrices.priceTr;
+    
             const noteBox = document.getElementById('bPriceNote');
             if (item.note) {
                 document.getElementById('bPriceNoteText').innerText = item.note;
                 noteBox.style.display = 'flex';
             } else { noteBox.style.display = 'none'; }
-            
+    
             document.getElementById('blockTransportResult').style.display = 'block';
         }
 
-        // เอานิ้วคลิกพื้นที่ว่างเปล่าส่วนอื่น ให้แถบเสนอแนะรายชื่อจังหวัดหุบปิดลงไป
-        document.addEventListener('click', function(e) {
-            if (e.target.id !== 'blockTransportInput') {
-                if(document.getElementById('blockTransportSuggest')) document.getElementById('blockTransportSuggest').style.display = 'none';
-            }
-        });
 
-
-
-                // --- 1. คลังฐานข้อมูลสเปกสินค้า 5 รุ่นย่อย ประจำกล่องที่ 3 (ขอบฟุตบาท) ---
-        const curbCatalog = [
-            { id: "curb_11_21", name: "ขอบฟุตบาท 11 x 21 ซม.", price: "ท่อนละ 78 บ.", size: "11 x 21 x 50 ซม.", weight: "30 กก./ท่อน (60 ท่อน/พาเลท)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-curb-11-21.jpg" },
-            { id: "curb_15_15", name: "ขอบฟุตบาท 15 x 15 ซม.", price: "ท่อนละ 156 บ.", size: "15 x 15 x 100 ซม.", weight: "60 กก./ท่อน (25 ท่อน/พาเลท)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-curb-15-15.jpg"  },
-            { id: "curb_15_20", name: "ขอบฟุตบาท 15 x 20 ซม.", price: "ท่อนละ 168 บ.", size: "15 x 20 x 100 ซม.", weight: "80 กก./ท่อน (20 ท่อน/พาเลท)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-curb-15-20.jpg"  },
-            { id: "curb_15_30", name: "ขอบฟุตบาท 15 x 30 ซม.", price: "ท่อนละ 180 บ.", size: "15 x 30 x 100 ซม.", weight: "100 กก./ท่อน (15 ท่อน/พาเลท)", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-curb-15-30.jpg"  },
-            { id: "angle_15_30", name: "เข้ามุมใหญ่ 15 x 30 ซม.", price: "ท่อนละ 48 บ.", size: "15 x 30 x 100 ซม.", weight: "30 กก./ท่อน", img: "https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-angle-15-30.jpg"  }
-        ];
-
-        // --- 2. คลังฐานข้อมูลตารางอัตราค่าจัดส่งรายพื้นที่ สำหรับกล่องขอบฟุตบาทชิ้นที่ 3 ---
-        const curbTransportDatabase = [
-            { name: "กรุงเทพมหานคร", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "กระบี่", price6: "20,000 บ.", price10: "24,000 บ.", priceTr: "32,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.เมือง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ท่าม่วง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.พนมทวน", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ท่ามะกา", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ด่านมะขามเตี้ย", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.บ่อพลอย", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ไทรโยค", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ห้วยกระเจา", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.หนองปรือ", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.เลาขวัญ", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ทองผาภูมิ", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "14,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.ศรีสวัสดิ์", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "14,000 บ.", note: "" },
-            { name: "กาญจนบุรี อ.สังขละบุรี", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "กาฬสินธุ์", price6: "15,000 บ.", price10: "19,000 บ.", priceTr: "24,000 บ.", note: "" },
-            { name: "กำแพงเพชร", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "ขอนแก่น", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "จันทบุรี", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "ฉะเชิงเทรา", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ฉะเชิงเทรา อ.สนามชัยเขต", price6: "6,000 บ.", price10: "8,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.เมือง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.พนัสนิคม", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.พานทอง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.บ้านบึง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.ศรีราชา", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.เกาะจันทร์", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "ชลบุรี อ.บางละมุง(พัทยา)", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.สัตหีบ", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.บ่อทอง", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.หนองใหญ่", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชลบุรี อ.เกาะสีชัง", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ชัยนาท", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "12,000 บ.", note: "" },
-            { name: "ชัยภูมิ", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "ชุมพร อ.เมือง", price6: "12,000 บ.", price10: "16,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.สวี", price6: "12,000 บ.", price10: "16,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.ทุ่งตะโก", price6: "12,000 บ.", price10: "16,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.ท่าแซะ", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.ปะทิว", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ชุมพร อ.หลังสวน", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ชุมพร อ.พะโต๊ะ", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ชุมพร อ.ละแม", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ตรัง", price6: "21,000 บ.", price10: "26,000 บ.", priceTr: "34,000 บ.", note: "" },
-            { name: "ตราด", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "ตราด อ.คลองใหญ่", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ตาก", price6: "13,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ตาก อ.แม่สอด", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTr: "25,000 บ.", note: "" },
-            { name: "นครนายก", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "นครปฐม", price6: "4,000 บ.", price10: "6,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "นครพนม", price6: "20,000 บ.", price10: "25,000 บ.", priceTr: "33,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เมือง", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ด่านขุนทด", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ปักธงชัย", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.วังน้ำเขียว", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เทพารักษ์", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.โชคชัย", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนไทย", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ขามทะเลสอ", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เฉลิมพระเกียรติ", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "15,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ปากช่อง", price6: "7,000 บ.", price10: "9,000 บ.", priceTr: "12,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.จักราช", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ครบุรี", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เสิงสาง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนสูง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.หนองบุญมาก", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.พระทองคำ", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.คง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.บ้านเหลื่อม", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ขามสะแกแสง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.พิมาย", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ห้วยแถลง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.แก้งสนามนาง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.โนนแดง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "19,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.สูงเนิน", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.สีคิ้ว", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ประทาย", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.บัวใหญ่", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ชุมพวง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.เมืองยาง", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.ลำทะเมนชัย", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.บัวลาย", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครราชสีมา อ.สีดา", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "นครศรีธรรมราช", price6: "20,000 บ.", price10: "24,000 บ.", priceTr: "32,000 บ.", note: "" },
-            { name: "นครสวรรค์", price6: "9,000 บ.", price10: "11,000 บ.", priceTr: "14,000 บ.", note: "" },
-            { name: "นนทบุรี", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "น่าน", price6: "19,000 บ.", price10: "24,000 บ.", priceTr: "31,000 บ.", note: "" },
-            { name: "บึงกาฬ", price6: "21,000 บ.", price10: "26,000 บ.", priceTr: "33,000 บ.", note: "" },
-            { name: "บุรีรัมย์", price6: "12,000 บ.", price10: "15,000 บ.", priceTr: "20,000 บ.", note: "" },
-            { name: "ปทุมธานี", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.เมือง", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.กุยบุรี", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.ทับสะแก", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.หัวหิน", price6: "6,000 บ.", price10: "7,000 บ.", priceTr: "10,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.ปราณบุรี", price6: "6,000 บ.", price10: "7,000 บ.", priceTr: "10,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.สามร้อยยอด", price6: "6,000 บ.", price10: "7,000 บ.", priceTr: "10,000 บ.", note: "" },
-            { name: "ประจวบคีรีขันธ์ อ.บางสะพาน", price6: "10,000 บ.", price10: "13,000 บ.", priceTr: "16,000 บ.", note: "" },
-            { name: "ปราจีนบุรี", price6: "6,000 บ.", price10: "8,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ปัตตานี", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" },
-            { name: "พระนครศรีอยุธยา", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "พะเยา", price6: "20,000 บ.", price10: "25,000 บ.", priceTr: "33,000 บ.", note: "" },
-            { name: "พังงา", price6: "19,000 บ.", price10: "24,000 บ.", priceTr: "31,000 บ.", note: "" },
-            { name: "พัทลุง", price6: "22,000 บ.", price10: "27,000 บ.", priceTr: "34,000 บ.", note: "" },
-            { name: "พิจิตร", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "พิษณุโลก", price6: "13,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "ภูเก็ต", price6: "21,000 บ.", price10: "26,000 บ.", priceTr: "34,000 บ.", note: "" },
-            { name: "มหาสารคาม", price6: "14,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "มุกดาหาร", price6: "18,000 บ.", price10: "23,000 บ.", priceTr: "29,000 บ.", note: "" },
-            { name: "ยะลา", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" },
-            { name: "ยโสธร", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "25,000 บ.", note: "" },
-            { name: "ระนอง", price6: "15,000 บ.", price10: "19,000 บ.", priceTr: "24,000 บ.", note: "" },
-            { name: "ระยอง", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "ราชบุรี", price6: "4,000 บ.", price10: "6,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "ร้อยเอ็ด", price6: "15,000 บ.", price10: "18,000 บ.", priceTr: "24,000 บ.", note: "" },
-            { name: "ลพบุรี", price6: "6,000 บ.", price10: "8,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "ลำปาง", price6: "17,000 บ.", price10: "22,000 บ.", priceTr: "28,000 บ.", note: "" },
-            { name: "ลำพูน", price6: "19,000 บ.", price10: "24,000 บ.", priceTr: "31,000 บ.", note: "" },
-            { name: "ศรีสะเกษ", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "26,000 บ.", note: "" },
-            { name: "สกลนคร", price6: "18,000 บ.", price10: "23,000 บ.", priceTr: "29,000 บ.", note: "" },
-            { name: "สงขลา", price6: "24,000 บ.", price10: "30,000 บ.", priceTr: "39,000 บ.", note: "" },
-            { name: "สตูล", price6: "24,000 บ.", price10: "30,000 บ.", priceTr: "39,000 บ.", note: "" },
-            { name: "สมุทรปราการ", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "สมุทรสงคราม", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "สมุทรสาคร", price6: "4,000 บ.", price10: "5,000 บ.", priceTr: "7,000 บ.", note: "" },
-            { name: "สระบุรี", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "สระแก้ว", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "สิงห์บุรี", price6: "6,000 บ.", price10: "8,000 บ.", priceTr: "11,000 บ.", note: "" },
-            { name: "สุพรรณบุรี", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "สุราษฎร์ธานี", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "26,000 บ.", note: "" },
-            { name: "สุราษฎร์ธานี เกาะสมุย", price6: "17,000 บ.", price10: "22,000 บ.", priceTr: "29,000 บ.", note: "*ราคานี้ยังไม่รวมค่าตั๋วเรือ" },
-            { name: "สุราษฎร์ธานี เกาะพะงัน", price6: "18,000 บ.", price10: "23,000 บ.", priceTr: "31,000 บ.", note: "*ราคานี้ยังไม่รวมค่าตั๋วเรือ" },
-            { name: "สุรินทร์", price6: "13,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "สุโขทัย", price6: "13,000 บ.", price10: "17,000 บ.", priceTr: "22,000 บ.", note: "" },
-            { name: "หนองคาย", price6: "17,000 บ.", price10: "22,000 บ.", priceTr: "28,000 บ.", note: "" },
-            { name: "หนองบัวลำภู", price6: "16,000 บ.", price10: "19,000 บ.", priceTr: "25,000 บ.", note: "" },
-            { name: "อำนาจเจริญ", price6: "17,000 บ.", price10: "21,000 บ.", priceTr: "27,000 บ.", note: "" },
-            { name: "อุดรธานี", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "26,000 บ.", note: "" },
-            { name: "อุตรดิตถ์", price6: "15,000 บ.", price10: "18,000 บ.", priceTr: "24,000 บ.", note: "" },
-            { name: "อุทัยธานี", price6: "8,000 บ.", price10: "10,000 บ.", priceTr: "13,000 บ.", note: "" },
-            { name: "อุบลราชธานี", price6: "17,000 บ.", price10: "21,000 บ.", priceTr: "28,000 บ.", note: "" },
-            { name: "อ่างทอง", price6: "5,000 บ.", price10: "7,000 บ.", priceTr: "9,000 บ.", note: "" },
-            { name: "เชียงใหม่", price6: "19,000 บ.", price10: "24,000 บ.", priceTr: "31,000 บ.", note: "" },
-            { name: "เชียงราย", price6: "22,000 บ.", price10: "27,000 บ.", priceTr: "35,000 บ.", note: "" },
-            { name: "เพชรบุรี", price6: "5,000 บ.", price10: "6,000 บ.", priceTr: "8,000 บ.", note: "" },
-            { name: "เพชรบูรณ์", price6: "11,000 บ.", price10: "14,000 บ.", priceTr: "18,000 บ.", note: "" },
-            { name: "เลย", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "25,000 บ.", note: "" },
-            { name: "เลย อ.ด่านซ้าย", price6: "17,000 บ.", price10: "22,000 บ.", priceTr: "28,000 บ.", note: "" },
-            { name: "แพร่", price6: "16,000 บ.", price10: "20,000 บ.", priceTr: "26,000 บ.", note: "" },
-            { name: "แม่ฮ่องสอน", price6: "ไม่ได้จัดส่ง", price10: "ไม่ได้จัดส่ง", priceTrailer: "ไม่ได้จัดส่ง", note: "" }
-        ];
-
-        const curbPopularCities = ["กรุงเทพมหานคร", "นนทบุรี", "ปทุมธานี", "สมุทรปราการ", "สมุทรสาคร", "นครปฐม", "ราชบุรี", "จันทบุรี", "ชลบุรี อ.เมือง", "ชลบุรี อ.บางละมุง(พัทยา)"];
+        //โค้ดกล่อง 3 ==================================================================
         let currentSelectedCurb = null;
 
         // --- 3. ฟังก์ชันเปิด-ปิด หน้าต่างป๊อปอัปเลือกวัสดุกล่องสาม (Modal ฟังก์ชัน) ---
@@ -1242,13 +834,15 @@
             document.getElementById('curbTransportInput').value = '';
             document.getElementById('curbTransportResult').style.display = 'none';
         }
-        // --- 5. ฟังก์ชันระบบการพิมพ์ค้นหาจังหวัดค่ารถจัดส่งประจำกล่องขอบฟุตบาท ---
+  
+        // 📐 [กล่องที่ 3: ขอบฟุตบาท] ฟังก์ชันค้นหาจังหวัดและหยอดราคาค่าจัดส่งต่อเที่ยว
         function handleCurbTransportSearch() {
             const query = document.getElementById('curbTransportInput').value.trim();
             const suggestDiv = document.getElementById('curbTransportSuggest');
             suggestDiv.innerHTML = '';
             if (query === '') { suggestDiv.style.display = 'none'; return; }
 
+            // ดึงคลังจังหวัดเฉพาะของขอบฟุตบาท (curbTransportDatabase)
             const filtered = curbTransportDatabase.filter(item => item.name.includes(query));
             if (filtered.length > 0) {
                 filtered.forEach(item => {
@@ -1262,13 +856,12 @@
             } else { suggestDiv.style.display = 'none'; }
         }
 
-        // ระบบสั่งสไลด์เด้ง 10 จังหวัดแนะนำยอดนิยมทันทีเมื่อลูกค้าจิ้มช่องค้นหาขนส่งกล่องสาม
         function showPopularCurbTransport() {
             const query = document.getElementById('curbTransportInput').value.trim();
             if (query !== '') return;
             const suggestDiv = document.getElementById('curbTransportSuggest');
             suggestDiv.innerHTML = '';
-            curbPopularCities.forEach(cityName => {
+            popularCities.forEach(cityName => {
                 const item = curbTransportDatabase.find(loc => loc.name === cityName);
                 if (item) {
                     const div = document.createElement('div');
@@ -1281,33 +874,43 @@
             suggestDiv.style.display = 'block';
         }
 
-        // หยอดค่าตัวเลขราคาลงในแผงตารางรถก้นกล่องที่ 3 ขอบฟุตบาท
         function selectCurbTransportLocation(item) {
             document.getElementById('curbTransportInput').value = item.name;
             document.getElementById('curbTransportSuggest').style.display = 'none';
-            document.getElementById('cPrice6').innerText = "เที่ยวละ " + item.price6;
-            document.getElementById('cPrice10').innerText = "เที่ยวละ " + item.price10;
-            document.getElementById('cPriceTr').innerText = "เที่ยวละ " + item.priceTr;
-            
+    
+            // ดีดสูตรคิดเงินต่อเที่ยว ปัดเศษเลขศูนย์สามตัว 000
+            let finalPrices = calculateTruckDeliveryPrice(item.km, item.days, item.toll6, item.toll10, item.tollTr);
+    
+            // หยอดราคารวมส่งต่อเที่ยวลงไอดีกล่องที่ 3
+            document.getElementById('cPrice6').innerText = finalPrices.price6;
+            document.getElementById('cPrice10').innerText = finalPrices.price10;
+            document.getElementById('cPriceTr').innerText = finalPrices.priceTr;
+    
             const noteBox = document.getElementById('cPriceNote');
             if (item.note) {
                 document.getElementById('cPriceNoteText').innerText = item.note;
                 noteBox.style.display = 'flex';
             } else { noteBox.style.display = 'none'; }
-            
+    
             document.getElementById('curbTransportResult').style.display = 'block';
         }
 
-        // เอานิ้วคลิกพื้นที่ว่างเปล่าส่วนอื่น ให้แถบเสนอแนะรายชื่อจังหวัดหุบปิดลงไปอัตโนมัติ
+        //===========================================================
+        
+        // 🔒 ระบบตรวจจับนิ้วจิ้มพื้นที่ว่างนอกช่องพิมพ์ ให้แผงรายชื่อจังหวัดหุบปิดพร้อมกันทั้งแอป
         document.addEventListener('click', function(e) {
+            if (e.target.id !== 'transportInput') {
+                if(document.getElementById('transportSuggest')) document.getElementById('transportSuggest').style.display = 'none';
+            }
+            if (e.target.id !== 'blockTransportInput') {
+                if(document.getElementById('blockTransportSuggest')) document.getElementById('blockTransportSuggest').style.display = 'none';
+            }
             if (e.target.id !== 'curbTransportInput') {
                 if(document.getElementById('curbTransportSuggest')) document.getElementById('curbTransportSuggest').style.display = 'none';
             }
         });
-
-        
-    </script>
-
     
+    </script>
+   
 </body>
 </html>
