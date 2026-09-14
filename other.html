@@ -513,18 +513,16 @@
                 fTr_1 = 1300;
             }
 
-            // 3. ดีดสูตรคำนวณต้นทุนรวมคันรถต่อเที่ยวตามระยะทางจริง
             let cost6  = (((km * 2) / 6.0) * CURRENT_OIL_PRICE) + f6_1 + f6_2 + toll6 + dep6;
             let cost10 = (((km * 2) / 4.3) * CURRENT_OIL_PRICE) + f10_1 + f10_2 + toll10 + dep10;
             let costTr = (((km * 2) / 3.0) * CURRENT_OIL_PRICE) + fTr_1 + fTr_2 + tollTr + depTr;
 
-            // 4. ไฮไลต์ไม้ตาย: ดีดปัดเศษราคาค่าขนส่งต่อเที่ยวสุทธิให้ลงท้ายเลข 000 ถ้วนเสมอกลางหน้าแอป
             let final6  = Math.round(cost6 / 1000) * 1000;
             let final10 = Math.round(cost10 / 1000) * 1000;
             let finalTr = Math.round(costTr / 1000) * 1000;
 
             return {
-                price6: "เที่ยวละ " + final6.toLocaleString('th-TH') + " บ.",  // ผลลัพธ์ใส่คอมมาสวยๆ เช่น เที่ยวละ 4,000 บ.
+                price6: "เที่ยวละ " + final6.toLocaleString('th-TH') + " บ.", 
                 price10: "เที่ยวละ " + final10.toLocaleString('th-TH') + " บ.",
                 priceTr: "เที่ยวละ " + finalTr.toLocaleString('th-TH') + " บ."
             };
