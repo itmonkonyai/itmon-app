@@ -615,13 +615,15 @@
             } else { suggestDiv.style.display = 'none'; }
         }
 
+        //ติกแล้วแสดงชื่อจังหวัด
         function showPopularTransport() {
             const query = document.getElementById('transportInput').value.trim();
             if (query !== '') return;
             const suggestDiv = document.getElementById('transportSuggest');
             suggestDiv.innerHTML = '';
-            popularCities.forEach(cityName => {
-                const item = transportDatabase.find(loc => loc.name === cityName);
+    
+            // 🚀 ล้างคลังเก่าทิ้ง! เปลี่ยนมาสั่งให้ระบบดึงข้อมูลจากคลังผนังสำเร็จรูปโดยตรงทันทีครับพี่
+            transportDatabase.forEach(item => {
                 if (item) {
                     const div = document.createElement('div');
                     div.style.padding = '12px 15px'; div.style.cursor = 'pointer'; div.style.fontSize = '14px'; div.style.borderBottom = '1px solid #f5f5f5';
@@ -632,6 +634,7 @@
             });
             suggestDiv.style.display = 'block';
         }
+
 
         function selectTransportLocation(item) {
             document.getElementById('transportInput').value = item.name;
@@ -735,13 +738,14 @@
             } else { suggestDiv.style.display = 'none'; }
         }
 
+        //ติกแล้วแสดงชื่อจังหวัด
         function showPopularBlockTransport() {
             const query = document.getElementById('blockTransportInput').value.trim();
             if (query !== '') return;
             const suggestDiv = document.getElementById('blockTransportSuggest');
             suggestDiv.innerHTML = '';
-            popularCities.forEach(cityName => {
-                const item = blockTransportDatabase.find(loc => loc.name === cityName);
+    
+            blockTransportDatabase.forEach(item => {
                 if (item) {
                     const div = document.createElement('div');
                     div.style.padding = '12px 15px'; div.style.cursor = 'pointer'; div.style.fontSize = '14px'; div.style.borderBottom = '1px solid #f5f5f5';
@@ -753,6 +757,7 @@
             suggestDiv.style.display = 'block';
         }
 
+        
         function selectBlockTransportLocation(item) {
             document.getElementById('blockTransportInput').value = item.name;
             document.getElementById('blockTransportSuggest').style.display = 'none';
@@ -854,13 +859,14 @@
             } else { suggestDiv.style.display = 'none'; }
         }
 
+        //ติกแล้วแสดงชื่อจังหวัด
         function showPopularCurbTransport() {
             const query = document.getElementById('curbTransportInput').value.trim();
             if (query !== '') return;
             const suggestDiv = document.getElementById('curbTransportSuggest');
             suggestDiv.innerHTML = '';
-            popularCities.forEach(cityName => {
-                const item = curbTransportDatabase.find(loc => loc.name === cityName);
+    
+            curbTransportDatabase.forEach(item => {
                 if (item) {
                     const div = document.createElement('div');
                     div.style.padding = '12px 15px'; div.style.cursor = 'pointer'; div.style.fontSize = '14px'; div.style.borderBottom = '1px solid #f5f5f5';
@@ -872,6 +878,7 @@
             suggestDiv.style.display = 'block';
         }
 
+        
         function selectCurbTransportLocation(item) {
             document.getElementById('curbTransportInput').value = item.name;
             document.getElementById('curbTransportSuggest').style.display = 'none';
@@ -895,7 +902,7 @@
 
         //===========================================================
         
-        // 🔒 ระบบตรวจจับนิ้วจิ้มพื้นที่ว่างนอกช่องพิมพ์ ให้แผงรายชื่อจังหวัดหุบปิดพร้อมกันทั้งแอป
+        //ระบบตรวจจับนิ้วจิ้มพื้นที่ว่างนอกช่องพิมพ์ ให้แผงรายชื่อจังหวัดหุบปิดพร้อมกันทั้งแอป
         document.addEventListener('click', function(e) {
             if (e.target.id !== 'transportInput') {
                 if(document.getElementById('transportSuggest')) document.getElementById('transportSuggest').style.display = 'none';
