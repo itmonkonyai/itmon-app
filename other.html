@@ -77,7 +77,7 @@
 
     <div class="product-brick-outer">
         
-        <!-- 📦 กล่องสินค้าใหญ่: ผนังสำเร็จรูป (INNOWALL) -->
+        <!-- กล่องสินค้าใหญ่: ผนังสำเร็จรูป (INNOWALL) -->
         <div class="product-brick-inner-card" style="position: relative; z-index: 12 !important;">
             <div class="product-title-header">ผนังสำเร็จรูป (INNOWALL)</div>
             
@@ -105,7 +105,7 @@
                     </div>
                 </div>
             
-            <!-- 🌟 บล็อกข้อความตั้งต้นของกล่องที่ 1 (แสดงคู่ขนานกับรูปภาพตั้งแต่เปิดหน้าเว็บ) -->
+            <!--  บล็อกข้อความตั้งต้นของกล่องที่ 1 (แสดงคู่ขนานกับรูปภาพตั้งแต่เปิดหน้าเว็บ) -->
             <div id="productDefaultText" class="product-top-row"> 
                     <img class="product-img" src="https://www.xn--12cxbj1c5b5dkcc5ezjpci.com/images/editor/other-innowall.jpg" alt="ผนังสำเร็จรูป">
                 <div class="product-info-box"">
@@ -179,7 +179,7 @@
         </div>
         
 
-        <!-- 📦 กล่องสินค้าใหญ่ชิ้นที่ 2: บล็อกปูนถนน / แผ่นทางเท้า (ฝังกรอบและระบบไอคอนแยกส่วนชัดเจน) -->
+        <!-- กล่องสินค้าใหญ่ชิ้นที่ 2: บล็อกปูนถนน / แผ่นทางเท้า (ฝังกรอบและระบบไอคอนแยกส่วนชัดเจน) -->
         <div class="product-brick-inner-card" style=" position: relative; z-index: 11 !important;">
             <div class="product-title-header">บล็อกปูนถนน / แผ่นทางเท้า</div>
             
@@ -279,7 +279,7 @@
             </div>
         </div>
 
-        <!-- 📦 กล่องสินค้าใหญ่ชิ้นที่ 3: ขอบฟุตบาท (สไตล์คมชัด กรอบส้ม และระบบแยก ID ค้นหาเฉพาะรุ่น) -->
+        <!--กล่องสินค้าใหญ่ชิ้นที่ 3: ขอบฟุตบาท (สไตล์คมชัด กรอบส้ม และระบบแยก ID ค้นหาเฉพาะรุ่น) -->
         <div class="product-brick-inner-card">
             <div class="product-title-header">ขอบฟุตบาท</div>
 
@@ -1038,7 +1038,7 @@
         }
 
       
-        // 🏢 [กล่องที่ 1: ผนังสำเร็จรูป] ฟังก์ชันค้นหาจังหวัดและหยอดราคาค่าจัดส่งต่อเที่ยว
+        // [กล่องที่ 1: ผนังสำเร็จรูป] ฟังก์ชันค้นหาจังหวัดและหยอดราคาค่าจัดส่งต่อเที่ยว
         function handleTransportSearch() {
             const query = document.getElementById('transportInput').value.trim();
             const suggestDiv = document.getElementById('transportSuggest');
@@ -1066,7 +1066,7 @@
             const suggestDiv = document.getElementById('transportSuggest');
             suggestDiv.innerHTML = '';
     
-            // 🚀 ล้างคลังเก่าทิ้ง! เปลี่ยนมาสั่งให้ระบบดึงข้อมูลจากคลังผนังสำเร็จรูปโดยตรงทันทีครับพี่
+            // ล้างคลังเก่าทิ้ง! เปลี่ยนมาสั่งให้ระบบดึงข้อมูลจากคลังผนังสำเร็จรูปโดยตรงทันทีครับพี่
             transportDatabase.forEach(item => {
                 if (item) {
                     const div = document.createElement('div');
@@ -1161,7 +1161,7 @@
             document.getElementById('blockTransportResult').style.display = 'none';
         }
 
-        // 🧱 [กล่องที่ 2: บล็อกปูนถนน] ฟังก์ชันค้นหาจังหวัดและหยอดราคาค่าจัดส่งต่อเที่ยว
+        // [กล่องที่ 2: บล็อกปูนถนน] ฟังก์ชันค้นหาจังหวัดและหยอดราคาค่าจัดส่งต่อเที่ยว
         function handleBlockTransportSearch() {
             const query = document.getElementById('blockTransportInput').value.trim();
             const suggestDiv = document.getElementById('blockTransportSuggest');
@@ -1261,7 +1261,7 @@
             currentSelectedCurb = item;
             closeCurbModal();
 
-             // 🔥 พิมพ์บรรทัดนี้เติมเข้าไป เพื่อให้รูปภาพกล่องสามเปลี่ยนตามขนาดที่เลือกครับ
+             // พิมพ์บรรทัดนี้เติมเข้าไป เพื่อให้รูปภาพกล่องสามเปลี่ยนตามขนาดที่เลือกครับ
             document.getElementById('curbProductImg').src = item.img;
             
             // นำข้อมูลราคา ขนาด น้ำหนัก ขอบฟุตบาทรุ่นที่จิ้มไปอัปเดตลงหน้าจอพาร์ทขวา
@@ -1282,7 +1282,7 @@
             document.getElementById('curbTransportResult').style.display = 'none';
         }
   
-        // 📐 [กล่องที่ 3: ขอบฟุตบาท] ฟังก์ชันค้นหาจังหวัดและหยอดราคาค่าจัดส่งต่อเที่ยว
+        // [กล่องที่ 3: ขอบฟุตบาท] ฟังก์ชันค้นหาจังหวัดและหยอดราคาค่าจัดส่งต่อเที่ยว
         function handleCurbTransportSearch() {
             const query = document.getElementById('curbTransportInput').value.trim();
             const suggestDiv = document.getElementById('curbTransportSuggest');
