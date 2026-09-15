@@ -942,12 +942,11 @@
         ];
 
         function calculateTruckDeliveryPrice(km, days, toll6, toll10, tollTr) {
-            // 1. คำนวณค่าเสื่อมสภาพรถใหม่ตามเวลารับส่งจริงของพี่
+           
             let dep6  = days * 4000;
             let dep10 = days * 5000;
             let depTr = days * 6000;
-
-            // 2. แยกกลุ่มเบี้ยเลี้ยงค่าน้ำมันคงที่ (Fixed Fuel) ตัดเกณฑ์ระยะทางที่ 400 กิโลเมตร
+            
             let f6_1 = 400, f6_2 = 300;
             let f10_1 = 600, f10_2 = 550;
             let fTr_1 = 800, fTr_2 = 700;
