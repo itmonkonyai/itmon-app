@@ -581,20 +581,31 @@
                 currentBrickPrice = PRICE_2_SMALL;
             }
 
-            // 4. ดีดสูตรคิดราคารวมส่งขายสุทธิต่อก้อน ปัดเศษทศนิยมตำแหน่งที่ 2 เป็นเลข 0 (5 ขึ้น 4 ลง)
+            // 4. ดีดสูตรคิดราคารวมส่งขายสุทธิต่อก้อน (สลับแยกตรรกะการปัดเศษตามขนาดอิฐ)
+            let finalPrice6, finalPrice10, finalPriceTr;
+
             let rawPrice6  = (totalCost6 / pack6) + currentBrickPrice.price6;
-            let finalPrice6 = Math.round(rawPrice6 * 10) / 10;
-
             let rawPrice10 = (totalCost10 / pack10) + currentBrickPrice.price10;
-            let finalPrice10 = Math.round(rawPrice10 * 10) / 10;
-
             let rawPriceTr = (totalCostTr / packTr) + currentBrickPrice.priceTr;
-            let finalPriceTr = Math.round(rawPriceTr * 10) / 10;
 
-            // 5. ดีดตัวเลขส่งขึ้นแสดงผลบนตารางก้นกล่องของสินค้าแต่ละรุ่นแยกขาดจากกัน
+            if (model === '3hole') {
+                //  เฉพาะอิฐ 3 รู: บังคับล็อกทศนิยมตำแหน่งที่ 2 เป็นเลข 0 เสมอ (5 ขึ้น 4 ลง)
+                finalPrice6  = Math.round(rawPrice6 * 10) / 10;
+                finalPrice10 = Math.round(rawPrice10 * 10) / 10;
+                finalPriceTr = Math.round(rawPriceTr * 10) / 10;
+            } else {
+                // เฉพาะอิฐ 2 รูใหญ่ และ 2 รูเล็ก: ปล่อยคิดราคาตามธรรมชาติ ไม่ปัดท้ายเป็นศูนย์
+                // ใช้ตรรกะ Math.round(ราคา * 100) / 100 เพื่อปัดเศษหลักที่ 3 ทั่วไปตามหลักสากล
+                finalPrice6  = Math.round(rawPrice6 * 100) / 100;
+                finalPrice10 = Math.round(rawPrice10 * 100) / 100;
+                finalPriceTr = Math.round(rawPriceTr * 100) / 100;
+            }
+
+            // 5. ดีดตัวเลขส่งขึ้นแสดงผลบนตารางก้นกล่อง (.toFixed(2) จะช่วยดึงทศนิยม 2 หลักโชว์สวยๆ)
             document.getElementById(p6Id).innerText = "ก้อนละ " + finalPrice6.toFixed(2) + " บ.";
             document.getElementById(p10Id).innerText = "ก้อนละ " + finalPrice10.toFixed(2) + " บ.";
             document.getElementById(pTrId).innerText = "ก้อนละ " + finalPriceTr.toFixed(2) + " บ.";
+
 
             // สั่งเด้งป้ายหมายเหตุคำเตือนสีแดง (ถ้าจังหวัดนั้นมีข้อความกำกับไว้)
             const noteContainer = document.getElementById(noteContainerId);
